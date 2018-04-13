@@ -3,21 +3,46 @@
 <setting>
 	<settinginfo>
 		<settingtitle>
-			DSpace login (optional)
+			DSpace collections
 		</settingtitle>
 		<settinginstructions>
-			Login is optional. If you do not login, then you get data that is publicly available. <br>
-			Current DSpace server: <strong><span id="source_web_dspace_url"></span></strong>
+			Current DSpace server: <strong><span id="source_web_dspace_url"></span></strong><br>
+			Choose collection(s) from the list. If you do not choose collections, then search is targeted to the whole repository.<br>
+			
+
+		</settinginstructions>
+
+	</settinginfo>
+	
+	<settingaction>
+		<label>Selected collections</label>
+		<settinglistcontainer id="source_web_dspace_selected"></settinglistcontainer>
+		<label class="inline"><button class="button source_web_dspace_fetch">refresh collections</button></label> | <a id="source_web_dspace_unselect" class="ibutton">unselect all</a>
+		<settinglistcontainer id="source_web_dspace_data"></settinglistcontainer>
+		
+	</settingaction>
+</setting>
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Metadata field queries
+		</settingtitle>
+		<settinginstructions>
+			You can make a metadata query here.
 		</settinginstructions>
 	</settinginfo>
 	
 	<settingaction>
-		<label>username </label>
-		<input class="node-settings" type="text" name="username" id="username" required />
-		<label>password</label>
-		<input class="node-settings" type="password" name="password" id="password"/>
+		<settinglistcontainer id="source_web_dspace_metadata_query">
+
+		</settinglistcontainer>
 	</settingaction>
 </setting>
+
+
+
 
 
 
@@ -62,45 +87,8 @@
 	</settingaction>
 </setting>
 
-<setting>
-	<settinginfo>
-		<settingtitle>
-			DSpace collections
-		</settingtitle>
-		<settinginstructions>
-			Choose collection(s) from the list. If you do not choose collections, then search is targeted to the whole repository.<br><br>
-			
-
-		</settinginstructions>
-
-	</settinginfo>
-	
-	<settingaction>
-		<label>Selected collections</label>
-		<settinglistcontainer id="source_web_dspace_selected"></settinglistcontainer>
-		<label class="inline"><button class="button source_web_dspace_fetch">fetch collections</button></label> | <a id="source_web_dspace_unselect" class="ibutton">unselect all</a>
-		<settinglistcontainer id="source_web_dspace_data"></settinglistcontainer>
-		
-	</settingaction>
-</setting>
 
 
-<setting>
-	<settinginfo>
-		<settingtitle>
-			Metadata field queries
-		</settingtitle>
-		<settinginstructions>
-			You can make a metadata query here.
-		</settinginstructions>
-	</settinginfo>
-	
-	<settingaction>
-		<settinglistcontainer id="source_web_dspace_metadata_query">
-
-		</settinglistcontainer>
-	</settingaction>
-</setting>
 
 
 
@@ -121,7 +109,24 @@
 </setting>
 
 
-
+<setting>
+	<settinginfo>
+		<settingtitle>
+			DSpace login (optional)
+		</settingtitle>
+		<settinginstructions>
+			Login is optional. If you do not login, then you get data that is publicly available. <br>
+			
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>username </label>
+		<input class="node-settings" type="text" name="username" id="username" required />
+		<label>password</label>
+		<input class="node-settings" type="password" name="password" id="password"/>
+	</settingaction>
+</setting>
 
 
 

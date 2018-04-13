@@ -6,7 +6,6 @@
 	var collections = [];
 	var dspace_schema = [];
 
-
 	// we must take care of settings remembering since schema is dynamically fetched
 	getSchema(function(schemas) {
 		if(node.settings.query_field && Array.isArray(node.settings.query_field) && node.settings.query_field.length !== 0) {
@@ -15,13 +14,15 @@
 				schemaList(schemas);
 			} else {	
 				for(var i = 0; i < node.settings.query_field.length; i++) {
-					if(node.settings.query_field[i])
-						schemaList(schemas, node.settings.query_field[i],node.settings.query_op[i], node.settings.query_val[i])
+					if(node.settings.query_field[i]) {
+						schemaList(schemas, node.settings.query_field[i],node.settings.query_op[i], node.settings.query_val[i]);
+					}
 				}
 			}
 		} else {
 			schemaList(schemas);
 		}
+		hierarchyList();
 	})
 
 
@@ -136,7 +137,8 @@
 				$("#source_web_dspace_data").show();
 			}
 			// update selected collections list
-			collectCollections();
+			//collectCollections();
+			createQuery();
 			//$("setting select[name='query_field[]']").prop('disabled', false);
 		}).error(function() { alert("error in DSpace request!"); })
 	}
