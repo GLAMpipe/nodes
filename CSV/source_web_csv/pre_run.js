@@ -6,7 +6,7 @@ var download = {};
 out.urls = [];
 
 // auth
-if(context.node.settings.username != "") {
+if(context.node.settings.username) {
 	download.auth = {
 		'user': context.node.settings.username,
 		'pass': context.node.settings.password,

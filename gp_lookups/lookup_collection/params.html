@@ -6,12 +6,15 @@
 </select>
 
 <label>Where to write the result</label>
-<input name="out_field" value="lookup"/> 
+<input id="lookup_collection_out" name="out_field" value="lookup"/> 
 
 <label>Where to write the score</label>
-<input name="out_score" value="lookup_score"/> 
+<input id="lookup_collection_out_score" name="out_score" value="lookup_score"/> 
 
 <script>
+	$("#lookup_collection_out").change(function() {
+		$("#lookup_collection_out_score").val($("#lookup_collection_out").val() + "_score");
+	});
 	// find all collections and list them
 	var exclude = ["mp_nodes", "mp_projects", "mp_schemas", "mp_settings", "mp_node_options"]
 	$.getJSON(g_apipath + "/collections", function(data) {

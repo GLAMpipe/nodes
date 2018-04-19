@@ -4,6 +4,8 @@ var local_key_value = context.doc[context.node.settings.in_key_field];
 out.setter = {};
 var fuzzy = 1.0;
 
+
+
 if(Array.isArray(local_key_value)) {
 	out.setter[context.node.params.out_field] = [];
 	out.setter[context.node.params.out_score] = [];
@@ -24,6 +26,12 @@ if(Array.isArray(local_key_value)) {
 	out.setter[context.node.params.out_score] = mapped.score.toString();
 }
 
+
+if(context.node.settings.as_string) {
+	if(Array.isArray(out.setter[context.node.params.out_field])) {
+		out.setter[context.node.params.out_field] = out.setter[context.node.params.out_field].join("");
+	} 
+}
 
 if(parseInt(context.count) % 100 == 0) 
     out.say("progress", context.node.type.toUpperCase() + ": processed " + context.count + "/" + context.doc_count);

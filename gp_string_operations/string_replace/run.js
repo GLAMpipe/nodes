@@ -1,5 +1,13 @@
 
 
+if(!context.node.settings.add_end) {
+	context.node.settings.add_end = ""
+}
+
+if(!context.node.settings.add_start) {
+	context.node.settings.add_start = ""
+}
+
 if(context.doc[context.node.params.in_field]) {
 	
 	// node input

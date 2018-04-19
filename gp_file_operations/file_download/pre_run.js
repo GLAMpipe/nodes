@@ -45,15 +45,12 @@ function previousFile(download, index) {
 
 function generateFileName (url, index) {
 
-	var filename = "";
+	// use document id as filename by default
+	var filename = c.doc._id.toString();
 
 	// do not create file names for empty urls
 	if(url == "")
 		return "";
-
-    // use document id as filename
-    if (c.node.settings.filename_type == "id") { 
-        filename = c.doc._id.toString();
 
 	// use last part of URL as a filename 
 	} else if (c.node.settings.filename_type == "url") {  

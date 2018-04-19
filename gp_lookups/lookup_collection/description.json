@@ -1,6 +1,6 @@
 {
 	"nodeid": "process_lookup_collection",
-	"title": "Collection lookup",
+	"title": "Field: lookup value from collection",
 	"type": "process",
 	"subtype": "lookups",
 	"subsubtype": "collection",
