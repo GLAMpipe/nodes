@@ -76,6 +76,9 @@
 </setting>
 
 
+
+
+
 <setting>
 	<settinginfo>
 		<settingtitle>
@@ -126,6 +129,29 @@
 	</settingaction>
 </setting>
 
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Import mode
+		</settingtitle>
+		<settinginstructions>
+			Import <b>destroys all your edits</b> and imports data from source while the append mode only adds those records from CSV that are not allready in the collection. The append key is used for append operation.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>Import mode</label>
+		<select class="node-settings" name="mode" >
+			<option value="import" selected="selected">import</option>
+			<option value="append">append</option>
+		</select>
+		<label>Append key</label>
+		<input class="node-settings" name="update_key"/>
+	</settingaction>
+</setting>
+
 <!-- 
 	<div class="help">You can take just sample from records</div>
 	<label>get records from</label>
@@ -164,3 +190,25 @@
 		<input class="node-settings" name="password" type="password"/>
 	</settingaction>
 </setting>
+
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Add default key/value
+		</settingtitle>
+		<settinginstructions>
+			You can define a field with default value that is added to all records. This is only useful for forms with faceted views when the data gets updated.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>Default key</label>
+		<input class="node-settings" name="default_key"/>
+		
+		<label>Default value</label>
+		<input class="node-settings" name="default_value"/>
+	</settingaction>
+</setting>
+

@@ -36,4 +36,9 @@ download.filename= y + "-" + m + "-" + d + " " + h + ":" + mm + ":" + s + "-" + 
 
 out.urls.push(download);
 
+// check settings
+if(context.node.settings.mode === "append" && context.node.settings.update_key == "") {
+	context.error = "You must give update_key in append mode!"
+}
+
 
