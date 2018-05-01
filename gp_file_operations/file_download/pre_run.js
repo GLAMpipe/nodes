@@ -13,14 +13,22 @@ if(Array.isArray(input)) {
 		var download = {};
 		download.filename = generateFileName(input[i], i);	
 		out.console.log(download.filename);	
-		download.url = context.base_url + input[i];
+		if(context.base_url) {
+			download.url = context.base_url + input[i];
+		} else {
+			download.url = input[i];
+		}
 		previousFile(download, i);
 		out.pre_value.push(download); 
 	}
 } else {
 	var download = {};
 	download.filename = generateFileName(input, null);
-	download.url = context.base_url + input;
+	if(context.base_url) {
+		download.url = context.base_url + input;
+	} else {
+		download.url = input;
+	}
 	previousFile(download, null);
 	out.pre_value.push(download);
 }
@@ -45,15 +53,18 @@ function previousFile(download, index) {
 
 function generateFileName (url, index) {
 
-	// use document id as filename by default
-	var filename = c.doc._id.toString();
+	var filename = "";
 
 	// do not create file names for empty urls
 	if(url == "")
 		return "";
 
+    // use document id as filename
+    //if (c.node.settings.filename_type == "id") { 
+    filename = c.doc._id.toString(); // default
+
 	// use last part of URL as a filename 
-	} else if (c.node.settings.filename_type == "url") {  
+	if (c.node.settings.filename_type == "url") {  
 		var split = url.split("/"); 
 		filename = split[split.length-1]; 
 
@@ -102,3 +113,4 @@ function generateFileName (url, index) {
 	return filename;
 		
 }
+
