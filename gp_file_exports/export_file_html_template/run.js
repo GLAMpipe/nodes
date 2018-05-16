@@ -38,7 +38,7 @@ if(template) {
 
 	// OUTPUT
 	out.file = docid + c.node.params.extension;
-	out.value = context.config.publicUrl + "/api/v1/nodes/" + c.node._id + "/files/" + out.file;
+	out.value = context.config.publicUrl + "api/v1/nodes/" + c.node._id + "/files/" + out.file;
 	out.text = template;
 
 } else {
