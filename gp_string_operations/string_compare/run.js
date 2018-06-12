@@ -2,6 +2,10 @@
 // original value
 var value_1 = context.doc[context.node.params.in_field]; 
 
+var preserve = false;
+if(context.node.settings.preserve === "true")
+	preserve = true;
+
 var trim = false;
 if(context.node.settings.trim === "true")
 	trim = true;
@@ -32,6 +36,7 @@ else
 	var value_2 = context.node.settings.comp_static;
  
 out.value = compare(value_1, value_2);  
+out.console.log(out.value)
 
 if(parseInt(context.count) % 100 == 0) 
 	out.say('progress', context.node.type.toUpperCase() + ': processed ' + context.count + '/' + context.doc_count);
@@ -52,15 +57,31 @@ function compare (value_1, value_2) {
 	   
 	// value_1 is array
 	} else if(Array.isArray(value_1) && typeof value_2 === "string") {  
-		for (var i = 0; i < value_1.length; i++) { 
-			result.push(match(value_1[i], value_2, i))
+		for (var i = 0; i < value_1.length; i++) {
+			
+			doCompare(value_1[i], value_2, i, result);
+			//out.console.log(joku)
+			//if(joku) result.push(joku)
 		}
 		
 	// both are strings
 	} else  if(typeof value_1 && typeof value_2 === "string") {
 		result = match(value_1, value_2);
 	}
+	out.console.log(result)
 	return result;
+}
+
+function doCompare(val1, val2, index, result) {
+	var joku = match(val1, val2, index, result);
+	if(preserve) {
+		if(joku) result.push(joku)
+		else result.push("");
+	} else {
+		if(joku) result.push(joku)
+	}
+		
+	
 }
 
 function match(val1, val2, index) {

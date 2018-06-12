@@ -4,7 +4,7 @@
 var uuid_value 		= context.doc[context.node.settings.in_uuid_field];
 var update_value 	= context.doc[context.node.settings.in_update_field];
 var language_value 	= context.doc[context.node.settings.dynamic_language_field];
-var original_value  = context.doc[context.node.settings.in_field];
+var original_value  = context.doc[context.node.params.in_field];
 var original_field 	= context.node.params.in_field.replace(/_/g, "."); // field to be updated
 
 
@@ -16,7 +16,7 @@ if(!uuid_value || !context.validator.isUUID(uuid_value+""))
 	out.error = "UUID is not valid: " + uuid_value;
 
 // if original value is provided, then we update only when there is a difference between values
-if (context.node.params.in_original_value && Array.isArray(update_value) &&  Array.isArray(original_value)) {
+if (Array.isArray(update_value) &&  Array.isArray(original_value)) {
 
 	var is_same = (update_value.length == original_value.length) && update_value.every(function(element, index) {
 		return element === original_value[index]; 
