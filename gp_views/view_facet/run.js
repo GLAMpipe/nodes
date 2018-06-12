@@ -32,7 +32,7 @@ facets.push(context.node.settings.in_field_3);
 //facets.push(context.node.settings.in_field_4);
 
 facets.forEach(function(field, index) {
-	if(field != "") {
+	if(field) {
 		var facet_index = index + 1;
 		var filter = {
 			mode: "facet",
@@ -63,7 +63,7 @@ renders.push(context.node.settings.render_3);
 //renders.push(context.node.settings.render_4);
 
 renders.forEach(function(key, index) {
-	if(key != "") {
+	if(key) {
 		var key_index = index + 1;
 		var column = {
 			key: key
