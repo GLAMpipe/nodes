@@ -1,0 +1,23 @@
+{
+    "nodeid": "export_web_collectiveaccess_additem",
+    "title": "CollectiveAccess: add items",
+    "type": "export",
+    "subtype": "web",
+    "subsubtype": "collectiveaccess",
+    "status": "usable",
+    "tags":["collectiveaccess"],
+    "description": "Create new items via REST API",
+
+    "scripts": {
+        "hello": 
+        [
+			"context.node.out_field = context.node.params.out_field; "
+		],
+		
+        "bye": "out.say('finish', 'Deleted node!'); ",
+            
+        "finish":"out.say('finish', context.success_count + ' items created'); "
+    },
+    
+    "views": {}
+}
