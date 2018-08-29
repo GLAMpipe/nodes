@@ -1,0 +1,47 @@
+
+
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Login
+		</settingtitle>
+		<settinginstructions>
+			You need to authenticate yourself in order to use CollectiveAccess REST api.
+
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>username</label>
+		<input class="node-settings" id="export-mapping-ca-user" name="username" value="administrator"/>
+		<label>password</label>
+		<input class="node-settings" id="export-mapping-ca-pass" name="password" value=""/>
+		<button id="export-mapping-ca-get-models">Login and fetch models</button>
+	</settingaction>
+</setting>
+
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Mapping
+		</settingtitle>
+		<settinginstructions>
+			Map document fields to CA models. 
+
+		</settinginstructions>
+	</settinginfo>
+	<settingaction>
+		<label>Choose type</label>
+
+		<settinglistcontainer>
+			<div id="export-mapping-ca_models">fetching models...</div>
+			<div id="export-mapping-ca_mapping"></div>
+		</settinglistcontainer>
+	</settingaction>
+</setting>
+
+

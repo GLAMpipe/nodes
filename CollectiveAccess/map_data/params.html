@@ -1,42 +1,35 @@
 
 <label>Choose CollectiveAccess REST API url or write url below.</label>
-<select id="export-data-ca-additem_url" name="required_url">
+<select id="export-data-ca-mapping_url" name="required_url">
 	<option value="" selected disabled>predefined servers</option>
 	<option value="https://demo.collectiveaccess.org/service.php">https://demo.collectiveaccess.org/service.php</option>
 </select>
-<button id="export-data-ca-additem_plus">+</button>
+<button id="export-data-ca-mapping_plus">+</button>
 
 <!-- add options starts -->
-<div id="export-data-ca-additem_addoption" style="display:none">
+<div id="export-data-ca-mapping_addoption" style="display:none">
 	<label>URL including service.php</label>
-	<input id="export-data-ca-additem_url_add" placeholder="https://demo.collectiveaccess.org/service.php" name="url_add" />
+	<input id="export-data-ca-mapping_url_add" placeholder="https://demo.collectiveaccess.org/service.php" name="url_add" />
 	<label>username (for testing API, not saved)</label>
-	<input id="export-data-ca-additem_user"/>
+	<input id="export-data-ca-mapping_user"/>
 	<label>password (for testing API, not saved)</label>
-	<input id="export-data-ca-additem_pass"/>
-	<button id="export-data-ca-additem_test" title="test api">test</button>
-	<button id="export-data-ca-additem_add" title="add url to list">add</button>
+	<input id="export-data-ca-mapping_pass"/>
+	<button id="export-data-ca-mapping_test" title="test api">test</button>
+	<button id="export-data-ca-mapping_add" title="add url to list">add</button>
 </div>
 <!-- add options ends -->
 
 
-<div id="export-data-ca-additem_status" class="status"></div>
+<div id="export-data-ca-mapping_status" class="status"></div>
 
-<div id="export-data-ca-additem_hidden" style="display:none">
-	<label>Where is mapping?</label>
-	<select id="export-data-ca-additem_mapping" name="in_field" class="dynamic_field" required >
-		<option value="">choose</option>
-	</select>
+<div id="export-data-ca-mapping_hidden" style="display:none">
 	
-	<label>Where to write item id?</label>
-	<input id="export-data-ca-additem_uuid" name="out_uuid" value="ca_id" required />
-	
-	<label>Where to write item link?</label>
-	<input id="export-data-ca-additem_link" name="out_link" value="ca_link" required />
+	<label>Where to write mapping?</label>
+	<input id="export-data-ca-mapping_out" name="out_field" value="ca_mapping" required />
 </div>
 
 <script>
-var nodeid = "#export-data-ca-additem";
+var nodeid = "#export-data-ca-mapping";
 var params_url = g_apipath + "/options/source_web_collectiveaccess"
 
 // *************** CODE FOR ADDING NEW URLS starts **************
@@ -52,8 +45,8 @@ var url_select    = $(nodeid + "_url");
 
 async function testUrl (url, success, fail) {
 
-	var user = $("#export-data-ca-additem_user").val();
-	var pass = $("#export-data-ca-additem_pass").val();
+	var user = $("#export-data-ca-mapping_user").val();
+	var pass = $("#export-data-ca-mapping_pass").val();
 	var protocol = url.split("://");
 	try {
 		var token = await $.getJSON(g_apipath + "/proxy?url=" + protocol[0] + "://"+user+":"+pass+"@" + protocol[1] + "/auth/login");
@@ -146,21 +139,21 @@ function fetchParams () {
 
 
 // CHOOSE SERVER HANDLER
-$("#export-data-ca-additem_url").change(function() {
-	$("#export-data-ca-additem_hidden").show();
+$("#export-data-ca-mapping_url").change(function() {
+	$("#export-data-ca-mapping_hidden").show();
 	function success() {
-		$("#export-data-ca-additem_status").empty().append("CollectiveAccess responded OK").addClass("good");
-		$("#export-data-ca-additem_hidden").show();
+		$("#export-data-ca-mapping_status").empty().append("CollectiveAccess responded OK").addClass("good");
+		$("#export-data-ca-mapping_hidden").show();
 	};
 	function fail(msg) {alert("CollectiveAccess rest API not working!")};
-	//testUrl($("#export-data-ca-additem_url :selected").val(), success, fail);
+	//testUrl($("#export-data-ca-mapping_url :selected").val(), success, fail);
 });
 
 
-$("#export-data-ca-additem_mapping").change(function() {
-	$("#export-data-ca-additem_uuid").val($(this).val() + "_uuid");
-	$("#export-data-ca-additem_handle").val($(this).val() + "_handle");
-	$("#export-data-ca-additem_link").val($(this).val() + "_link");
+$("#export-data-ca-mapping_mapping").change(function() {
+	$("#export-data-ca-mapping_uuid").val($(this).val() + "_uuid");
+	$("#export-data-ca-mapping_handle").val($(this).val() + "_handle");
+	$("#export-data-ca-mapping_link").val($(this).val() + "_link");
 
 });
 

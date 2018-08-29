@@ -1,0 +1,16 @@
+{
+    "nodeid": "export_mapping_collectiveaccess",
+    "title": "CollectiveAccess: Map data",
+    "type": "process",
+    "subtype": "format",
+    "status": "usable",
+    "tags":["collectiveaccess"],
+    "description": "Map data for export",
+
+    "scripts": {
+
+        "finish":"out.say('finish', context.success_count + ' items mapped'); "
+    },
+    
+    "views": {}
+}
