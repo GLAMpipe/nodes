@@ -3,7 +3,7 @@
     "title": "CollectiveAccess: add items",
     "type": "export",
     "subtype": "web",
-    "subsubtype": "collectiveaccess",
+    "subsubtype": "token", 
     "status": "usable",
     "tags":["collectiveaccess"],
     "description": "Create new items via REST API",

@@ -1,6 +1,18 @@
 
 
-var item = {};
+var item = {
+	"intrinsic_fields": {
+		"type_id":"26"
+	},
+	"preferred_labels":[
+		{
+			"locale":"en_US",
+			"name":"GLAMpipe kukka"
+		}
+	],
+	"attributes": {}
+};
+
 out.value = item;
 context.success_count++;
 
@@ -26,20 +38,35 @@ for(var key in context.node.settings) {
 		
 	var language = "";
 	
-	if(is_dynamic.test(key)) {
+	// handle preferred labels
+	if(key === "_dynamic_preferred_labels") {
+		var label = {"locale": "en_US"};
+		label.name = getFirstValue(value);
+		item.preferred_labels = [label];
+	// idno
+	} else if(key === "_dynamic_idno") { 
+		item.intrinsic_fields.idno = getFirstValue(value);
 		
-		var plain_key = key.replace("_dynamic_", "");
-		if(context.doc[context.node.settings[key]])
+	// handle attributes
+	} else if(is_dynamic.test(key)) {
+
+		var plain_key = key.replace("_dynamic_", "").split("-");
+		var attribute = plain_key[0]; 
+		if(context.doc[context.node.settings[key]]) {
 
 		   if(Array.isArray(value)) {
+			   item.attributes[attribute] = [];
 			   for (var i = 0; i < value.length; i++ ) { 
-					item[plain_key] = value[i];
+					var ob = {}
+					ob[plain_key[1]] = value[i];
+					item.attributes[attribute].push(ob);
 					//pushField(item, value[i], plain_key, language);	
 			   }
-		   } else { 
+			} else { 
 
 				//pushField(item, value, plain_key, language);	
-		   }
+			}
+		}
 	}
 }
 
@@ -61,7 +88,13 @@ function splitValue (val) {
    }
 }
 
-
+function getFirstValue(value) {
+	if(Array.isArray(value)) {
+		return value[0];
+	} else {
+		return value;
+	}
+}
 
 function pushField (item, value, key, language) {
 

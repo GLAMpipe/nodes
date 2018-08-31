@@ -8,6 +8,7 @@ var out_link = context.doc[context.node.params.out_link];
 var options = {
 	url: out.url,  // from init.js
 	json: item,
+	method: "put",
 	headers: {
 		"accept": "application/json"
 	},

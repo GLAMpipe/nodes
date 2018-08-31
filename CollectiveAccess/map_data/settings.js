@@ -3,7 +3,6 @@ var g_export_mapping_ca_models = null;
 
 // display current CA url nicely to user
 $("#export-mapping-ca_serverinfo").text("Mapping for \"" +node.params.required_url+ "\"");
-$("#export-mapping-ca_mappings").text("Fetching schemas from \"" +node.params.required_url+ "\"");
 
 
 var ignoreFields = ["id", "_id", "collection", "__mp_source"];
@@ -19,7 +18,7 @@ async function getModels() {
 		var token = await $.getJSON(g_apipath + "/proxy?url=" + protocol[0] + "://"+user+":"+pass+"@" + protocol[1] + "/auth/login");
 		var models = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/model/ca_objects?pretty=1&token=" + token.authToken);
 		g_export_mapping_ca_models = models;
-		var items = "<select id='export-mapping-ca-models'>";
+		var items = "<select id='export-mapping-ca-models'><option value=''>Choose type</option>";
 		for (const key of Object.keys(models)) {
 			//console.log(key, models[key]);
 			if(models[key].type_info) {
@@ -37,13 +36,17 @@ async function getModels() {
 
 
 async function renderModel(type) {
-	var html = "";
+	var html = "Preferred label";
+	html += "<div><select name='_dynamic_preferred_labels' class='node-settings dynamic_field middle_input' ></select></div>";
+	html += "<div><select name='_dynamic_idno' class='node-settings dynamic_field middle_input' ></select></div>";
 	var model = g_export_mapping_ca_models[type];
 	for (const key of Object.keys(model.elements)) {
 		var elements = model.elements[key].elements_in_set;
 		for (const key2 of Object.keys(elements)) {
-			html += model.elements[key].name + ":" + elements[key2].display_label + " (" + elements[key2].datatype + ")";
-			html += "<div><select name='_dynamic_" + elements[key2].element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></div>";
+			if(elements[key2].datatype == "Text") {
+				html += model.elements[key].name + ":" + elements[key2].display_label + " (" + elements[key2].datatype + ")";
+				html += "<div><select name='_dynamic_" + key + "-" + elements[key2].element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></div>";
+			}
 		}
 	}
 	$("#export-mapping-ca_mapping").empty().append(html);

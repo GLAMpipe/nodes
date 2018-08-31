@@ -3,13 +3,14 @@
 <select id="export-data-ca-additem_url" name="required_url">
 	<option value="" selected disabled>predefined servers</option>
 	<option value="https://demo.collectiveaccess.org/service.php">https://demo.collectiveaccess.org/service.php</option>
+	<option value="http://localhost/providence/service.php">http://localhost/providence/service.php</option>
 </select>
 <button id="export-data-ca-additem_plus">+</button>
 
 <!-- add options starts -->
 <div id="export-data-ca-additem_addoption" style="display:none">
 	<label>URL including service.php</label>
-	<input id="export-data-ca-additem_url_add" placeholder="https://demo.collectiveaccess.org/service.php" name="url_add" />
+	<input id="export-data-ca-additem_url_add" placeholder="http://localhost/providence/service.php" name="url_add" />
 	<label>username (for testing API, not saved)</label>
 	<input id="export-data-ca-additem_user"/>
 	<label>password (for testing API, not saved)</label>
@@ -29,7 +30,7 @@
 	</select>
 	
 	<label>Where to write item id?</label>
-	<input id="export-data-ca-additem_uuid" name="out_uuid" value="ca_id" required />
+	<input id="export-data-ca-additem_id" name="out_id" value="ca_id" required />
 	
 	<label>Where to write item link?</label>
 	<input id="export-data-ca-additem_link" name="out_link" value="ca_link" required />
@@ -158,8 +159,7 @@ $("#export-data-ca-additem_url").change(function() {
 
 
 $("#export-data-ca-additem_mapping").change(function() {
-	$("#export-data-ca-additem_uuid").val($(this).val() + "_uuid");
-	$("#export-data-ca-additem_handle").val($(this).val() + "_handle");
+	$("#export-data-ca-additem_id").val($(this).val() + "_id");
 	$("#export-data-ca-additem_link").val($(this).val() + "_link");
 
 });
