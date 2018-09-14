@@ -7,8 +7,7 @@ $("#export-mapping-ca_serverinfo").text("Mapping for \"" +node.params.required_u
 
 var ignoreFields = ["id", "_id", "collection", "__mp_source"];
 
-
-async function getModels() {
+async function getToken() {
 
 	var user = $("#export-mapping-ca-user").val();
 	var pass = $("#export-mapping-ca-pass").val();
@@ -16,7 +15,26 @@ async function getModels() {
 
 	try {
 		var token = await $.getJSON(g_apipath + "/proxy?url=" + protocol[0] + "://"+user+":"+pass+"@" + protocol[1] + "/auth/login");
-		var models = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/model/ca_objects?pretty=1&token=" + token.authToken);
+	} catch(e) {
+		alert(e.statusText);
+	}
+	
+	// set token to input so that is passed to node execution
+	$("#export-mapping-ca-token").val(token.authToken);
+		
+}
+
+async function getModels(type) {
+
+	var protocol = node.params.required_url.split("://");
+
+	try {
+		var token = $("#export-mapping-ca-token").val();
+		if(!token) {
+			alert("You must get token first!");
+			return;
+		}
+		var models = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/model/"+type+"?pretty=1&token=" + token.authToken);
 		g_export_mapping_ca_models = models;
 		var items = "<select id='export-mapping-ca-models'><option value=''>Choose type</option>";
 		for (const key of Object.keys(models)) {
@@ -36,8 +54,11 @@ async function getModels() {
 
 
 async function renderModel(type) {
-	var html = "Preferred label";
-	html += "<div><select name='_dynamic_preferred_labels' class='node-settings dynamic_field middle_input' ></select></div>";
+	var html = "<label>Preferred label (Object)</label>";
+	html += "<div><select name='_dynamic_preferred_labels_name' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></div>";
+	html += "<label>Preferred displayname (Entity)</label>"
+	html += "<div><select name='_dynamic_preferred_labels_displayname' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></div>";
+	html += "<label>idno</label>"
 	html += "<div><select name='_dynamic_idno' class='node-settings dynamic_field middle_input' ></select></div>";
 	var model = g_export_mapping_ca_models[type];
 	for (const key of Object.keys(model.elements)) {
@@ -52,7 +73,7 @@ async function renderModel(type) {
 	$("#export-mapping-ca_mapping").empty().append(html);
 	
 	// populate fields
-	var fields = await $.getJSON(g_apipath + "/collections/"+node.collection+"/fields");
+	var fields = await $.getJSON(g_apipath + "/collections/"+node.params.collection+"/fields");
 	var data_fields = "";
 	for(const f of fields.sorted) {
 		data_fields += "<option value='" + f + "'>" + f + "</option>";
@@ -66,8 +87,16 @@ $("settingscontainer").on("change", "#export-mapping-ca-models", function(e){
 	renderModel($(this).val());
 })
 
-$("#export-mapping-ca-get-models").click(function(e){
-	getModels();
+$("#export-mapping-ca-get-token").click(function(e){
+	getToken();
+})
+
+$("#export-mapping-ca-get-object-models").click(function(e){
+	getModels("ca_objects");
+})
+
+$("#export-mapping-ca-get-object-entities").click(function(e){
+	getModels("ca_entities");
 })
 
 $("#export-mapping-ca-basic_guess").click(function(e){

@@ -21,13 +21,14 @@ var is_dynamic = /^_dynamic_/;
 
 
 // handle static values
-for(var key in context.node.settings) {
+/*for(var key in context.node.settings) {
 	if(is_static.test(key)) {
 		var plain_key = key.replace("_static_", "");
 		if(context.node.settings[key])
 			pushField(item, context.node.settings[key], plain_key);
 	}
 }
+*/
 
 // then override with dynamic values if set
 for(var key in context.node.settings) {
@@ -37,11 +38,20 @@ for(var key in context.node.settings) {
 		value = "";
 		
 	var language = "";
-	
+
+	// set type of the item
+	if(key === "_static_type_id") {
+		item.intrinsic_fields.type_id = context.node.settings[key];
+	}
+
 	// handle preferred labels
-	if(key === "_dynamic_preferred_labels") {
+	if(key === "_dynamic_preferred_labels_name") {
 		var label = {"locale": "en_US"};
 		label.name = getFirstValue(value);
+		item.preferred_labels = [label];
+	} else if(key === "_dynamic_preferred_labels_displayname") {
+		var label = {"locale": "en_US"};
+		label.displayname = getFirstValue(value);
 		item.preferred_labels = [label];
 	// idno
 	} else if(key === "_dynamic_idno") { 
