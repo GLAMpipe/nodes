@@ -1,13 +1,13 @@
 {
-    "nodeid": "process_lookup_web_dspace_policy",
+    "nodeid": "process_lookup_web_dspace_bitstreams",
     "type": "process",
     "subtype": "lookups",
     "subsubtype": "web_cookie",
-    "title": "DSpace 6: fetch bitstream policies",
+    "title": "DSpace 6: fetch bitstream metadata",
     "status": "usable",
     "tags":["dspace"],
     "usage":"",
-    "description": "fetch bitstream policies.",
+    "description": "fetch list of item's bitstreams.",
     
     "scripts": {
         

@@ -33,7 +33,7 @@ if(out.value)
 
 function compare (input, select) {
 	// numeric greater or smaller
-	if(settings.numeric) {
+	if(settings.numeric === "true") {
 		input = parseFloat(input);
 		select = parseFloat(select);
 		if(settings.comparision === ">")
@@ -42,7 +42,6 @@ function compare (input, select) {
 			return (input < select ? context.doc : null)
 		
 	}
-	
 	var reg = new RegExp(select);
 	if(input.match(reg))
 		return context.doc;

@@ -7,7 +7,11 @@ function process (element, index) {
 	if(element.error) {
 		out.value = out.error_marker + ":" + element.error.message;
 	} else if (element.response && element.response.body) {
-		out.value = element.response.body.toString();
+		if(context.node.settings.accept === "json") {
+			out.value = JSON.parse(element.response.body.toString());
+		} else {
+			out.value = element.response.body.toString();
+		}
 		context.vars.success_counter++;		
 	} else {
 		out.value = out.error_marker;

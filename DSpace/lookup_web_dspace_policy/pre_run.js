@@ -13,7 +13,8 @@ if(Array.isArray(context.doc[context.node.settings.in_bitstream])) {
 		if(bitstream.uuid) {
 			options = {
 				url: base + "/bitstreams/" + bitstream.uuid + "/policy",
-				method: 'GET'
+				method: 'GET',
+				jar: true
 			}
 		} 
 		out.pre_value.push(options);
@@ -26,7 +27,8 @@ if(Array.isArray(context.doc[context.node.settings.in_bitstream])) {
 	if(bitstream.uuid) {
 		options = {
 			url: base + "/bitstreams/" + context.doc[context.node.settings.in_bitstream].uuid + "/policy",
-			method: 'GET'
+			method: 'GET',
+			jar: true
 		}
 	}
 	
@@ -36,7 +38,8 @@ if(Array.isArray(context.doc[context.node.settings.in_bitstream])) {
 } else if(context.node.settings.bitstream_uuid_static) {
 	options = {
 		url: base + "/bitstreams/" + context.node.settings.bitstream_uuid_static + "/policy",
-		method: 'GET'
+		method: 'GET',
+		jar: true
 	}
 	out.pre_value = [options];
 } else {

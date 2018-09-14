@@ -16,7 +16,7 @@ mapping();
 // we fetch Omeka properties and first document from GLAMpipe for mapping
 function mapping() {
 
-   var url = g_apipath + "/collections/"+node.collection+"/docs?skip=0&limit=1";
+   var url = g_apipath + "/collections/"+node.collection+"/fields";
    
 	$.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/properties", function (props) {
 		$.getJSON(url, function(data) {
@@ -27,17 +27,16 @@ function mapping() {
 				props.forEach(function(field) {
 					//schema_select += "<option value='"+field['o:term']+"--"+field['o:id']+"'>" + field['o:term'] + "</options>"; 
 					table += "<tr> <td>"+field['o:term']+"</td>";
-					table += "<td><div><select name='_dynamic_" + field['o:term'] + "--"+field['o:id']+"' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></div></td>";
+					table += "<td><div><select name='_dynamic_" + field['o:term'] + "--"+field['o:id']+"' class='node-settings middle_input' ><option value=''>no value, use static</option></select></div></td>";
 					table += "<td><div><input name='_static_" + field['o:term'] + "--"+field['o:id']+"' class='node-settings' value=''/></div></td> </tr>"; 
 				})
 				 
 			}
 			$("#export-web-omeka_mappings").empty().append(table);  
 			
-			var rec = data.data[0];
 			var data_fields = "";
-			for(var f in rec) {
-				data_fields += "<option value='" + f + "'>" + f.replace("dc_", "dc.") + "</option>";
+			for(var i=1; i < data.sorted.length; i++) {
+				data_fields += "<option value='" + data.sorted[i] + "'>" + data.sorted[i].replace("dc_", "dc.") + "</option>";
 		   }
 		   $("#export-web-omeka_mappings select").append(data_fields);
 		   setSettings();
