@@ -1,0 +1,23 @@
+{
+	"nodeid": "export_web_collectiveaccess_link_items",
+	"title": "CollectiveAccess: link items",
+	"type": "export",
+	"subtype": "web",
+	"subsubtype": "token",
+    "status": "rubbish",
+    "tags":["generic"],
+	"description": "Link items, such entities and objects, with relationships.",
+
+	"scripts": {
+
+		
+		"init": [
+			"out.say('progress', 'Starting to link..'); "
+		],
+		
+		"finish":"out.say('finish', 'Linking finished');"
+	},
+	
+	"views": {}
+
+}

@@ -1,0 +1,71 @@
+
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			CollectiveAccess login
+		</settingtitle>
+		<settinginstructions>
+			You need to get authentication token from server before you can export data
+			<br>server: <span id="export-data-ca-linkitem_serverinfo"></span>
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>username </label>
+		<input type="text" value="administrator" id="export-data-ca-linkitem-user" required />
+		<label>password</label>
+		<input  type="password" id="export-data-ca-linkitem-pass"/>
+		<button id="export-data-ca-linkitem-get-token">Get token</button>
+		<label>token</label>
+		<input  class="node-settings" type="text" name="token" id="export-item-ca-linkitem-token"/>
+	</settingaction>
+</setting>
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Link item
+		</settingtitle>
+		<settinginstructions>
+			Select fields which holds ids to be linked.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>Left item type</label>
+		<select name="left_item_type" class="node-settings">
+			<option value="ca_objects">Objects (ca_objects)</option>
+			<option value="ca_entities">Entities (ca_entities)</option>
+		</select>
+		
+		<label>Left item ID</label>
+		<select class="dynamic_field node-settings" name="in_left" >
+			<option>Choose field</option>
+		</select> 
+		
+		<label>relationship ID</label>
+		<input class="node-settings" type="text" name="relation_id"/>
+		
+		<label>Right item ID</label>
+		<select id="lookup-key-field" class="dynamic_field node-settings" name="in_right" >
+			<option>Choose field</option>
+		</select> 
+
+		<label>Right item type</label>
+		<select name="right_item_type" class="node-settings">
+			<option value="ca_objects">Objects (ca_objects)</option>
+			<option value="ca_entities">Entities (ca_entities)</option>
+		</select>
+
+	</settingaction>
+</setting>
+
+
+
+
+
+
+
+

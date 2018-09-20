@@ -46,11 +46,11 @@ for(var key in context.node.settings) {
 
 	// handle preferred labels
 	if(key === "_dynamic_preferred_labels_name") {
-		var label = {"locale": "en_US"};
+		var label = {"locale": "fi_FI"};
 		label.name = getFirstValue(value);
 		item.preferred_labels = [label];
 	} else if(key === "_dynamic_preferred_labels_displayname") {
-		var label = {"locale": "en_US"};
+		var label = {"locale": "fi_FI"};
 		label.displayname = getFirstValue(value);
 		item.preferred_labels = [label];
 	// idno

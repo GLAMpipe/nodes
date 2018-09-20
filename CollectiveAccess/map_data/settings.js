@@ -1,5 +1,6 @@
 
 var g_export_mapping_ca_models = null;
+var g_export_mapping_ca_type = null;
 
 // display current CA url nicely to user
 $("#export-mapping-ca_serverinfo").text("Mapping for \"" +node.params.required_url+ "\"");
@@ -26,6 +27,7 @@ async function getToken() {
 
 async function getModels(type) {
 
+	g_export_mapping_ca_type = type;
 	var protocol = node.params.required_url.split("://");
 
 	try {
@@ -54,10 +56,13 @@ async function getModels(type) {
 
 
 async function renderModel(type) {
-	var html = "<label>Preferred label (Object)</label>";
-	html += "<div><select name='_dynamic_preferred_labels_name' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></div>";
-	html += "<label>Preferred displayname (Entity)</label>"
-	html += "<div><select name='_dynamic_preferred_labels_displayname' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></div>";
+	if(g_export_mapping_ca_type == "ca_entities") {
+		var html = "<label>Preferred displayname (Entity)</label>"
+		html += "<div><select name='_dynamic_preferred_labels_displayname' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></div>";
+	} else {
+		var html = "<label>Preferred label (Object)</label>";
+		html += "<div><select name='_dynamic_preferred_labels_name' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></div>";
+	}
 	html += "<label>idno</label>"
 	html += "<div><select name='_dynamic_idno' class='node-settings dynamic_field middle_input' ></select></div>";
 	var model = g_export_mapping_ca_models[type];
@@ -82,6 +87,7 @@ async function renderModel(type) {
 }
 
 
+
 $("settingscontainer").on("change", "#export-mapping-ca-models", function(e){
 	console.log(g_export_mapping_ca_models[$(this).val()])
 	renderModel($(this).val());
@@ -91,12 +97,8 @@ $("#export-mapping-ca-get-token").click(function(e){
 	getToken();
 })
 
-$("#export-mapping-ca-get-object-models").click(function(e){
-	getModels("ca_objects");
-})
-
-$("#export-mapping-ca-get-object-entities").click(function(e){
-	getModels("ca_entities");
+$("#export-mapping-ca-get-models").change(function(e){
+	getModels($(this).val());
 })
 
 $("#export-mapping-ca-basic_guess").click(function(e){

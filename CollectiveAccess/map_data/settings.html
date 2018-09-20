@@ -37,8 +37,12 @@
 		</settinginstructions>
 	</settinginfo>
 	<settingaction>
-		<button id="export-mapping-ca-get-object-models">Objects</button>
-		<button id="export-mapping-ca-get-object-entities">Entities</button>
+		<label>Get mapping data</label>
+		<select class="node-settings" name="model" id="export-mapping-ca-get-models">
+			<option value="">choose model</option>
+			<option value="ca_objects">Objects</option>
+			<option value="ca_entities">Entities</option>
+		</select>
 		<label>Static type id</label>
 		<input  class="node-settings" type="text" name="_static_type_id" id="export-mapping-ca-type_id"/>
 		<label>Choose type</label>
