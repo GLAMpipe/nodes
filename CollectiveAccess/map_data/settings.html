@@ -25,11 +25,41 @@
 </setting>
 
 
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Type mapping
+		</settingtitle>
+		<settinginstructions>
+			Map document types to types in CollectiveAccess. 
+
+		</settinginstructions>
+	</settinginfo>
+	<settingaction>
+		<label>Get mapping data for primary type</label>
+		<select class="node-settings" name="model" id="export-mapping-ca-get-models">
+			<option value="">choose primary type </option>
+			<option value="ca_objects">Objects</option>
+			<option value="ca_entities">Entities</option>
+		</select>
+		<label>Type field</label>
+		<select  class="node-settings dynamic_field" name="type_field" id="export-mapping-ca-type_field">
+			<option value="">choose type field</option>
+		</select>
+		
+		<label>Map types</label>
+		<settinglistcontainer>
+			<div id="export-mapping-ca_type_mapping"></div>
+		</settinglistcontainer>
+
+	</settingaction>
+</setting>
+
 
 <setting>
 	<settinginfo>
 		<settingtitle>
-			Mapping
+			Field mapping
 		</settingtitle>
 		<settinginstructions>
 			Map document fields to CA models. 
@@ -37,19 +67,7 @@
 		</settinginstructions>
 	</settinginfo>
 	<settingaction>
-		<label>Get mapping data</label>
-		<select class="node-settings" name="model" id="export-mapping-ca-get-models">
-			<option value="">choose model</option>
-			<option value="ca_objects">Objects</option>
-			<option value="ca_entities">Entities</option>
-		</select>
-		<label>Static type id</label>
-		<input  class="node-settings" type="text" name="_static_type_id" id="export-mapping-ca-type_id"/>
-		<label>Choose type</label>
-
-		<settinglistcontainer>
-			<div id="export-mapping-ca_models"></div>
-		</settinglistcontainer>
+		
 		<label>Map your fields to CollectiveAccess fields</label>
 		<settinglistcontainer>
 			<div id="export-mapping-ca_mapping"></div>

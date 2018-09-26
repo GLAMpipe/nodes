@@ -9,7 +9,7 @@
 
     "scripts": {
 
-        "finish":"out.say('finish', context.success_count + ' items mapped'); "
+        "finish":"out.say('finish', context.success_count + ' items mapped, ' + context.not_mapped + ' not mapped'); "
     },
     
     "views": {}

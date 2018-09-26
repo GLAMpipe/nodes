@@ -1,7 +1,8 @@
 
         
 out.say('progress', 'Starting to map...'); 
-context.counter = 0;
+
+context.not_mapped = 0;
 var title_mapped = false;
 
 var rest_url = context.node.params.required_url;

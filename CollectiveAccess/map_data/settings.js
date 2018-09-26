@@ -47,33 +47,37 @@ async function getModels(type) {
 		} 
 		items += "</select>"
 		$("#export-mapping-ca_models").append(items);
+		renderModel();
 		
 	} catch(e) {
 		alert(e.statusText);
 	}
 
+
+
 }
 
 
 async function renderModel(type) {
+	var html = '<table><thead><tr><th>CollectiveAccess field</th><th>dynamic value</th><th>static value</th></tr></thead>';
+	
 	if(g_export_mapping_ca_type == "ca_entities") {
-		var html = "<label>Preferred displayname (Entity)</label>"
-		html += "<div><select name='_dynamic_preferred_labels_displayname' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></div>";
+		html += "<tr><td>Preferred displayname (Entity)</td>"
+		html += "<td><select name='_dynamic_preferred_labels_displayname' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr>";
 	} else {
-		var html = "<label>Preferred label (Object)</label>";
-		html += "<div><select name='_dynamic_preferred_labels_name' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></div>";
+		html += "<tr><td>Preferred label (Object)</td>";
+		html += "<td><select name='_dynamic_preferred_labels_name' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr>";
 	}
-	html += "<label>idno</label>"
-	html += "<div><select name='_dynamic_idno' class='node-settings dynamic_field middle_input' ></select></div>";
-	var model = g_export_mapping_ca_models[type];
-	for (const key of Object.keys(model.elements)) {
-		var elements = model.elements[key].elements_in_set;
-		for (const key2 of Object.keys(elements)) {
-			if(elements[key2].datatype == "Text") {
-				html += model.elements[key].name + ":" + elements[key2].display_label + " (" + elements[key2].datatype + ")";
-				html += "<div><select name='_dynamic_" + key + "-" + elements[key2].element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></div>";
-			}
-		}
+	html += "<tr><td>idno (identifier)</td>"
+	html += "<td><select name='_dynamic_idno' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td><tr>";
+
+	var fields = combineFields();
+	for(const field of fields) {
+		if(field.datatype == "Text") {
+			html += "<tr><td>" + field.element + ":" + field.display_label + " (" + field.datatype + ")</td>";
+			html += "<td><select name='_dynamic_" + field.element + "-" + field.element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></td>";
+			html += "<td></td></tr>"
+		}		
 	}
 	$("#export-mapping-ca_mapping").empty().append(html);
 	
@@ -86,7 +90,57 @@ async function renderModel(type) {
    $("#export-mapping-ca_mapping select").append(data_fields);
 }
 
+async function getTypes(field) {
+	var types = await $.getJSON(g_apipath + "/collections/"+node.params.collection+"/facet/?fields=" + field);
+	types = types.facets[0][field];
+	var models = g_export_mapping_ca_models;
+	
+	if(!models) {
+		$("#export-mapping-ca_type_mapping").empty().append("Valitse uudelleen");
+		return;
+	}
+	
+	var models_html = "";
+	if(models) {
+		for(var key in models) {
+			console.log(key)
+			if(key != "ok") {
+				models_html += "<option value="+models[key].type_info.item_id+">" + models[key].type_info.item_value + "</option>";
+			}
+		}
+	} else {
+		return;
+	}
+	
+	html = "<table><thead><tr><th>"+field+"</th><th>map to</th></tr></thead>";
+	for(const type of types) {
+		html += "<tr><td>" + type._id + " (" + type.count + ")</td>";
+		html += "<td><select class='node-settings' name='_typemap_" + type._id + "'><option value=''>choose</option>" + models_html + "</select></td></tr>";
+	}
+	$("#export-mapping-ca_type_mapping").empty().append(html + "</table>");
+}
 
+
+function combineFields() {
+	var all_fields = [];
+	var models = g_export_mapping_ca_models;
+	
+	for(const model of Object.keys(models)) {
+		if(models[model].elements) {
+
+			for(const element of Object.keys(models[model].elements)) {
+				var elements = models[model].elements[element].elements_in_set;
+				for (const key of Object.keys(elements)) {
+					if(!all_fields.some(x => x.element_code == elements[key].element_code)) {
+						elements[key].element = element;
+						all_fields.push(elements[key]);
+					}
+				}
+			}
+		}
+	}
+	return all_fields;
+}
 
 $("settingscontainer").on("change", "#export-mapping-ca-models", function(e){
 	console.log(g_export_mapping_ca_models[$(this).val()])
@@ -130,6 +184,10 @@ $("#export-mapping-ca-show_all").click(function(e){
 
 });
 
+$("#export-mapping-ca-type_field").change(function(e){
+	
+	getTypes($(this).val());
 
+});
 
 
