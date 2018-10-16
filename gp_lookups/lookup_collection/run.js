@@ -27,7 +27,7 @@ if(Array.isArray(local_key_value)) {
 }
 
 
-if(context.node.settings.as_string) {
+if(context.node.settings.as_string == "true") {
 	if(Array.isArray(out.setter[context.node.params.out_field])) {
 		out.setter[context.node.params.out_field] = out.setter[context.node.params.out_field].join("");
 	} 

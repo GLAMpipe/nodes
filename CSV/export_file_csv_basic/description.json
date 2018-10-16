@@ -21,7 +21,7 @@
     
     "views": {
 
-        "params":"<label>File name</label><input name=\"required_file\" value=\"export.csv\" />"
+        "params":""
 
     }
 }

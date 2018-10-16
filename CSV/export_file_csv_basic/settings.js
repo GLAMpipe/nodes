@@ -4,6 +4,10 @@
 
 mapping();
 
+$("#export-file-csv_fields").on("click", "#export-file-csv_toggle", function() {
+	$("#export-file-csv_fields").find("input").click();
+})
+
 // TODO: because this is async, this script must handle remembering settings itself
 // we fetch target properties and then we fetch first document from GLAMpipe for mapping
 function mapping() {

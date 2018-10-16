@@ -8,4 +8,6 @@ if(context.node.settings.fields) {
 }
 
 out.csvheaders = fields;
+out.filename = context.node.settings.required_file;
+if(!out.filename) out.init_error = "File name is missing!"
 
