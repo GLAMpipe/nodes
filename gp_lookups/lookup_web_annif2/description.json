@@ -1,0 +1,29 @@
+{
+    "nodeid": "process_lookup_web_annif2",
+    "type": "process",
+    "subtype": "lookups",
+    "subsubtype": "web",
+    "title": "Annif 2: lookup",
+    "status": "usable",
+    "tags":["library", "finna"],
+    "usage":"",
+    "description": "Get subject suggestions from Annif 2",
+    
+    "scripts": {
+
+        "bye": "out.say('finish', 'Bye!'); ",
+        
+        "init": 
+        [
+			"context.vars.success_counter = 0; "
+
+		],
+		
+         "finish":"out.say('finish', 'Done!'); "
+    },
+    
+    "views": {
+    
+    }
+  
+}

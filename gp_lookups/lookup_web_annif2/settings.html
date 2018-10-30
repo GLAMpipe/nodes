@@ -1,0 +1,80 @@
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			<a href="http://annif.org/" target="_blank">Annif</a> - automated subject indexing using Finna as a corpus
+		</settingtitle>
+		<settinginstructions>
+			Annif is a statistical automated indexing tool for libraries, archives and museums.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+
+	</settingaction>
+</setting>
+
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Text language
+		</settingtitle>
+		<settinginstructions>
+			Language can be dynamic or static. Note that ANNIF works only with finnish, english and swedish.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>dynamic language field</label> 
+		<select class="node-settings dynamic_field" name="_dynamic_lang">
+			<option value="">choose</option>
+		</select>
+	
+		<label>static language</label> 
+		<select class="node-settings" name="_static_lang">
+			<option value="fi">finnish</option>
+			<option value="sv">english</option>
+			<option value="en">swedish</option>
+		</select>
+	</settingaction>	
+</setting>
+
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Annif settings
+		</settingtitle>
+		<settinginstructions>
+			More info: <a target="_blank" href="http://annif.org">annif.org</a>
+		</settinginstructions>
+	</settinginfo>
+
+	<settingaction>
+		<label>project</label>
+		<select class="node-settings" name="project">
+			<option value="yso">YSO</option>
+			<option value="maui">Maui</option>
+			<option value="fasttext">Fasttext</option>
+			<option value="tfidf">TF-IDF</option>
+		</select>
+
+		<label>number of results</label>
+		<input class="node-settings" name="maxhits" value="12" />
+		
+		<label>score threshold</label>
+		<input class="node-settings" name="threshold" value="0.10" />
+	</settingaction>
+</setting>
+
+
+
+
+
+
+
+
+
