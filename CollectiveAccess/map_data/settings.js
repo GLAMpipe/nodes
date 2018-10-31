@@ -40,22 +40,20 @@ async function getModels(type) {
 		g_export_mapping_ca_models = models;
 		var items = "<select id='export-mapping-ca-models'><option value=''>Choose type</option>";
 		for (const key of Object.keys(models)) {
-			//console.log(key, models[key]);
 			if(models[key].type_info) {
 				items += "<option value='" + key + "'>" + models[key].type_info.display_label + "</option>";
 			}
 		} 
 		items += "</select>"
 		$("#export-mapping-ca_models").append(items);
-		renderModel();
+		await renderModel();
+		setSettings();
 		
 	} catch(e) {
 		alert(e.statusText);
 	}
-
-
-
 }
+
 
 
 async function renderModel(type) {
@@ -69,16 +67,70 @@ async function renderModel(type) {
 		html += "<td><select name='_dynamic_preferred_labels_name' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr>";
 	}
 	html += "<tr><td>idno (identifier)</td>"
-	html += "<td><select name='_dynamic_idno' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td><tr>";
+	html += "<td><select name='_dynamic_idno' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr></table>";
 
-	var fields = combineFields();
-	for(const field of fields) {
-		if(field.datatype == "Text") {
-			html += "<tr><td>" + field.element + ":" + field.display_label + " (" + field.datatype + ")</td>";
-			html += "<td><select name='_dynamic_" + field.element + "-" + field.element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></td>";
-			html += "<td></td></tr>"
-		}		
+
+	// pick all unique elements (text fields, containers)
+	var models = g_export_mapping_ca_models;
+	var all_fields = [];
+	var all_elements = {};
+	for(const model of Object.keys(models)) {
+		if(models[model].elements) {
+			for(const element of Object.keys(models[model].elements)) {
+				if(!(element in all_elements)) {
+					all_elements[element] = models[model].elements[element];
+				}
+			}
+		}
 	}
+
+	// find elements that are common to all types
+	var common_elements = [];
+	for(const element of Object.keys(all_elements)) {
+
+		var is_common = true;
+		for(const model of Object.keys(models)) {
+			if(models[model].elements) {
+				if(!(element in models[model].elements)) {
+						is_common = false;
+				}
+				
+			}
+		}	
+		if(is_common) common_elements.push(element);
+	}
+	
+	common_elements.sort();
+
+	// render common elements + type spesific
+	html += '<br><h3>Common fields</h3><table><thead><tr><th>CollectiveAccess field</th><th>dynamic value</th><th>default value</th></tr></thead>';
+	for(common of common_elements) {
+		var element = all_elements[common];
+		html += "<thead><tr><td><b>" + element.name + "</b></td><td></td><td></td></tr></thead>";
+		for(const subelement of Object.keys(element.elements_in_set)) {
+			var field = element.elements_in_set[subelement];
+			if(field.datatype == "List") {
+				var list = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/item/ca_lists/id/" + field.list_id + "?pretty=1");
+				html += "<tr><td>"+field.element_code + " (" + field.datatype + ")</td>";
+				html += "<td><select data-type='list' name='_dynamic_" + common + "-" + field.element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></td>";
+				html += "<td><select name='_static_" + common + "-" + field.element_code + "' class='node-settings middle_input' ><option value=''>set default value</option>";
+				for(var list_item of list.related.ca_list_items) {
+					// we must exclude Root nodes
+					if(!list_item.idno.includes("Root node"))
+						html += "<option>" + list_item.idno + "</option>"
+				}
+				html += "</select></td>";
+				
+			} else {
+				html += "<tr><td>"+field.element_code + " (" + field.datatype + ")</td>";
+				html += "<td><select name='_dynamic_" + common + "-" + field.element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></td>";
+			}
+			html += "<td></td></tr>"
+		}
+		
+	}	
+
+
 	$("#export-mapping-ca_mapping").empty().append(html);
 	
 	// populate fields
@@ -87,7 +139,7 @@ async function renderModel(type) {
 	for(const f of fields.sorted) {
 		data_fields += "<option value='" + f + "'>" + f + "</option>";
    }
-   $("#export-mapping-ca_mapping select").append(data_fields);
+   $("#export-mapping-ca_mapping select.dynamic_field").append(data_fields);
 }
 
 async function getTypes(field) {
@@ -103,7 +155,6 @@ async function getTypes(field) {
 	var models_html = "";
 	if(models) {
 		for(var key in models) {
-			console.log(key)
 			if(key != "ok") {
 				models_html += "<option value="+models[key].type_info.item_id+">" + models[key].type_info.item_value + "</option>";
 			}
@@ -121,29 +172,13 @@ async function getTypes(field) {
 }
 
 
-function combineFields() {
-	var all_fields = [];
-	var models = g_export_mapping_ca_models;
-	
-	for(const model of Object.keys(models)) {
-		if(models[model].elements) {
-
-			for(const element of Object.keys(models[model].elements)) {
-				var elements = models[model].elements[element].elements_in_set;
-				for (const key of Object.keys(elements)) {
-					if(!all_fields.some(x => x.element_code == elements[key].element_code)) {
-						elements[key].element = element;
-						all_fields.push(elements[key]);
-					}
-				}
-			}
-		}
+$("#export-mapping-ca_mapping").on("change", "select", function(e){
+	if($(this).data("type") == "list") {
+		$(this).parent().append("checking...")
 	}
-	return all_fields;
-}
+})
 
 $("settingscontainer").on("change", "#export-mapping-ca-models", function(e){
-	console.log(g_export_mapping_ca_models[$(this).val()])
 	renderModel($(this).val());
 })
 
@@ -190,4 +225,9 @@ $("#export-mapping-ca-type_field").change(function(e){
 
 });
 
-
+function setSettings() {
+	if(!node.settings) return;
+	for(var setting in node.settings) {
+		$("[name='" + setting + "']").val(node.settings[setting]);
+	}
+} 
