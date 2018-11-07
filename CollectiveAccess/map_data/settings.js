@@ -63,11 +63,17 @@ async function renderModel(type) {
 		html += "<tr><td>Preferred displayname (Entity)</td>"
 		html += "<td><select name='_dynamic_preferred_labels_displayname' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr>";
 	} else {
-		html += "<tr><td>Preferred label (Object)</td>";
+		html += "<tr><td>Preferred label</td>";
 		html += "<td><select name='_dynamic_preferred_labels_name' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr>";
 	}
-	html += "<tr><td>idno (identifier)</td>"
-	html += "<td><select name='_dynamic_idno' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr></table>";
+	
+	if(g_export_mapping_ca_type == "ca_object_representations") {
+		html += "<tr><td>media (URL)</td>";
+		html += "<td><select name='_dynamic_media' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr></table>";
+	} else {
+		html += "<tr><td>idno (identifier)</td>";
+		html += "<td><select name='_dynamic_idno' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr></table>";
+	}
 
 
 	// pick all unique elements (text fields, containers)

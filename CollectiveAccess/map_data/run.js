@@ -64,24 +64,28 @@ function setMappings() {
 		// idno
 		} else if(key === "_dynamic_idno") { 
 			item.intrinsic_fields.idno = getFirstValue(value);
+		// idno
+		} else if(key === "_dynamic_media") { 
+			item.intrinsic_fields.media = getFirstValue(value);
 			
+
 		// handle attributes
 		} else if(is_dynamic.test(key)) {
 
 			var plain_key = key.replace("_dynamic_", "").split("-");
 			var attribute = plain_key[0]; 
 			if(context.doc[context.node.settings[key]]) {
-
-			   if(Array.isArray(value)) {
-				   item.attributes[attribute] = [];
+				item.attributes[attribute] = [];
+				if(Array.isArray(value)) {
 				   for (var i = 0; i < value.length; i++ ) { 
 						var ob = {}
 						ob[plain_key[1]] = value[i];
 						item.attributes[attribute].push(ob);
 				   }
 				} else { 
-
-					//pushField(item, value, plain_key, language);	
+					var ob = {}
+					ob[plain_key[1]] = value;
+					item.attributes[attribute].push(ob);	
 				}
 			}
 		}
