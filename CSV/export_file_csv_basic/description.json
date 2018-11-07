@@ -14,7 +14,7 @@
         
         "finish":
         [
-            "out.say('finish','Export done to \"' + context.node.dir + '/' + context.node.params.required_file + '\"');"
+            "out.say('finish','Export done to \"' + context.node.dir + '/' + context.node.settings.required_file + '\"');"
         ]
 
     },

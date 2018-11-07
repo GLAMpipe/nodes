@@ -4,8 +4,8 @@
 
 mapping();
 
-$("#export-file-csv_fields").on("click", "#export-file-csv_toggle", function() {
-	$("#export-file-csv_fields").find("input").click();
+$("#export-file-csv_toggle").click(function(e){
+	$(this).parent().find("input:checkbox").click();
 })
 
 // TODO: because this is async, this script must handle remembering settings itself
@@ -16,7 +16,7 @@ function mapping() {
 
 	$.getJSON(url, function (fields) {
 
-		var table = '<a href="#" class="ibutton" id="export-file-csv_toggle">toggle selection</a><table><thead><tr><th>Field</th></tr></thead>';
+		var table = '<table><thead><tr><th>Field</th></tr></thead>';
 
 		fields.sorted.forEach(function(field) {
 
