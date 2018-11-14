@@ -5,10 +5,14 @@
 <setting>
 	<settinginfo>
 		<settingtitle>
-			CollectiveAccess login
+			1. login to CollectiveAccess
 		</settingtitle>
 		<settinginstructions>
-			You need to authenticate yourself in order to use CollectiveAccess REST api. Give your user credentials and click "Get token".
+			You need to authenticate yourself in order to use CollectiveAccess REST api. 
+			<ul>
+			<li>Give your user credentials and click "Get token".</li>
+			<li>Current server: <b><span id="export-mapping-ca_serverinfo"></span></b></li>
+			</ul>
 
 		</settinginstructions>
 	</settinginfo>
@@ -28,27 +32,52 @@
 <setting>
 	<settinginfo>
 		<settingtitle>
-			Type mapping
+			2. Choose primary type
 		</settingtitle>
 		<settinginstructions>
-			Map document types to types in CollectiveAccess. 
+			Here you can choose what kind of items you are creating. 
+			<ul>
+				<li>Choose primary type (objects, entities etc.). </li>
+			</ul>
 
 		</settinginstructions>
 	</settinginfo>
 	<settingaction>
-		<label>Get mapping data for primary type</label>
+		<label>Choose primary type</label>
 		<select class="node-settings" name="model" id="export-mapping-ca-get-models">
 			<option value="">choose primary type </option>
 			<option value="ca_objects">Objects</option>
 			<option value="ca_entities">Entities</option>
 			<option value="ca_object_representations">Object representations</option>
 		</select>
-		<label>Type field</label>
+
+
+	</settingaction>
+</setting>
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			3. Map types
+		</settingtitle>
+		<settinginstructions>
+			Are exporting buildings, books, persons etc.?. Here you can map terms in your data to CA types.  
+			<ul>
+				<li>Choose field from you data that contains types.</li>
+				<li>You can also set default type for all non-mapped documents.</li>
+				<li>NOTE: If you do not set default type, then documents that are not mapped aren't exported.</li>
+			</ul>
+
+		</settinginstructions>
+	</settinginfo>
+	<settingaction>
+
+		<label>Choose type field</label>
 		<select  class="node-settings dynamic_field" name="type_field" id="export-mapping-ca-type_field">
 			<option value="">choose type field</option>
 		</select>
 		
-		<label>Map types</label>
+		<label>Mapping</label>
 		<settinglistcontainer>
 			<div id="export-mapping-ca_type_mapping"></div>
 		</settinglistcontainer>
@@ -57,20 +86,19 @@
 </setting>
 
 
-<setting>
-	<settinginfo>
+<setting style="max-height:none;">
+	<settinginfo style="flex:0 0 100%">
 		<settingtitle>
-			Field mapping
+			4. Map your data
 		</settingtitle>
 		<settinginstructions>
-			Map document fields to CA models. 
-
+			Map your data fields to CA bundles. 
 		</settinginstructions>
 	</settinginfo>
 	<settingaction>
 		
-		<label>Map your fields to CollectiveAccess fields</label>
-		<settinglistcontainer>
+		<label>Mapping</label>
+		<settinglistcontainer  style="flex:1 0 100%;max-height:none;"> 
 			<div id="export-mapping-ca_mapping"></div>
 		</settinglistcontainer>
 	</settingaction>
