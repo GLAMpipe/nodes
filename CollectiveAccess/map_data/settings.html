@@ -61,9 +61,9 @@
 			3. Map types
 		</settingtitle>
 		<settinginstructions>
-			Are exporting buildings, books, persons etc.?. Here you can map terms in your data to CA types.  
+			Are you exporting buildings, books, persons etc.?. Here you can map terms in your data to CA types.  
 			<ul>
-				<li>Choose field from you data that contains types.</li>
+				<li>Set default type AND/OR choose field from you data that contains types.</li>
 				<li>You can also set default type for all non-mapped documents.</li>
 				<li>NOTE: If you do not set default type, then documents that are not mapped aren't exported.</li>
 			</ul>
@@ -72,14 +72,20 @@
 	</settinginfo>
 	<settingaction>
 
-		<label>Choose type field</label>
+		<label>Set default type </label>
+		<select  class="node-settings" name="type_field_default" id="export-mapping-ca-type_field_default">
+			<option value="">choose default</option>
+		</select>
+
+		<label>Choose field to be mapped to types</label>
 		<select  class="node-settings dynamic_field" name="type_field" id="export-mapping-ca-type_field">
 			<option value="">choose type field</option>
 		</select>
 		
 		<label>Mapping</label>
+		
 		<settinglistcontainer>
-			<div id="export-mapping-ca_type_mapping"></div>
+			<div id="export-mapping-ca_type_mapping">Choose type field above first.</div>
 		</settinglistcontainer>
 
 	</settingaction>
@@ -98,8 +104,9 @@
 	<settingaction>
 		
 		<label>Mapping</label>
+		<a href="#" id="show-only-mapped">show mapped</a> | <a href="#" id="show-not-mapped">show unmapped</a> | <a href="#" id="show-all">show all</a> 
 		<settinglistcontainer  style="flex:1 0 100%;max-height:none;"> 
-			<div id="export-mapping-ca_mapping"></div>
+			<div id="export-mapping-ca_mapping">Choose primary type first.</div>
 		</settinglistcontainer>
 	</settingaction>
 </setting>
