@@ -117,12 +117,12 @@ async function checkField(field_select) {
 	if(field_select.data("type") == "list") {
 		
 		// reset ui if user chooses "no value"
-		if(field_select.val() == "") {
+		//if(field_select.val() == "") {
 			field_select.removeClass("good");
 			field_select.removeClass("bad");
 			field_select.parent().find("div").remove();
-			return;
-		}
+			//return;
+		//}
 		field_select.parent().append("<div class='checking'>checking...</div>");
 		
 		// get values that are not in list
@@ -146,6 +146,8 @@ async function checkField(field_select) {
 	}
 }
 
+
+
 async function getNonListValues(field_select) {
 	var bad = [];
 	var field = field_select.val();
@@ -163,6 +165,7 @@ async function getNonListValues(field_select) {
 	}
 	return {"values": bad, "name": list_values.list_code.value};
 }
+
 
 
 function getListEditorHTML(bad) {
@@ -196,20 +199,9 @@ async function getCommonElementsHTML() {
 			
 			// render lists
 			if(field.datatype == "List") {
-				
-				// get list item values from CA
-				var list = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/item/ca_lists/id/" + field.list_id + "?pretty=1");
+
 				html += "<tr>";
-				html += "<td>" + field.display_label + "<br>" + field.element_code + " (" + field.datatype + ") " + link_html + "</td>";
-				html += "<td><select data-type='list' data-list_id='" + field.list_id + "' name='_dynamic_" + common + "-" + field.element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></td>";
-				html += "<td><select name='_static_" + common + "-" + field.element_code + "' class='node-settings middle_input' ><option value=''>set default value</option>";
-				// render list values as dropdown
-				for(var list_item of list.related.ca_list_items) {
-					// we must exclude Root nodes
-					if(!list_item.idno.includes("Root node"))
-						html += "<option>" + list_item.label + "</option>"
-				}
-				html += "</select></td>";
+				html += await getListItemHTML(field, common, link_html, icon);
 				html += "<td>not impl.</td><td></td>"
 				
 			// render other types of metadata
@@ -221,10 +213,44 @@ async function getCommonElementsHTML() {
 			}
 			html += "</tr>"
 		}
-		
 	}	
 	return html;
+}
 
+
+
+async function getListItemHTML(field, common, link_html, icon) {
+	// get list item values from CA
+	var list = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/item/ca_lists/id/" + field.list_id + "?pretty=1");
+				
+	var html = "";
+	html += "<td>" + field.display_label + "<br>" + field.element_code + " (" + field.datatype + ") " + link_html + "</td>";
+	html += "<td><select data-type='list' data-list_id='" + field.list_id + "' name='_dynamic_" + common + "-" + field.element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></td>";
+	html += "<td><select name='_static_" + common + "-" + field.element_code + "' class='node-settings middle_input' ><option value=''>set default value</option>";
+	// render list values as dropdown
+	for(var list_item of list.related.ca_list_items) {
+		// we must exclude Root nodes
+		if(!list_item.idno.includes("Root node"))
+			html += "<option>" + list_item.label + "</option>"
+	}
+	html += "</select></td>";
+	return html;	
+}
+
+
+
+async function updateListItemDropdown(list_id) {
+	var list = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/item/ca_lists/id/" + list_id + "?pretty=1");
+	
+	var html = "<option value=''>set default value</option>";
+	// render list values as dropdown
+	for(var list_item of list.related.ca_list_items) {
+		// we must exclude Root nodes
+		if(!list_item.idno.includes("Root node"))
+			html += "<option>" + list_item.label + "</option>"
+	}
+	html += "</select>";
+	$("select[name='_static_condition-condition']").empty().append(html)
 }
 
 
@@ -296,42 +322,43 @@ function getTypeDropdown() {
 
 async function addListItems(field_select) {
 	var bad = await getNonListValues(field_select);
-	var list_id = field_select.data("list-id");
+	var list_id = field_select.data("list_id");
 	var token = $("#export-mapping-ca-token").val();
 	if(!token) {
 		alert("You must get token first!");
 		return;
 	}
 	for(const value of bad.values) {
-		field_select.parent().append(value);
-		var payload = {
+		
+		
+		var payload2 = {
 			 "intrinsic_fields":{
 			   "list_id":list_id,
 			   "idno":value,
 			   "item_value":value,
 				"is_enabled":"1"
 			 },
-			  "preferred_labels" : [
-				{
-					"locale":"fi_FI",
-					"name_singular": value,
-					"name_plural": value,
-					"description":"This works!"
-				}
-			]
-		}			
+			 "preferred_labels" : [
+					{
+						"locale":"fi_FI",
+						"name_singular": value,
+						"name_plural": value,
+						"description":"This works!"
+					}
+				]		
+			}
+				
 		var url = g_apipath + "/proxy?url=" + node.params.required_url + "/item/ca_list_items?pretty=1&token=" + token;
 		var options = {
 			"method": "PUT",
-			"body": JSON.stringify(payload),
+			"body": JSON.stringify(payload2),
 			"headers": {
 				 "Content-Type": "application/json"
 			 }
 		}
-		console.log(url)
-		console.log(payload)
-		console.log(options)
+
 		await fetch(url, options);
+		field_select.parent().append("<div>added: " + value + "</div>");
 		
 	}
 	
@@ -350,8 +377,10 @@ $("#export-mapping-ca_mapping").on("change", "select", async function(e){
 
 $("settingscontainer").on("click", ".add-values-to-list", async function(e){
 	e.preventDefault();
-	console.log($(this).parents("td").find("select").val());
-	await addListItems($(this).parents("td").find("select"));
+	var field_select = $(this).parents("td").find("select");
+	await addListItems(field_select);
+	checkField(field_select);
+	updateListItemDropdown(field_select.data("list_id"));
 	$(".list-editor").remove();
 })
 
