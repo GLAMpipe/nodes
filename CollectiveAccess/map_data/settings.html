@@ -43,7 +43,7 @@
 		</settinginstructions>
 	</settinginfo>
 	<settingaction>
-		<label>Choose primary type</label>
+		<label>Primary type</label>
 		<select class="node-settings" name="model" id="export-mapping-ca-get-models">
 			<option value="">choose primary type </option>
 			<option value="ca_objects">Objects</option>
@@ -55,29 +55,49 @@
 	</settingaction>
 </setting>
 
+
 <setting>
 	<settinginfo>
 		<settingtitle>
-			3. Map types
+			3. Set defaults
+		</settingtitle>
+		<settinginstructions>
+			Here you can set default type and default locale for your import. 
+		</settinginstructions>
+	</settinginfo>
+	<settingaction>
+
+		<label>Default type </label>
+		<select  class="node-settings" name="type_default" id="export-mapping-ca-type_default">
+			<option value="">choose default</option>
+		</select>
+
+		<label>Default locale </label>
+		<input class="node-settings" name="_locale_default_locale" id="default_locale" value="en_US">
+
+	</settingaction>
+</setting>
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			4. Map types (optional)
 		</settingtitle>
 		<settinginstructions>
 			Are you exporting buildings, books, persons etc.?. Here you can map terms in your data to CA types.  
 			<ul>
-				<li>Set default type AND/OR choose field from you data that contains types.</li>
-				<li>You can also set default type for all non-mapped documents.</li>
-				<li>NOTE: If you do not set default type, then documents that are not mapped aren't exported.</li>
+				<li>Choose field from you data that contains types.</li>
+				<li>Default type is used for all non-mapped documents.</li>
+				<li>NOTE: If you do not set default type, then documents that are not mapped aren't saved to CA.</li>
 			</ul>
 
 		</settinginstructions>
 	</settinginfo>
 	<settingaction>
 
-		<label>Set default type </label>
-		<select  class="node-settings" name="type_field_default" id="export-mapping-ca-type_field_default">
-			<option value="">choose default</option>
-		</select>
 
-		<label>Choose field to be mapped to types</label>
+		<label>Field to be mapped to types</label>
 		<select  class="node-settings dynamic_field" name="type_field" id="export-mapping-ca-type_field">
 			<option value="">choose type field</option>
 		</select>
@@ -95,7 +115,7 @@
 <setting style="max-height:none;">
 	<settinginfo style="flex:0 0 100%">
 		<settingtitle>
-			4. Map your data
+			5. Map your data
 		</settingtitle>
 		<settinginstructions>
 			Map your data fields to CA bundles. 

@@ -23,8 +23,12 @@ var is_dynamic = /^_dynamic_/;
 var type = getFirstValue(context.doc[context.node.settings.type_field]);
 
 // we can map only if type id is set
-if(context.node.settings["_typemap_" + type] != "") {
+if(type && context.node.settings["_typemap_" + type] != "") {
 	item.intrinsic_fields.type_id = context.node.settings["_typemap_" + type];
+	setMappings();
+	context.success_count++;
+} else if (context.node.settings.type_default != "") {
+	item.intrinsic_fields.type_id = context.node.settings.type_default;
 	setMappings();
 	context.success_count++;
 } else {
@@ -54,11 +58,18 @@ function setMappings() {
 
 		// handle preferred labels
 		if(key === "_dynamic_preferred_labels_name") {
-			var label = {"locale": "fi_FI"};
+			var label = {};
+			label.locale = getLocale("_dynamic_preferred_labels")
 			label.name = getFirstValue(value);
 			item.preferred_labels = [label];
+		} else if(key === "_dynamic_nonpreferred_labels_name") {
+			var label = {};
+			label.locale = getLocale("_dynamic_nonpreferred_labels")
+			label.name = getFirstValue(value);
+			item.nonpreferred_labels = [label];
 		} else if(key === "_dynamic_preferred_labels_displayname") {
-			var label = {"locale": "fi_FI"};
+			var label = {};
+			label.locale = getLocale("_dynamic_nonpreferred_labels")
 			label.displayname = getFirstValue(value);
 			item.preferred_labels = [label];
 		// idno
@@ -91,6 +102,17 @@ function setMappings() {
 		}
 
 	}
+}
+
+// try to find locale for field
+function getLocale(field) {
+	// locale field names 
+	var locale = context.doc[context.node.settings[field.replace("_dynamic_","_locale_")]];
+	if(!locale) {
+		locale = context.node.settings["_locale_default_locale"];
+		if(!locale) locale = "en_US"; // default of default
+	}
+	return locale;
 }
 
 function splitValue (val) { 

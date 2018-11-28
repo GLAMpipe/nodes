@@ -30,16 +30,23 @@ async function getToken() {
 
 
 async function getModels(type) {
+	
+	if(!type) {
+		$("#export-mapping-ca_mapping").empty();
+		$("#export-mapping-ca_type_mapping").empty();
+		return;
+	}
+
+	var token = $("#export-mapping-ca-token").val();
+	if(!token) {
+		alert("You must get token first!");
+		return;
+	}
 
 	g_export_mapping_ca_type = type;
 	var protocol = node.params.required_url.split("://");
 
 	try {
-		var token = $("#export-mapping-ca-token").val();
-		if(!token) {
-			alert("You must get token first!");
-			return;
-		}
 		var models = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/model/"+type+"?pretty=1&token=" + token);
 		g_export_mapping_ca_models = models;
 		var items = "<select id='export-mapping-ca-models'><option value=''>Choose type</option>";
@@ -50,8 +57,9 @@ async function getModels(type) {
 		} 
 		items += "</select>"
 		$("#export-mapping-ca_models").append(items);
-		$("#export-mapping-ca-type_field_default").append(getTypeDropdown());
+		$("#export-mapping-ca-type_default").append(getTypeDropdown());
 		await renderModel();
+		await renderTypeMapping($("#export-mapping-ca-type_field").val());
 		setSettings();
 		
 	} catch(e) {
@@ -61,17 +69,26 @@ async function getModels(type) {
 
 
 
-async function renderModel(type) {
-	var html = '<table><thead><tr><th>Labels and idno</th><th>dynamic value</th><th>static value</th></tr></thead>';
+async function renderModel() {
+
+	var html = '<table><thead><tr><th>Labels and idno</th><th>value</th><th>language</th></tr></thead>';
 	
+	// labels
 	if(g_export_mapping_ca_type == "ca_entities") {
 		html += "<tr><td>Preferred displayname (Entity)</td>"
 		html += "<td><select name='_dynamic_preferred_labels_displayname' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr>";
 	} else {
 		html += "<tr><td>Preferred label</td>";
-		html += "<td><select name='_dynamic_preferred_labels_name' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr>";
+		html += "<td><select name='_dynamic_preferred_labels_name' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td>";
+		html += "<td><select name='_locale_preferred_labels' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td></tr>";
+		
+		html += "<tr><td>Non preferred label</td>";
+		html += "<td><select name='_dynamic_nonpreferred_labels_name' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td>";
+		html += "<td><select name='_locale_nonpreferred_labels' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td></tr>";
+		
 	}
 	
+	// identifier
 	if(g_export_mapping_ca_type == "ca_object_representations") {
 		html += "<tr><td>media (URL)</td>";
 		html += "<td><select name='_dynamic_media' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr></table>";
@@ -97,16 +114,18 @@ async function renderModel(type) {
 
 
 // creates user interface for type mapping
-async function getTypes(field) {
-	var types = await $.getJSON(g_apipath + "/collections/"+node.params.collection+"/facet/?fields=" + field);
-	types = types.facets[0][field];
-	
-	html = "<table><thead><tr><th>"+field+"</th><th>map to</th></tr></thead>";
-	for(const type of types) {
-		html += "<tr><td>" + type._id + " (" + type.count + ")</td>";
-		html += "<td><select class='node-settings' name='_typemap_" + type._id + "'><option value=''>choose</option>" + getTypeDropdown() + "</select></td></tr>";
+async function renderTypeMapping(field) {
+	if(field) {
+		var types = await $.getJSON(g_apipath + "/collections/"+node.params.collection+"/facet/?fields=" + field);
+		types = types.facets[0][field];
+		
+		html = "<table><thead><tr><th>"+field+"</th><th>map to</th></tr></thead>";
+		for(const type of types) {
+			html += "<tr><td>" + type._id + " (" + type.count + ")</td>";
+			html += "<td><select class='node-settings' name='_typemap_" + type._id + "'><option value=''>choose</option>" + getTypeDropdown() + "</select></td></tr>";
+		}
+		$("#export-mapping-ca_type_mapping").empty().append(html + "</table>");
 	}
-	$("#export-mapping-ca_type_mapping").empty().append(html + "</table>");
 }
 
 
@@ -330,7 +349,7 @@ async function addListItems(field_select) {
 	}
 	for(const value of bad.values) {
 		
-		
+		var locale = $("#default_locale").val();
 		var payload2 = {
 			 "intrinsic_fields":{
 			   "list_id":list_id,
@@ -340,7 +359,7 @@ async function addListItems(field_select) {
 			 },
 			 "preferred_labels" : [
 					{
-						"locale":"fi_FI",
+						"locale": locale,
 						"name_singular": value,
 						"name_plural": value,
 						"description":"This works!"
@@ -365,6 +384,12 @@ async function addListItems(field_select) {
 }
 
 // *************** EVENT HANDLERS **************'
+
+// this is triggered by GLAMpipe when opening node
+$("#export-mapping-ca-get-models").change(function(e){
+	getModels($(this).val());
+})
+
 // dynamic
 $("settingscontainer").on("change", "#export-mapping-ca-models", function(e){
 	renderModel($(this).val());
@@ -388,10 +413,6 @@ $("settingscontainer").on("click", ".add-values-to-list", async function(e){
 // static
 $("#export-mapping-ca-get-token").click(function(e){
 	getToken();
-})
-
-$("#export-mapping-ca-get-models").change(function(e){
-	getModels($(this).val());
 })
 
 $("#export-mapping-ca-basic_guess").click(function(e){
@@ -426,7 +447,7 @@ $("#export-mapping-ca-show_all").click(function(e){
 
 $("#export-mapping-ca-type_field").change(function(e){
 	
-	getTypes($(this).val());
+	renderTypeMapping($(this).val());
 
 });
 
@@ -453,8 +474,11 @@ $("#show-all").click(function(e){
 
 
 function setSettings() {
+	console.log("setSettings called");
+	
 	if(!node.settings) return;
 	for(var setting in node.settings) {
+		console.log(node.settings[setting])
 		$("[name='" + setting + "']").val(node.settings[setting]);
 	}
 } 
