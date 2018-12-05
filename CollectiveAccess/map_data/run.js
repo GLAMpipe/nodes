@@ -4,12 +4,6 @@ var item = {
 	"intrinsic_fields": {
 		"type_id":"26"
 	},
-	"preferred_labels":[
-		{
-			"locale":"fi_FI",
-			"name":"GLAMpipe kukka"
-		}
-	],
 	"attributes": {}
 };
 
@@ -32,7 +26,7 @@ if(type && context.node.settings["_typemap_" + type] != "") {
 	setMappings();
 	context.success_count++;
 } else {
-	out.value = "[not mapped]";
+	out.value = out.error_marker + "no type id set";
 	context.not_mapped++; 
 }
 
@@ -61,20 +55,26 @@ function setMappings() {
 			var label = {};
 			label.locale = getLocale("_dynamic_preferred_labels")
 			label.name = getFirstValue(value);
-			item.preferred_labels = [label];
+			if(label.name) item.preferred_labels = [label];
 		} else if(key === "_dynamic_nonpreferred_labels_name") {
 			var label = {};
 			label.locale = getLocale("_dynamic_nonpreferred_labels")
 			label.name = getFirstValue(value);
-			item.nonpreferred_labels = [label];
+			if(label.name) item.nonpreferred_labels = [label];
 		} else if(key === "_dynamic_preferred_labels_displayname") {
 			var label = {};
 			label.locale = getLocale("_dynamic_nonpreferred_labels")
 			label.displayname = getFirstValue(value);
-			item.preferred_labels = [label];
+			if(label.displayname) item.preferred_labels = [label];
 		// idno
 		} else if(key === "_dynamic_idno") { 
 			item.intrinsic_fields.idno = getFirstValue(value);
+		// idno_stub (for LOTs)
+		} else if(key === "_dynamic_idno_stub") { 
+			item.intrinsic_fields.idno_stub = getFirstValue(value);
+		// status id (for LOTs, currently on default value works)
+		} else if(key === "_static_lot_status_id") { 
+			item.intrinsic_fields.lot_status_id = context.node.settings[key];
 		// idno
 		} else if(key === "_dynamic_media") { 
 			item.intrinsic_fields.media = getFirstValue(value);

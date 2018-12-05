@@ -16,7 +16,7 @@ var options = {
 };
 
 
-
+out.console.log(options)
 // if there is an url in out_link, then we do not run again
 if(out_link && typeof out_link == "string" && out_link.match(/^http/))
 	context.skip = true;

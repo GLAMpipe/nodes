@@ -92,6 +92,10 @@ async function renderModel() {
 	if(g_export_mapping_ca_type == "ca_object_representations") {
 		html += "<tr><td>media (URL)</td>";
 		html += "<td><select name='_dynamic_media' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr></table>";
+	} else if(g_export_mapping_ca_type == "ca_object_lots")  {
+		html += "<tr><td>idno_stub (identifier)</td>";
+		html += "<td><select name='_dynamic_idno_stub' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr>";
+		html += "<tr>" + await getLotStatusListHTML() + "</tr></table>";
 	} else {
 		html += "<tr><td>idno (identifier)</td>";
 		html += "<td><select name='_dynamic_idno' class='node-settings dynamic_field middle_input' ><option value=''>no value</option></select></td><td></td></tr></table>";
@@ -109,6 +113,23 @@ async function renderModel() {
 		data_fields += "<option value='" + f + "'>" + f + "</option>";
    }
    $("#export-mapping-ca_mapping select.dynamic_field").append(data_fields);
+}
+
+
+
+async function getLotStatusListHTML() {
+	// try to find lot status list
+	var lists = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/find/ca_lists?q=*&pretty=1");
+	var status_list = lists.results.filter(x=>x.display_label == 'Object lot statuses')[0];
+	if(status_list) {
+		var field_link = node.params.required_url.replace("service.php","index.php") + "/administrate/setup/list_editor/ListEditor/Edit/list_id/" + status_list.list_id;
+		var icon = "<span class='wikiglyph wikiglyph-eye icon' style='font-size:16px'></span>";
+		var link_html = "<a title='view in CollectiveAccess' target='_blank' href='" + field_link + "'>"+icon+"</a>";
+		var html = await getLotStatusList(status_list, 'lot_status_id', link_html, icon);
+		return html;
+	} else {
+		return "Could not find LOT status list! LOT mapping is invalid without 'lot_status_id' field."
+	}
 }
 
 
@@ -238,16 +259,16 @@ async function getCommonElementsHTML() {
 
 
 
-async function getListItemHTML(field, common, link_html, icon) {
+async function getListItemHTML(list, common, link_html, icon) {
 	// get list item values from CA
-	var list = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/item/ca_lists/id/" + field.list_id + "?pretty=1");
+	var list_result = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/item/ca_lists/id/" + list.list_id + "?pretty=1");
 				
 	var html = "";
-	html += "<td>" + field.display_label + "<br>" + field.element_code + " (" + field.datatype + ") " + link_html + "</td>";
-	html += "<td><select data-type='list' data-list_id='" + field.list_id + "' name='_dynamic_" + common + "-" + field.element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></td>";
-	html += "<td><select name='_static_" + common + "-" + field.element_code + "' class='node-settings middle_input' ><option value=''>set default value</option>";
+	html += "<td>" + list.display_label + "<br>" + list.element_code + " (" + list.datatype + ") " + link_html + "</td>";
+	html += "<td><select data-type='list' data-list_id='" + list.list_id + "' name='_dynamic_" + common + "-" + list.element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></td>";
+	html += "<td><select name='_static_" + common + "-" + list.element_code + "' class='node-settings middle_input' ><option value=''>set default value</option>";
 	// render list values as dropdown
-	for(var list_item of list.related.ca_list_items) {
+	for(var list_item of list_result.related.ca_list_items) {
 		// we must exclude Root nodes
 		if(!list_item.idno.includes("Root node"))
 			html += "<option>" + list_item.label + "</option>"
@@ -257,6 +278,23 @@ async function getListItemHTML(field, common, link_html, icon) {
 }
 
 
+// get status list for LOTs
+async function getLotStatusList(list, field, link_html, icon) {
+	// get list item values from CA
+	var list_result = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/item/ca_lists/id/" + list.list_id + "?pretty=1");
+				
+	var html = "";
+	html += "<td>" + list.display_label + " " + link_html + "<br>NOTE: dynamic values not implemented</td>";
+	html += "<td><select name='_static_" + field + "' class='node-settings middle_input' >";
+	// render list values as dropdown
+	for(var list_item of list_result.related.ca_list_items) {
+		// we must exclude Root nodes
+		if(!list_item.idno.includes("Root node"))
+			html += "<option>" + list_item.label + "</option>"
+	}
+	html += "</select></td><td></td>";
+	return html;	
+}
 
 async function updateListItemDropdown(list_id) {
 	var list = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/item/ca_lists/id/" + list_id + "?pretty=1");

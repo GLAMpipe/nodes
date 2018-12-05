@@ -14,6 +14,9 @@ if(context.error) {
 		if(context.node.settings.item_type == "ca_objects") {
 			out.setter[context.node.params.out_id] = data.object_id + ""; // need to be string
 			out.setter[context.node.params.out_link] = link_root + "/index.php/editor/objects/ObjectEditor/Edit/object_id/" + data.object_id;
+		} else if(context.node.settings.item_type == "ca_object_lots") {
+			out.setter[context.node.params.out_id] = data.lot_id + ""; // need to be string
+			out.setter[context.node.params.out_link] = link_root + "/index.php/editor/object_lots/ObjectLotEditor/Edit/lot_id/" + data.lot_id;
 		} else {
 			out.setter[context.node.params.out_id] = data.entity_id + ""; // need to be string
 			out.setter[context.node.params.out_link] = link_root + "/index.php/editor/entities/EntityEditor/Edit/entity_id/" + data.entity_id;
