@@ -1,0 +1,16 @@
+{
+    "nodeid": "source_web_metax",
+    "type": "source",
+    "subtype": "web",
+    "title": "Metax: dataset import",
+    "status": "usable",
+    "tags":["dspace"],
+    "usage":"",
+    "description": "Import all datasets from Metax API.",
+
+    "views": {
+        "default_keys": ["title", "description", "files"]
+    
+    }
+  
+}
