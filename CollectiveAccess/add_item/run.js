@@ -17,6 +17,12 @@ if(context.error) {
 		} else if(context.node.settings.item_type == "ca_object_lots") {
 			out.setter[context.node.params.out_id] = data.lot_id + ""; // need to be string
 			out.setter[context.node.params.out_link] = link_root + "/index.php/editor/object_lots/ObjectLotEditor/Edit/lot_id/" + data.lot_id;
+		} else if(context.node.settings.item_type == "ca_occurrences") {
+			out.setter[context.node.params.out_id] = data.occurrence_id + ""; // need to be string
+			out.setter[context.node.params.out_link] = link_root + "/index.php/editor/occurrences/OccurrenceEditor/Edit/occurrence_id/" + data.occurrence_id;
+		} else if(context.node.settings.item_type == "ca_collections") {
+			out.setter[context.node.params.out_id] = data.collection_id + ""; // need to be string
+			out.setter[context.node.params.out_link] = link_root + "/index.php/editor/collections/CollectionEditor/Edit/collection_id/" + data.collection_id;
 		} else {
 			out.setter[context.node.params.out_id] = data.entity_id + ""; // need to be string
 			out.setter[context.node.params.out_link] = link_root + "/index.php/editor/entities/EntityEditor/Edit/entity_id/" + data.entity_id;
