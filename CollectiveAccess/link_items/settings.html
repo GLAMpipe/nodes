@@ -4,20 +4,24 @@
 <setting>
 	<settinginfo>
 		<settingtitle>
-			CollectiveAccess login
+			1. login to CollectiveAccess
 		</settingtitle>
 		<settinginstructions>
-			You need to get authentication token from server before you can export data
-			<br>server: <span id="export-data-ca-linkitem_serverinfo"></span>
+			You need to authenticate yourself in order to use CollectiveAccess REST api. 
+			<ul>
+			<li>Give your user credentials and click "Get token".</li>
+			<li>Current server: <b><span id="export-data-ca-linkitem_serverinfo"></span></b></li>
+			</ul>
+
 		</settinginstructions>
 	</settinginfo>
 	
 	<settingaction>
 		<label>username </label>
-		<input type="text" value="administrator" id="export-data-ca-linkitem-user" required />
+		<input type="text" value="administrator" id="export-data-ca-linkitem_user" required />
 		<label>password</label>
-		<input  type="password" id="export-data-ca-linkitem-pass"/>
-		<button id="export-data-ca-linkitem-get-token">Get token</button>
+		<input  type="password" id="export-data-ca-linkitem_pass"/>
+		<button id="export-data-ca-linkitem_get-token">Get token</button>
 		<label>token</label>
 		<input  class="node-settings" type="text" name="token" id="export-item-ca-linkitem-token"/>
 	</settingaction>
@@ -26,44 +30,107 @@
 <setting>
 	<settinginfo>
 		<settingtitle>
-			Link item
+			2. Define items to be linked
 		</settingtitle>
 		<settinginstructions>
-			Select fields which holds ids to be linked.
+			<ul>
+				<li>Select fields which holds ids to be linked.</li>
+			</ul>
 		</settinginstructions>
 	</settinginfo>
 	
 	<settingaction>
-		<label>Left item type</label>
-		<select name="left_item_type" class="node-settings">
-			<option value="ca_objects">Objects (ca_objects)</option>
-			<option value="ca_entities">Entities (ca_entities)</option>
-		</select>
-		
-		<label>Left item ID</label>
-		<select class="dynamic_field node-settings" name="in_left" >
-			<option>Choose field</option>
-		</select> 
-		
-		<label>relationship ID</label>
-		<input class="node-settings" type="text" name="relation_id"/>
-		
-		<label>Right item ID</label>
-		<select id="lookup-key-field" class="dynamic_field node-settings" name="in_right" >
-			<option>Choose field</option>
-		</select> 
 
-		<label>Right item type</label>
-		<select name="right_item_type" class="node-settings">
-			<option value="ca_objects">Objects (ca_objects)</option>
-			<option value="ca_entities">Entities (ca_entities)</option>
-		</select>
+		<table>
+		<tr>
+		<td>
+			<label>Link this ID (left) ... </label>
+			<select class="dynamic_field node-settings" name="in_left" >
+				<option>Choose field</option>
+			</select> 
+		</td>
+		<td>
+			<label>type</label>
+			<select id="export-data-ca-linkitem_left-type" name="left_type" class="node-settings">
+				<option value="">Choose primary type</option>
+				<option value="ca_collections">Collections</option>
+				<option value="ca_entities">Entities</option>
+				<option value="ca_object_lots">LOTs</option>
+				<option value="ca_objects">Objects</option>
+				<option value="ca_occurrences">Occurrences</option>
+			</select>
+		</td>
+		</tr>
+		<tr>
+		<td>
+			<label>... to this ID (right) ... </label>
+			<select id="lookup-key-field" class="dynamic_field node-settings" name="in_right" >
+				<option>Choose field</option>
+			</select> 
+		</td>
+		<td>
+			<label>type</label>
+			<select id="export-data-ca-linkitem_right-type" name="right_type" class="node-settings">
+				<option value="">Choose primary type</option>
+				<option value="ca_collections">Collections</option>
+				<option value="ca_entities">Entities</option>
+				<option value="ca_object_lots">LOTs</option>
+				<option value="ca_objects">Objects</option>
+				<option value="ca_occurrences">Occurrences</option>
+			</select>
+		</td>
+		</tr>
+		</table>
 
 	</settingaction>
 </setting>
 
+<setting>
+	<settinginfo>
+		<settingtitle>
+			3. Set default relationship type
+		</settingtitle>
+		<settinginstructions>
+			<ul>
+				<li>If all relationships are the same type, then you just need to set the default type.</li>
+			</ul>
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
 
+		<label>relationship ID</label>
+		<input class="node-settings" type="text" name="relation_id"/>
+		
+	</settingaction>
+</setting>
 
+<setting>
+	<settinginfo>
+		<settingtitle>
+			4. Map relationship types (optional)
+		</settingtitle>
+		<settinginstructions>
+			<ul>
+				<li>Choose field from your data that contains your relationship types and corresponding CA type.</li>
+				<li>Default type is used for all non-mapped documents.</li>
+			</ul>
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>Field to be mapped to types</label>
+		<select  class="node-settings dynamic_field" name="type_field" id="export-data-ca-linkitem_type_field">
+			<option value="">choose type field</option>
+		</select>
+		<label>Mapping</label>
+		
+		<settinglistcontainer>
+			<div id="export-data-ca-linkitem_type_mapping">Choose type field above first.</div>
+		</settinglistcontainer>
+		
+	</settingaction>
+</setting>
 
 
 
