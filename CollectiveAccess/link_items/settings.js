@@ -48,26 +48,29 @@ function showRelationshipTypes(models, primary_type, mapped_field) {
 		$("#export-data-ca-linkitem_type_mapping").empty().append("<div class='alert alert-warning'>Could not get models!</div>");
 		return;
 	}
-	var relations = [];
+	var relations = {};
 	var html = "";
 	for(var obj_type in models ) {
-		if(obj_type == "ok") continue;
-		html += obj_type;
-		console.log(obj_type)
-		var obj_relations = models[obj_type].relationship_types[primary_type];
-		for(var relation in obj_relations) {
-			console.log(relation)
-			html += relation;
+		if(obj_type != "ok") { // skip "ok" key
+			var obj_relations = models[obj_type].relationship_types[primary_type];
+			console.log("obj_relations")
+			console.log(obj_relations)
+			for(var relation in obj_relations) {
+				console.log(relation)
+				relations[relation] = obj_relations[relation];
+			}
 		}
 	} 
 	//$("#export-data-ca-linkitem_type_mapping").empty().append(html);
-	renderTypeMapping(mapped_field);
+	console.log("rendertypeMapping");
+	console.log(relations)
+	renderTypeMapping(mapped_field, relations);
 }
 
 
 
 
-async function renderTypeMapping(field) {
+async function renderTypeMapping(field, relations) {
 	if(field) {
 		var types = await $.getJSON(g_apipath + "/collections/"+node.params.collection+"/facet/?fields=" + field);
 		types = types.facets[0][field];
@@ -75,8 +78,8 @@ async function renderTypeMapping(field) {
 		html = "<table><thead><tr><th>"+field+"</th><th>map to</th></tr></thead>";
 		for(const type of types) {
 			html += "<tr><td>" + type._id + " (" + type.count + ")</td>";
-			//html += "<td><select class='node-settings' name='_typemap_" + type._id + "'><option value=''>choose</option>" + getTypeDropdown() + "</select></td></tr>";
-			html += "<td><select class='node-settings' name='_typemap_" + type._id + "'><option value=''>choose</option></select></td></tr>";
+			html += "<td><select class='node-settings' name='_typemap_" + type._id + "'><option value=''>choose</option>" + getTypeDropdown(relations) + "</select></td></tr>";
+			//html += "<td><select class='node-settings' name='_typemap_" + type._id + "'><option value=''>choose</option></select></td></tr>";
 		}
 		$("#export-data-ca-linkitem_type_mapping").empty().append(html + "</table>");
 	}
@@ -86,23 +89,17 @@ async function renderTypeMapping(field) {
 
 
 
-function getTypeDropdown() {
-	var models = g_export_ca_models;
+function getTypeDropdown(relations) {
 	
-	if(!models) {
-		$("#export-mapping-ca_type_mapping").empty().append("Valitse uudelleen");
+	if(!relations) {
+		$("#export-data-ca-linkitem_type_mapping").empty().append("Valitse uudelleen");
 		return;
 	}
-	
+	console.log(relations)
 	var html = "";
-	if(models) {
-		for(var key in models) {
-			if(key != "ok") {
-				html += "<option value="+models[key].type_info.item_id+">" + models[key].type_info.item_id +":"+ models[key].type_info.item_value + " " +models[key].type_info.parent_id+ "</option>";
-			}
-		}
-	} else {
-		return;
+	for(var key in relations) {
+		//html += "<option value="+models[key].type_info.item_id+">" + models[key].type_info.item_id +":"+ models[key].type_info.item_value + " " +models[key].type_info.parent_id+ "</option>";
+		html += "<option value=''>" + key + "</option>";
 	}
 	return html;	
 }
@@ -119,7 +116,6 @@ $("#export-data-ca-linkitem_left-type").change(function(e){
 })
 
 $("#export-data-ca-linkitem_type_field").change(async function(e){
-	console.log(g_export_ca_models)
 	var left = $("#export-data-ca-linkitem_left-type").val();
 	var right = $("#export-data-ca-linkitem_right-type").val();
 	if(left && right) {
