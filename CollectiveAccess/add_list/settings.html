@@ -1,0 +1,67 @@
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			1. CollectiveAccess login
+		</settingtitle>
+		<settinginstructions>
+			You need to get authentication token from server before you can export data
+			<br>server: <span id="export-data-ca_serverinfo"></span>
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>username </label>
+		<input type="text" value="administrator" id="export-data-ca-user" required />
+		<label>password</label>
+		<input  type="password" id="export-data-ca-pass"/>
+		<button id="export-data-ca-get-token">Get token</button>
+		<label>token</label>
+		<input  class="node-settings" type="text" name="token" id="export-item-ca-token"/>
+	</settingaction>
+</setting>
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			2. Choose list
+		</settingtitle>
+		<settinginstructions>
+			Choose list that you want to add items to.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>Lists</label>
+		<select name="list_id" class="node-settings" id="export-data-ca_lists">
+			<option value="">Choose list</option>
+		</select>
+
+	</settingaction>
+</setting>
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			3. Define labels
+		</settingtitle>
+		<settinginstructions>
+			Choose list item label field from your data.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>List item label field</label>
+		<select name="in_field" class="node-settings dynamic_field">
+			<option value="">Choose label field</option>
+		</select>
+
+	</settingaction>
+</setting>
+
+
+
+
+

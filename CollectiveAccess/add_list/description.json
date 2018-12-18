@@ -1,12 +1,12 @@
 {
-    "nodeid": "export_web_collectiveaccess_additem",
-    "title": "CollectiveAccess: add items",
+    "nodeid": "export_web_collectiveaccess_addlist",
+    "title": "CollectiveAccess: add list items",
     "type": "export",
     "subtype": "web",
     "subsubtype": "token", 
     "status": "usable",
     "tags":["collectiveaccess"],
-    "description": "Create new items",
+    "description": "Create new list items",
 
     "scripts": {
         "hello": 
@@ -16,7 +16,7 @@
 		
         "bye": "out.say('finish', 'Deleted node!'); ",
             
-        "finish":"out.say('finish', context.success_count + ' items created'); "
+        "finish":"out.say('finish', context.success_count + ' list items created'); "
     },
     
     "views": {}
