@@ -512,8 +512,6 @@ $("#show-all").click(function(e){
 
 
 function setSettings() {
-	console.log("setSettings called");
-	
 	if(!node.settings) return;
 	for(var setting in node.settings) {
 		console.log(node.settings[setting])

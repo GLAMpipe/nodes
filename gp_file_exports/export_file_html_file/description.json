@@ -1,12 +1,12 @@
 {
-    "nodeid": "export_html_template",
+    "nodeid": "export_html_file",
     "type": "export",
     "subtype": "file",
-    "subsubtype": "doc",
-    "title": "HTML: Template with data placeholders",
+    "subsubtype": "singledoc",
+    "title": "HTML: Single file with data placeholders",
     "status": "works",
     "tags":["generic"],
-    "description": "A fuser-defined html with data placeholders, aka 'contract' node",
+    "description": "Creates single HTML file, aka 'contract' node",
 
 
     "scripts": {

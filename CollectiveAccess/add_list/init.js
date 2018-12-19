@@ -16,4 +16,4 @@ if(context.node.settings.token == "") {
 
 
 // upload url
-out.url = rest_url + "/item/" + context.node.settings.item_type + "?authToken=" + context.node.settings.token;
+out.url = rest_url + "/item/ca_list_items?pretty=1&authToken=" + context.node.settings.token;

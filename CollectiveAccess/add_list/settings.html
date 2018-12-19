@@ -38,9 +38,9 @@
 		<select name="list_id" class="node-settings" id="export-data-ca_lists">
 			<option value="">Choose list</option>
 		</select>
-
 	</settingaction>
 </setting>
+
 
 <setting>
 	<settinginfo>
@@ -53,10 +53,24 @@
 	</settinginfo>
 	
 	<settingaction>
-		<label>List item label field</label>
+		<label>Label field</label>
 		<select name="in_field" class="node-settings dynamic_field">
 			<option value="">Choose label field</option>
 		</select>
+		
+		<label>Locale </label>
+		<input class="node-settings" name="default_locale" value="en_US">
+		
+		<label>Plural label field (optional)</label>
+		<select name="in_field_plural" class="node-settings dynamic_field">
+			<option value="">Choose label field</option>
+		</select>
+
+		<label>Description (optional)</label>
+		<select name="in_field_description" class="node-settings dynamic_field">
+			<option value="">Choose description field</option>
+		</select>
+
 
 	</settingaction>
 </setting>

@@ -1,6 +1,5 @@
 
-var token = $("#export-item-ca-token").val();
-if(token) {
+if(node.settings.token) {
 	getLists();
 }
 
@@ -28,12 +27,13 @@ async function getToken() {
 	// set token to input so that is passed to node execution
 	$("#export-item-ca-token").val(token.authToken);
 	getLists();
+	
 		
 }
 
 
 async function getLists() {
-
+	var token = $("#export-item-ca-token").val();
 	// get all lists
 	try {
 		var lists = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/find/ca_lists?q=*&pretty=1&token=" + token);
@@ -45,6 +45,16 @@ async function getLists() {
 	} catch(e) {
 		alert("Lists not available, your session probably expired. " + e);
 	}
+	setSettings();
 }
+
+
+function setSettings() {
+	if(!node.settings) return;
+	for(var setting in node.settings) {
+		console.log(node.settings[setting])
+		$("[name='" + setting + "']").val(node.settings[setting]);
+	}
+} 
 
 
