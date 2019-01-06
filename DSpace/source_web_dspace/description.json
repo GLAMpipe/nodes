@@ -2,6 +2,7 @@
     "nodeid": "source_web_dspace",
     "type": "source",
     "subtype": "web",
+    "core": "web.get.JSON",
     "title": "DSpace 6: query import",
     "status": "usable",
     "tags":["dspace"],

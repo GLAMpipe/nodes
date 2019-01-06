@@ -4,6 +4,7 @@
 	"subtype": "basic",
 	"title": "basic collection",
     "status": "usable",
+    "core": "collection.basic",
 	"usage":"",
 	"description": "Creates a new collection (table)",
 	
