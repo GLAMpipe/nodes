@@ -1,12 +1,12 @@
 {
-	"nodeid": "process_lookup_collection",
-	"title": "Field: lookup value from collection (fuzzy)",
+	"nodeid": "process_lookup_collection_mongo",
+	"title": "Field: lookup value from collection (exact)",
 	"type": "process",
 	"subtype": "lookups",
-	"subsubtype": "collection",
+	"subsubtype": "mongo",
     "status": "rubbish",
     "tags":["generic"],
-	"description": "Fuzzy collection lookup. Suitable for example term lookups.",
+	"description": "Collection lookup with exact key.",
 
 	"scripts": {
 
