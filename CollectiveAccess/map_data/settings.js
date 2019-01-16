@@ -56,8 +56,8 @@ async function getModels(type) {
 			}
 		} 
 		items += "</select>"
-		$("#export-mapping-ca_models").append(items);
-		$("#export-mapping-ca-type_default").append(getTypeDropdown());
+		$("#export-mapping-ca_models").empty().append(items);
+		$("#export-mapping-ca-type_default").empty().append(getTypeDropdown());
 		await renderModel();
 		await renderTypeMapping($("#export-mapping-ca-type_field").val());
 		setSettings();

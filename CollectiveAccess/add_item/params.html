@@ -149,6 +149,7 @@ function fetchParams () {
 // CHOOSE SERVER HANDLER
 $("#export-data-ca-additem_url").change(function() {
 	$("#export-data-ca-additem_hidden").show();
+	$("#export-data-ca-additem_mapping").val("ca_mapping").change();  // try to choose usual mapping field
 	function success() {
 		$("#export-data-ca-additem_status").empty().append("CollectiveAccess responded OK").addClass("good");
 		$("#export-data-ca-additem_hidden").show();
