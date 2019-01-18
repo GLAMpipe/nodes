@@ -1,6 +1,7 @@
 
 
 var out_link = context.doc[context.node.params.out_link];
+var url = context.node.params.required_url;
 
 var left_id = context.doc[context.node.settings.in_left];
 var right_id = context.doc[context.node.settings.in_right];
@@ -17,7 +18,7 @@ var type_list = {
 	"ca_places": "place_id"
 }
 
-var url = "http://localhost/providence/service.php/item/ca_objects/id/" + left_id + "?authToken=" + context.node.settings.token;
+var url = url + "/item/" + context.node.settings.left_type + "/id/" + left_id + "?authToken=" + context.node.settings.token;
 
 var data = {
 	"related": {
