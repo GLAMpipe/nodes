@@ -35,11 +35,13 @@
 	</settinginfo>
 	
 	<settingaction>
-		<label>copy this field from lookup</label>
+		<label>choose fields to be copied</label>
 		<select id="lookup-copy-field" class="source_dynamic_field node-settings" name="lookup_copy_field" >
 			<option>Choose field</option>
 		</select> 
 		<textarea id="lookup-mongo-fields" class="node-settings" name="copy_fields"></textarea>
+		<label>prefix</label>
+		<input name="prefix" class="node-settings" value="lookup_"/>
 	</settingaction>
 </setting>
 

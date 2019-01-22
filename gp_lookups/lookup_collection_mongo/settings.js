@@ -28,6 +28,15 @@ $.getJSON(g_apipath + "/collections/" + node.params.required_source_collection +
 })
 
 $("#lookup-copy-field").change(function(e){
-	var val = $("#lookup-mongo-fields").val();
-	$("#lookup-mongo-fields").val(val + "," + $(this).val());
+	var fields = $("#lookup-mongo-fields").val();
+	if(fields == '') {
+		$("#lookup-mongo-fields").val($(this).val());
+	} else {
+		fields = fields.split(',');
+		if(!fields.includes($(this).val())) {
+			fields.push($(this).val());
+			$("#lookup-mongo-fields").val(fields.join(','))
+		}		
+	}
+
 });

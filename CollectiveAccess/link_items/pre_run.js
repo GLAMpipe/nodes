@@ -30,6 +30,7 @@ var item = {};
 item[type_list[right_type]] = right_id;
 item.type_id = default_relation;
 item.direction = "ltor";
+//item.direction = "rtol";
 
 // relationship type mapping
 //if(context.node.settings.type_field) {
