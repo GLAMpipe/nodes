@@ -25,45 +25,6 @@
 </setting>
 
 
-<setting>
-	<settinginfo>
-		<settingtitle>
-			Example input
-		</settingtitle>
-		<settinginstructions>
-			Type some value. <br>
-			You can access the value in your script like this: <strong>context.node.settings.greeting</strong>
-		</settinginstructions>
-	</settinginfo>
-	
-	<settingaction>
-	<label>greeting</label>
-	<input name="greeting" class="node-settings" value="Hello World!"/>
-
-	</settingaction>
-</setting>
-
-
-<setting>
-	<settinginfo>
-		<settingtitle>
-			Example field selection 
-		</settingtitle>
-		<settinginstructions>
-			Choose a field from record fields.<br>
-			In your script you can get the value of the field like this: <br>
-			<strong>context.doc[context.node.settings.in_field]</strong>
-		</settinginstructions>
-	</settinginfo>
-	
-	<settingaction>
-		<label>record field</label>
-		<select name="in_field" class="node-settings dynamic_field">
-			<option value="">choose field</option>
-		</select>
-	</settingaction>
-</setting>
-
 
 <setting>
 	<settinginfo>
@@ -87,17 +48,56 @@
 </setting>
 
 <setting>
-	<textarea id="script_node_editor" class="node-settings editor" name="js" >
-	// this is the current document
-	var doc = context.doc;
-	var greeting = context.node.settings.greeting;
+	<pre id="editor" class="node-settings" style="height:400px; width:100%">
+		
+		// this is the current document
+		var doc = context.doc;
+		var greeting = context.node.settings.greeting;
 
-	// this writes the result to the field of the current document
-	out.value = greeting + " The document id is: " + doc._id;
+		// this writes the result to the field of the current document
+		out.value = greeting + " The document id is: " + doc._id;      
+	</pre>
 
-	</textarea>
 </setting>
 
+<script src="../js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var editor = ace.edit('editor');
+	editor.setTheme('ace/theme/twilight');
+	editor.session.setMode('ace/mode/javascript');
+
+	var NodeEditor = function () {
+		var self = this;
+		this.uiPath = g_uipath;
+		this.config = {};
+		this.nodeRepository = new nodeRepository(this);
+	}
+
+	var node_editor = new NodeEditor();
+	$('.list-node').click(function(e) {
+		var obj = $(e.target);
+		node_editor.nodeRepository.renderNodeList(obj.parents('.sectiontitleblock').next('.holder'), obj.data('type'))
+		e.preventDefault();
+	})			
+
+	$(document).on('click','.accordion', function(e) {
+		this.classList.toggle('active');
+		this.nextElementSibling.classList.toggle('show');
+		e.preventDefault();
+	})		
+
+
+	$(document).on('click','.open-node', async function(e) {
+		e.preventDefault();
+		var node = await node_editor.nodeRepository.getNodeContent($(this));
+		editor.getSession().setValue(node.scripts.run);
+		editor.renderer.updateFull();
+		
+	})			
+
+	// http://jsfiddle.net/igos/qLAvN/
+
+</script>
 
 
 
@@ -139,7 +139,7 @@ out.value = counter +"";
 
 
 $("#script_node_examples").on("change", function() {
-	$("#script_node_editor").val(examples[$(this).val()]);
+	editor.setValue(examples[$(this).val()]);
 })
 
 

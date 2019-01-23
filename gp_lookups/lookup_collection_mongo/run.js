@@ -8,7 +8,7 @@ if(context.data) {
 	if(Array.isArray(context.data)) { 
 		// if there is 1 match, then output result as it is
 		if(context.data.length == 1) {
-
+			
 			// if prefix is given, we rename fields with it
 			if(prefix != '') {
 				var data = context.data[0];
@@ -20,7 +20,7 @@ if(context.data) {
 			} else {
 				out.setter= context.data[0];
 			}
-
+		// else we write nothing (TODO: this might need to do something else)
 		} else {
 			out.setter = null;
 		}
