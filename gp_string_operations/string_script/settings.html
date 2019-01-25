@@ -66,37 +66,6 @@
 	editor.setTheme('ace/theme/twilight');
 	editor.session.setMode('ace/mode/javascript');
 
-	var NodeEditor = function () {
-		var self = this;
-		this.uiPath = g_uipath;
-		this.config = {};
-		this.nodeRepository = new nodeRepository(this);
-	}
-
-	var node_editor = new NodeEditor();
-	$('.list-node').click(function(e) {
-		var obj = $(e.target);
-		node_editor.nodeRepository.renderNodeList(obj.parents('.sectiontitleblock').next('.holder'), obj.data('type'))
-		e.preventDefault();
-	})			
-
-	$(document).on('click','.accordion', function(e) {
-		this.classList.toggle('active');
-		this.nextElementSibling.classList.toggle('show');
-		e.preventDefault();
-	})		
-
-
-	$(document).on('click','.open-node', async function(e) {
-		e.preventDefault();
-		var node = await node_editor.nodeRepository.getNodeContent($(this));
-		editor.getSession().setValue(node.scripts.run);
-		editor.renderer.updateFull();
-		
-	})			
-
-	// http://jsfiddle.net/igos/qLAvN/
-
 </script>
 
 
