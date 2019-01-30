@@ -1,0 +1,74 @@
+
+
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			1. login to CollectiveAccess
+		</settingtitle>
+		<settinginstructions>
+			You need to authenticate yourself in order to use CollectiveAccess REST api. 
+			<ul>
+			<li>Give your user credentials and click "Get token".</li>
+			<li>Current server: <b><span id="source-web-ca_serverinfo"></span></b></li>
+			</ul>
+
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>username</label>
+		<input class="node-settings" id="source-web-ca-user" name="username" value="administrator"/>
+		<label>password</label>
+		<input class="node-settings" id="source-web-ca-pass" type="password" name="password" value="jyu_osc"/>
+		<button id="source-web-ca-get-token">Get token</button>
+		<label>token</label>
+		<input  class="node-settings" type="text" name="token" id="source-web-ca-token"/>
+	</settingaction>
+</setting>
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			2. Choose primary type
+		</settingtitle>
+		<settinginstructions>
+			Here you can choose what kind of items you are querying. 
+			<ul>
+				<li>Choose primary type </li>
+			</ul>
+
+		</settinginstructions>
+	</settinginfo>
+	<settingaction>
+		<label>Primary type</label>
+		<select class="node-settings" name="model" id="source-web-ca-type_select">
+			<option value="">choose primary type </option>
+			<option value="ca_collections">Collections</option>
+			<option value="ca_entities">Entities</option>
+			<option value="ca_object_lots">LOTs</option>
+			<option value="ca_objects">Objects</option>
+			<option value="ca_occurrences">Occurrences</option>
+			<option value="ca_object_representations">Object representations</option>
+		</select>
+
+
+		<label>search term</label>
+		<select class="node-settings dynamic_field" name="lookup_id">
+		</select>
+	</settingaction>
+</setting>
+
+<setting>
+	
+		<label>Mapping</label>
+		
+		<settinglistcontainer>
+			<div id="source-web-ca_mapping">Choose type field above first.</div>
+		</settinglistcontainer>
+
+</setting>
+
+

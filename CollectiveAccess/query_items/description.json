@@ -1,0 +1,16 @@
+{
+    "nodeid": "source_web_collectiveaccess",
+    "title": "CollectiveAccess: Query data",
+    "type": "source",
+    "subtype": "web",
+    "status": "usable",
+    "tags":["collectiveaccess"],
+    "description": "Query data from CollectiveAccess",
+
+    "scripts": {
+
+        "finish":"out.say('finish', context.success_count + ' items found'); "
+    },
+    
+    "views": {}
+}

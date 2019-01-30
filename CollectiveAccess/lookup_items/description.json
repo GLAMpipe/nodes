@@ -1,0 +1,17 @@
+{
+    "nodeid": "process_web_lookup_collectiveaccess",
+    "title": "CollectiveAccess: Get item data",
+    "type": "process",
+    "subtype": "lookups",
+    "subsubtype": "web",
+    "status": "bad",
+    "tags":["collectiveaccess"],
+    "description": "Lookup item data from CollectiveAccess",
+
+    "scripts": {
+
+        "finish":"out.say('finish', context.success_count + ' items processed'); "
+    },
+    
+    "views": {}
+}
