@@ -21,27 +21,35 @@ var type_list = {
 var url = url + "/item/" + context.node.settings.left_type + "/id/" + left_id + "?authToken=" + context.node.settings.token;
 
 var data = {
-	"related": {
-		"ca_entities": []
-	}
+	"related": {}
 }
 data.related[right_type] = [];
-var item = {};
-item[type_list[right_type]] = right_id;
-item.type_id = default_relation;
-item.direction = "ltor";
-//item.direction = "rtol";
 
-// relationship type mapping
-if(context.node.settings.type_field) {
-	var type_value = context.doc[context.node.settings.type_field];
-	if(context.node.settings["_typemap_" + type_value]) {
-		item.type_id = context.node.settings["_typemap_" + type_value];
+if(Array.isArray(right_id)) {
+	for(var id of right_id) {
+		var item = {};
+		item[type_list[right_type]] = id;
+		item.type_id = default_relation;
+		item.direction = "ltor";
+		//item.direction = "rtol";
+
+		// relationship type mapping
+		if(context.node.settings.type_field) {
+			var type_value = context.doc[context.node.settings.type_field];
+			if(context.node.settings["_typemap_" + type_value]) {
+				item.type_id = context.node.settings["_typemap_" + type_value];
+			}
+		}
+		data.related[right_type].push(item);
 	}
+	
+	
 }
+	
 
-data.related[right_type].push(item);
-out.console.log(item);
+
+
+//out.console.log(item);
 
 /*
 var item = {
@@ -51,7 +59,8 @@ var item = {
 }
 */
 	
-
+//var item2 = { collection_id: '8', type_id: '185', direction: 'ltor' };
+//data.related[right_type].push(item2);
 
 var options = {
 	url: url,
