@@ -40,7 +40,27 @@ if(parseInt(context.count) % 10 == 0)
 /*********************** FUNCTIONS *********************/
 
 
+function createBundles() {
+	var bundles = {};
+	for(var key in context.node.settings) {
+
+		if(is_dynamic.test(key)) {
+
+			var plain_key = key.replace("_dynamic_", "").split("-");
+			var attribute = plain_key[0]; 
+			if(!(attribute in bundles)) {
+				bundles[attribute] = {};
+			}
+		}
+	}
+	return bundles;
+}
+
 function setMappings() {
+
+	var bundles = createBundles();
+	out.console.log("BUNDLES")
+	out.console.log(bundles);
 
 	for(var key in context.node.settings) {
 		var value = context.doc[context.node.settings[key]];
@@ -72,7 +92,7 @@ function setMappings() {
 		// idno_stub (for LOTs)
 		} else if(key === "_dynamic_idno_stub") { 
 			item.intrinsic_fields.idno_stub = getFirstValue(value);
-		// status id (for LOTs, currently on default value works)
+		// status id (for LOTs, currently only default value works)
 		} else if(key === "_static_lot_status_id") { 
 			item.intrinsic_fields.lot_status_id = context.node.settings[key];
 		// idno
@@ -86,12 +106,19 @@ function setMappings() {
 			var plain_key = key.replace("_dynamic_", "").split("-");
 			var attribute = plain_key[0]; 
 			if(context.doc[context.node.settings[key]]) {
-				item.attributes[attribute] = [];
+				// combine container values
+				if(!(attribute in item.attributes)) {
+					item.attributes[attribute] = [];
+				}
 				if(Array.isArray(value)) {
 				   for (var i = 0; i < value.length; i++ ) { 
 						var ob = {}
 						ob[plain_key[1]] = value[i];
-						item.attributes[attribute].push(ob);
+						if(item.attributes[attribute].length == 1) {
+							item.attributes[attribute][0][plain_key[1]] = value[i];
+						} else {
+							item.attributes[attribute].push(ob);
+						}
 				   }
 				} else { 
 					var ob = {}

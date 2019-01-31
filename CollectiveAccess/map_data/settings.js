@@ -102,9 +102,10 @@ async function renderModel() {
 	}
 
 	html += await getCommonElementsHTML();
+	html += await getSpecificElementsHTML();
 
 
-	$("#export-mapping-ca_mapping").empty().append(html + "</table>");
+	$("#export-mapping-ca_mapping").empty().append(html);
 	
 	// populate dynamic fields
 	var fields = await $.getJSON(g_apipath + "/collections/"+node.params.collection+"/fields");
@@ -254,10 +255,67 @@ async function getCommonElementsHTML() {
 			html += "</tr>"
 		}
 	}	
+	return html + "</table>";
+}
+
+async function renderElements(elements, all_elements) {
+	var html = "";
+	for(common of elements) {
+		var element = all_elements[common];
+		html += "<thead><tr><th><b>" + element.name + "</b></th><th>your value</th><th>default value</th><th>language</th><th>options</th></tr></thead>";
+		for(const subelement of Object.keys(element.elements_in_set)) {
+			var field = element.elements_in_set[subelement];
+			var field_link = node.params.required_url.replace("service.php","index.php") + "/administrate/setup/Elements/Edit/element_id/" + field.element_id;
+			var icon = "<span class='wikiglyph wikiglyph-eye icon' style='font-size:16px'></span>";
+			var link_html = "<a title='view in CollectiveAccess' target='_blank' href='" + field_link + "'>"+icon+"</a>";
+			
+			// render lists
+			if(field.datatype == "List") {
+
+				html += "<tr>";
+				html += await getListItemHTML(field, common, link_html, icon);
+				html += "<td>not impl.</td><td></td>"
+				
+			// render other types of metadata
+			} else {
+
+				html += "<tr><td>"+field.element_code + " (" + field.datatype + ") " + link_html + " </td>";
+				html += "<td><select name='_dynamic_" + common + "-" + field.element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></td>";
+				html += "<td>not impl.</td><td>not impl.</td><td>not impl.</td>"
+			}
+			html += "</tr>"
+		}
+	}	
 	return html;
 }
 
-
+async function getSpecificElementsHTML() {
+	var models = g_export_mapping_ca_models;
+	var all_elements = getAllElements();
+	var common_elements = getCommonElements(all_elements);
+	var html = '<br><h3>Type spesific fields</h3><table>';
+	
+	
+	for(const model of Object.keys(models)) {
+		if(models[model].elements) {
+			var specific_elements = [];
+			
+			for(const element of Object.keys(models[model].elements)) {
+				if(!(common_elements.includes(element))) {
+					//all_elements[element] = models[model].elements[element];
+					specific_elements.push(element);
+				}
+			}
+			if(specific_elements.length > 0) {
+				html += "<tr><td><h3>"+ model + "</h3></td></tr>";
+				html += await renderElements(specific_elements, all_elements);
+			}
+			
+		}
+	}
+	
+	return html + "</table>";
+}
 
 async function getListItemHTML(list, common, link_html, icon) {
 	// get list item values from CA
@@ -352,7 +410,6 @@ function getCommonElements(all_elements) {
 	common_elements.sort();	
 	return common_elements;
 }
-
 
 
 function getTypeDropdown() {

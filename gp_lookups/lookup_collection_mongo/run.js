@@ -3,7 +3,7 @@
 out.value = '';
 var prefix = context.node.settings.prefix;
 
-
+out.console.log(context.data)
 if(context.data) {
 	if(Array.isArray(context.data)) { 
 		// if there is 1 match, then output result as it is
@@ -18,7 +18,7 @@ if(context.data) {
 				}
 			// else we just output the result
 			} else {
-				out.setter= context.data[0];
+				out.setter= context.data;
 			}
 		// else we write nothing (TODO: this might need to do something else)
 		} else {

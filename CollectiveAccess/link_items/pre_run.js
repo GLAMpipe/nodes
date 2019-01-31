@@ -33,12 +33,12 @@ item.direction = "ltor";
 //item.direction = "rtol";
 
 // relationship type mapping
-//if(context.node.settings.type_field) {
-	//var type_value = context.doc[context.node.settings.type_field];
-	//if(node.settings["_typemap_" + type_value]) {
-		//item.type_id = node.settings["_typemap_" + type_value];
-	//}
-//}
+if(context.node.settings.type_field) {
+	var type_value = context.doc[context.node.settings.type_field];
+	if(context.node.settings["_typemap_" + type_value]) {
+		item.type_id = context.node.settings["_typemap_" + type_value];
+	}
+}
 
 data.related[right_type].push(item);
 out.console.log(item);
