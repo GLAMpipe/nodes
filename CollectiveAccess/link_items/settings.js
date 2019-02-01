@@ -114,7 +114,7 @@ $("#export-data-ca-linkitem_left-type").change(async function(e){
 		var models = await getModels(left);
 		var relations = getRelationshipTypes(models, right);
 		// populate default relationship dropdown
-		$("#export-data-ca-linkitem_default-relation").append(getTypeDropdown(relations));
+		$("#export-data-ca-linkitem_default-relation").empty().append(getTypeDropdown(relations));
 		setSettings();
 	}
 })
@@ -126,7 +126,7 @@ $("#export-data-ca-linkitem_right-type").change(async function(e){
 		var models = await getModels(left);
 		var relations = getRelationshipTypes(models, right);
 		// populate default relationship dropdown
-		$("#export-data-ca-linkitem_default-relation").append(getTypeDropdown(relations));
+		$("#export-data-ca-linkitem_default-relation").empty().append(getTypeDropdown(relations));
 		setSettings();
 	}
 })

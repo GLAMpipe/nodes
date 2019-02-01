@@ -319,18 +319,20 @@ async function getSpecificElementsHTML() {
 
 async function getListItemHTML(list, common, link_html, icon) {
 	// get list item values from CA
-	var list_result = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/item/ca_lists/id/" + list.list_id + "?pretty=1");
+	//var list_result = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/item/ca_lists/id/" + list.list_id + "?pretty=1");
 				
 	var html = "";
 	html += "<td>" + list.display_label + "<br>" + list.element_code + " (" + list.datatype + ") " + link_html + "</td>";
 	html += "<td><select data-type='list' data-list_id='" + list.list_id + "' name='_dynamic_" + common + "-" + list.element_code + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></td>";
 	html += "<td><select name='_static_" + common + "-" + list.element_code + "' class='node-settings middle_input' ><option value=''>set default value</option>";
 	// render list values as dropdown
+	/*
 	for(var list_item of list_result.related.ca_list_items) {
 		// we must exclude Root nodes
 		if(!list_item.idno.includes("Root node"))
 			html += "<option>" + list_item.label + "</option>"
 	}
+	*/
 	html += "</select></td>";
 	return html;	
 }

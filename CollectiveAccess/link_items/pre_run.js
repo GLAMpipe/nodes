@@ -25,31 +25,53 @@ var data = {
 }
 data.related[right_type] = [];
 
+var type_map_value = null;
+
+if(context.node.settings.type_field) {
+	type_map_value = context.doc[context.node.settings.type_field];
+}
+
 if(Array.isArray(right_id)) {
-	for(var id of right_id) {
+	//for(var id of right_id) {
+	for(var i=0; i < right_id.length; i++) {
+			
 		var item = {};
-		item[type_list[right_type]] = id;
+		item[type_list[right_type]] = right_id[i];
 		item.type_id = default_relation;
 		item.direction = "ltor";
 		//item.direction = "rtol";
 
 		// relationship type mapping
-		if(context.node.settings.type_field) {
-			var type_value = context.doc[context.node.settings.type_field];
-			if(context.node.settings["_typemap_" + type_value]) {
-				item.type_id = context.node.settings["_typemap_" + type_value];
+		if(type_map_value) {
+		
+			if(Array.isArray(type_map_value)) {
+				out.console.log(type_map_value)
+				out.console.log(type_map_value[i])
+				if(context.node.settings["_typemap_" + type_map_value[i]]) {
+					item.type_id = context.node.settings["_typemap_" + type_map_value[i]];
+				}
 			}
 		}
+		if(item.type_id != '') {
+			data.related[right_type].push(item);
+		}
+		
+		out.console.log(item);
+
+	}
+} else {
+	var item = {};
+	item[type_list[right_type]] = right_id;
+	item.type_id = default_relation;
+	item.direction = "ltor";
+
+	if(item.type_id != '') {
 		data.related[right_type].push(item);
 	}
-	
-	
+
 }
-	
 
 
-
-//out.console.log(item);
 
 /*
 var item = {
@@ -71,22 +93,24 @@ var options = {
 	}
 };
 
+out.pre_value = options;
 
+out.console.log(JSON.stringify(options))
 
 // if there is an url in out_link, then we do not run again
 if(out_link && typeof out_link == "string" && out_link.match(/^http/))
 	context.skip = true;
 
 // do not proceed with empty content
-if(item.type_id && left_id && right_id) {
-	out.pre_value = options;
-} else {
-	var missing = [];
-	if(!item.type_id) missing.push("relationship type");
-	if(!left_id) missing.push(context.node.settings.left_type + " id");
-	if(!right_id) missing.push(context.node.settings.right_type + " id");
-	context.error = "Missing parameters: " + missing.join(",");
-}
+//if(item.type_id && left_id && right_id) {
+	//out.pre_value = options;
+//} else {
+	//var missing = [];
+	//if(!item.type_id) missing.push("relationship type");
+	//if(!left_id) missing.push(context.node.settings.left_type + " id");
+	//if(!right_id) missing.push(context.node.settings.right_type + " id");
+	//context.error = "Missing parameters: " + missing.join(",");
+//}
 
 
 if(parseInt(context.count) % 10 == 0) 
