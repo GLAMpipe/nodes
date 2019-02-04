@@ -12,7 +12,7 @@ context.vars.offset = 0;
 context.vars.limit = 10;
 
 
-out.options = {
+core.options = {
 	url: base_url + "/filtered-items" + context.node.settings.query + "&limit=" + context.vars.limit,
 	method: 'GET'
 }

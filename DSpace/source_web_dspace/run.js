@@ -10,30 +10,29 @@ if(parseInt(c.node.settings.limit))
 var splitted = context.node.params.required_dspace_url.split("/");
 var dspace_url_stripped = splitted.slice(0, splitted.length-1).join("/");
 
-
-if (context.response && context.response.statusCode == 200 ) {
+if (core.response && core.response.statusCode == 200 ) {
 	// count query rounds
 	c.vars.round_counter++;
 
-	if (context.data.items && context.data.items.length > 0) {
+	if (core.data.items && core.data.items.length > 0) {
 		
 		out.say("progress", "procesed so far " + context.vars.record_counter );
 		var imports = [];
 		var updates = [];
 		
-		for (var i = 0; i < context.data.items.length; i++) {
+		for (var i = 0; i < core.data.items.length; i++) {
 
 			// count records 
 			context.vars.record_counter++;
-			imports.push(makeRecord(context.data.items[i])); // this adds some fields to the original data
+			imports.push(makeRecord(core.data.items[i])); // this adds some fields to the original data
 			
 			// obey import limit
 			if(importLimit && context.vars.record_counter >= importLimit)
 				break;
 			
 			if(context.node.settings.mode === "update" && context.node.settings.update_key) {
-				if(!context.records.includes(context.data.items[i][context.node.settings.update_key])) { 
-					updates.push(makeRecord(context.data.items[i]));
+				if(!context.records.includes(core.data.items[i][context.node.settings.update_key])) { 
+					updates.push(makeRecord(core.data.items[i]));
 					context.vars.update_counter++;
 				}
 			} 
@@ -47,12 +46,15 @@ if (context.response && context.response.statusCode == 200 ) {
 		
 		// URL for next round
 		var offset = c.vars.round_counter * c.vars.limit;
-        if(context.data["unfiltered-item-count"] == context.vars.limit)  /* check if there is any data left on the server */
-             out.options.url = context.node.params.required_dspace_url + "/filtered-items" + context.node.settings.query + '&limit=' + c.vars.limit + '&offset=' + c.vars.round_counter * c.vars.limit; 
+        if(core.data["unfiltered-item-count"] == context.vars.limit)  { /* check if there is any data left on the server */
+             core.options.url = context.node.params.required_dspace_url + "/filtered-items" + context.node.settings.query + '&limit=' + c.vars.limit + '&offset=' + c.vars.round_counter * c.vars.limit; 
+		 } else {
+			 core.options.url = null;
+		 }
         
         // stop if import limit set by user is reached
         if(importLimit && context.vars.record_counter >= importLimit)
-			out.options.url = "";
+			core.options.url = null;
 			
         out.say("progress", "Items fetched: " + context.vars.record_counter); 
 
