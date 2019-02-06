@@ -42,7 +42,7 @@ async function getModels(type) {
 
 
 // choose valid relations from model
-function getRelationshipTypes(models, primary_type) {
+function getRelationshipTypes(models, primary_type, left_type) {
 	if(!models ) {
 		$("#export-data-ca-linkitem_type_mapping").empty().append("<div class='alert alert-warning'>Could not get models!</div>");
 		return;
@@ -56,18 +56,25 @@ function getRelationshipTypes(models, primary_type) {
 			}
 		}
 	}
+	
+	// object - LOT relations are exception
+	if(primary_type == "ca_object_lots" && left_type == "ca_objects") {
+			relations = {"is_part_of": {"type_id": "lot"}}
+	}
+
 	return relations; 
 }
 
 
 
-async function renderTypeMapping(field, relations) {
+async function renderRelationshipMapping(field, relations) {
 	if(!relations) {
 		$("#export-data-ca-linkitem_type_mapping").empty().append("No relations found!");
 		return;
 	}
+	
 	if(field) {
-		var options = getTypeDropdown(relations);
+		var options = getRelationDropdown(relations);
 		var user_relations = await $.getJSON(g_apipath + "/collections/"+node.params.collection+"/facet/?fields=" + field);
 		var types = user_relations.facets[0][field];
 		
@@ -82,7 +89,7 @@ async function renderTypeMapping(field, relations) {
 
 
 
-function getTypeDropdown(relations) {
+function getRelationDropdown(relations) {
 	var html = "";
 	for(var key in relations) {
 		html += "<option value='" + relations[key].type_id + "'>" + key + "</option>";
@@ -114,7 +121,7 @@ $("#export-data-ca-linkitem_left-type").change(async function(e){
 		var models = await getModels(left);
 		var relations = getRelationshipTypes(models, right);
 		// populate default relationship dropdown
-		$("#export-data-ca-linkitem_default-relation").empty().append(getTypeDropdown(relations));
+		$("#export-data-ca-linkitem_default-relation").empty().append(getRelationDropdown(relations));
 		setSettings();
 	}
 })
@@ -124,9 +131,9 @@ $("#export-data-ca-linkitem_right-type").change(async function(e){
 	var right = $("#export-data-ca-linkitem_right-type").val();
 	if(left && right) {
 		var models = await getModels(left);
-		var relations = getRelationshipTypes(models, right);
+		var relations = getRelationshipTypes(models, right, left);
 		// populate default relationship dropdown
-		$("#export-data-ca-linkitem_default-relation").empty().append(getTypeDropdown(relations));
+		$("#export-data-ca-linkitem_default-relation").empty().append(getRelationDropdown(relations));
 		setSettings();
 	}
 })
@@ -137,9 +144,9 @@ $("#export-data-ca-linkitem_type_field").change(async function(e){
 	if(left && right) {
 		var models = await getModels(left);
 		g_export_ca_models = models;
-		var relations = getRelationshipTypes(models, right);
+		var relations = getRelationshipTypes(models, right, left);
 		// create dynamic relationship mapping UI
-		renderTypeMapping($(this).val(), relations);
+		renderRelationshipMapping($(this).val(), relations);
 	} else {
 		$("#export-data-ca-linkitem_type_mapping").empty().append("<div class='alert alert-warning'>You must choose</div>");
 	}
