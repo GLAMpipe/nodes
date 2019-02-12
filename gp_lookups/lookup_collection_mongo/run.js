@@ -3,7 +3,7 @@
 out.value = '';
 var prefix = context.node.settings.prefix;
 
-out.console.log(context.data)
+out.console.log(context.data.length)
 if(context.data) {
 	if(Array.isArray(context.data)) { 
 		// if there is 1 match, then output result as it is
@@ -13,8 +13,14 @@ if(context.data) {
 			if(prefix != '') {
 				var data = context.data[0];
 				out.setter = {};
+				
 				for (var i in Object.entries(data)) {
-					out.setter[prefix + Object.entries(data)[i][0]] = Object.entries(data)[i][1];
+					if(Array.isArray(Object.entries(data)[i][1])) {
+						// we take only the first row of data array
+						out.setter[prefix + Object.entries(data)[i][0]] = Object.entries(data)[i][1][0];
+					} else {
+						out.setter[prefix + Object.entries(data)[i][0]] = Object.entries(data)[i][1];
+					}
 				}
 			// else we just output the result
 			} else {
