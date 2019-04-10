@@ -3,7 +3,7 @@
     "title": "CollectiveAccess: Query data",
     "type": "source",
     "subtype": "web",
-    "status": "usable",
+    "status": "rubbish",
     "tags":["collectiveaccess"],
     "description": "Query data from CollectiveAccess",
 
