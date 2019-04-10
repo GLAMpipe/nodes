@@ -27,6 +27,30 @@
 <setting>
 	<settinginfo>
 		<settingtitle>
+			Mode
+		</settingtitle>
+		<settinginstructions>
+			<ul>
+			<li>get all values for one ID</li>
+			If you have one ID and you want get values (rows) from other collection based on this ID, then choose this
+			<li>get one value for multiple IDs</li>
+			If you have a multiple (rows) IDs, then choose this.
+			</ul>
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>Mode</label>
+		<select id="lookup-mode" class="node-settings" name="mode" >
+			<option value="single_id">get all values for one ID</option>
+			<option value="multiple_id">get one value for multiple IDs</option>
+		</select> 
+	</settingaction>
+</setting>
+
+<setting>
+	<settinginfo>
+		<settingtitle>
 			Copy field
 		</settingtitle>
 		<settinginstructions>
