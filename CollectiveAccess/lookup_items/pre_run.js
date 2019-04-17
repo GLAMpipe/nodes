@@ -22,7 +22,13 @@ var j = {
         "ca_objects.preferred_labels.name" : {
             "delimiter" : "; "
         },
+        "ca_object_representations.representation_id" : {
+            "returnAsArray" : true
+        },
         "ca_object_lots.lot_id" : {
+            "returnAsArray" : true
+        },
+        "ca_object_lots.preferred_labels.name" : {
             "returnAsArray" : true
         },
         "lahjoittajat" : {

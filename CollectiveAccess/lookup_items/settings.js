@@ -67,7 +67,7 @@ async function getModels(type) {
 	var protocol = node.params.required_url.split("://");
 
 	try {
-		var models = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/model/"+type+"?pretty=1&token=" + token);
+		var models = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/model/"+type+"%3Fpretty=1%26token=" + token);
 		g_export_mapping_ca_models = models;
 		var items = "<select id='source-web-ca-models'><option value=''>Choose type</option>";
 		for (const key of Object.keys(models)) {

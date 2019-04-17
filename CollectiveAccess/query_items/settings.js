@@ -7,6 +7,13 @@ $("#source-web-ca-get-token").click(function(e){
 	getToken();
 });
 
+// this is triggered by GLAMpipe when opening node
+$("#source-web-ca-get-facets").change(function(e){
+	getModels($(this).val());
+})
+
+
+
 async function getToken() {
 
 	var user = $("#source-web-ca-user").val();
@@ -15,7 +22,6 @@ async function getToken() {
 
 	try {
 		var token = await $.getJSON(g_apipath + "/proxy?url=" + protocol[0] + "://"+user+":"+pass+"@" + protocol[1] + "/auth/login");
-		renderFacets();
 	} catch(e) {
 		alert(e.statusText);
 	}
@@ -25,8 +31,68 @@ async function getToken() {
 		
 }
 
+async function getModels(type) {
+	
+	if(!type) {
+		$("#export-mapping-ca_mapping").empty();
+		$("#export-mapping-ca_type_mapping").empty();
+		return;
+	}
 
-function renderFacets() {
+	var token = $("#source-web-ca-token").val();
+	if(!token) {
+		alert("You must get token first!");
+		return;
+	}
+
+	g_export_mapping_ca_type = type;
+	var protocol = node.params.required_url.split("://");
+
+	try {
+		var models = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/model/"+type+"%3Fpretty=1%26token=" + token);
+		g_export_mapping_ca_models = models;
+		var html = "<ul>";
+		for (const key of Object.keys(models)) {
+			if(models[key].type_info) {
+				var id = models[key].type_info.item_id;
+				html += "<li>" + models[key].type_info.display_label + " <input class='node-settings' name='facets[id_"+id+"]' type='checkbox'/></li>";
+			}
+		} 
+		html += "</ul>"
+		$("#source-web-ca_facets").empty().append(html);
+		//await renderModel();
+		//setSettings();
+		
+	} catch(e) {
+		alert(e.statusText);
+	}
+}
+
+
+
+async function getFacets(type) {
+	var token = $("#source-web-ca-token").val();
+	if(!token) {
+		alert("You must get token first!");
+		return;
+	}
+
+	try {
+		var facets = await $.getJSON(g_apipath + "/proxy?url=" + node.params.required_url + "/browse/" + type + "%3FauthToken="+ token + "&options_method=1");
+		renderFacets(facets);
+	} catch(e) {
+		alert(e.statusText);
+	}
+}
+
+function renderFacets(facets) {
+	var html = "";
+	for(var facet in facets) {
+		html += "<li>" + label + " <input class='node-settings' name='facets[id_"+id+"]' type='checkbox'/></li>";
+	}
+}
+
+function renderFacets_old() {
 	var html = "";
 	for(var facet in facets["type_facet"]["content"]) {
 		var label = facets["type_facet"]["content"][facet].label;

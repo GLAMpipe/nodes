@@ -20,9 +20,11 @@ out.console.log(out.setter)
 
 function parseData() {
 	for(var key in context.data) {
-		if(key.includes(model)) {
+		if(key.includes('.')) {
 			var key_clean = key.replace(/\./g,':');
 			out.setter[key_clean] = context.data[key]
+		} else {
+			out.setter[key] = context.data[key]
 		}
 	}
 }
