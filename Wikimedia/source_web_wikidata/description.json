@@ -3,6 +3,7 @@
     "title": "WIKIDATA: sparql import",
     "type": "source",
     "subtype": "web",
+    "core": "web.get.JSON",
     "status": "test",
     "tags":["generic", "wikimedia"],
     "description": "Fetch data from wikidata with SPARQL query. ",

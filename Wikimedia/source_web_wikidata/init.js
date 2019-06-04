@@ -7,8 +7,13 @@ c.var.total_count = 0;
 // we simplly split URL and use the latter part for SPARQL endpoint
 var query = search.split('/#'); 
 if (query.length == 2) { 
-    out.url = url + query[1];
+    url = url + query[1];
 } else { 
-    out.say('error', 'Query seems to be invalid, please make sure you copy it right.'); 
+    out.say('error', 'Query seems to be invalid, please make sure you copied it right.'); 
 }
 
+
+core.options = {
+	url: url,
+	method: 'GET'
+}
