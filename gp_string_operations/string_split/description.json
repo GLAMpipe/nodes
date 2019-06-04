@@ -3,6 +3,7 @@
     "title": "Field: split to array",
     "type": "process",
     "subtype": "strings",
+    "core": "dummy.dummy.dummy",
     "status": "usable",
     "description": "Split string to an array. Useful for CSV imports.",
     "scripts": {

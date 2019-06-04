@@ -29,23 +29,6 @@ for(var prop in record) {
 		} else {
 			new_record[prop_clean]  = values;
 		}
-
-		// NOT USED
-		//if(context.node.settings.extract_language) {
-
-			//var code = getLanguageCode(prop);
-			//if(code != null) {
-				//// create languag array with empty strings if needed
-				//if(!new_record[prop_clean + "__lang"]) {
-					//new_record[prop_clean + "__lang"] = createLanguageArray(values.length, new_record[prop_clean].length);
-				//} 
-				
-				//// push language code for every new value (i.e. what is inside square brackets)
-				//for(var i = 0; i < values.length; i++) {
-					//new_record[prop_clean + "__lang"].push(code);
-				//}
-			//}
-		//}
 	}
 }
 

@@ -3,7 +3,7 @@
 var config = {
 
 	// GLAMpipe address and collection
-	gp_url:  "../../../api/v1",
+	gp_url:  "../../../api/v2",
 	collection: context.node.collection,
 	pageinfo: "",
 
