@@ -14,7 +14,7 @@ function refjyx (config) {
 	this.collection_url 		= this.url + "/collections/" + this.collection
 	this.get_facet_url 			= this.collection_url + "/facet/";
 	this.get_count_url 			= this.collection_url + "/count";
-	this.get_filtered_items_url = this.collection_url + "/search";
+	this.get_filtered_items_url = this.collection_url + "/docs";
 
 	if(self.config.item_table)
 		this.item_table = self.config.item_table;
@@ -63,7 +63,7 @@ function refjyx (config) {
 		var sort = "";
 		var item_count = 0;
 		var fields = self.getFacetFields();
-		var filters = "&" + self.getFilteredQuery();
+		var filters = self.getFilteredQuery("&");
 
 		$.getJSON(self.get_facet_url + "?fields=" + fields + filters, function (response) {
 			self.filters.forEach(function(filter) {
@@ -91,13 +91,8 @@ function refjyx (config) {
 				} else if(filter.mode == "facet") {
 					self.renderFacet(filter, response);
 				}
-
 			})
 		})
-
-
-
-
 	}
 
 	this.setCheckboxOnOff = function (key, value, checked) {
@@ -182,25 +177,33 @@ function refjyx (config) {
 	}
 
 	//
-	this.getFilteredQuery = function (facet_query) {
+	this.getFilteredQuery = function (sep) {
 		var query = [];
 		self.filters.forEach(function(filter) {
+			var values = []
 			filter.selections.forEach(function(sel) {
-				query.push(filter.key + "[]=" + encodeURIComponent(sel));
+				values.push(encodeURIComponent(sel));
 			})
+			if(values.length > 0)
+				query.push(filter.key + "=" + values.join(','));
 
 			// filter specific operator
 			if(filter.op)
 				query.push(operator = "op[]=" + filter.key + ":" + filter.op);
 		})
-		return query.join("&");
+		if(query.length > 0) {
+			return sep + query.join("&");
+		} else if(sep === "?")
+			return "?"
+		else
+			return ""
 	}
 
 
 
 	this.renderFilteredSet = function () {
 
-		var filters = "?" + self.getFilteredQuery();
+		var filters = self.getFilteredQuery("?");
 		//console.log(filters)
 		var params = "&skip="+self.skip+"&limit=" + self.limit;
 		if(self.sort) {
@@ -267,7 +270,7 @@ function refjyx (config) {
 
 		holder += self.getFacetHeadingHTML(facet);
 
-		response.facets[0][facet.key].forEach(function(item) {
+		response[0][facet.key].forEach(function(item) {
 			item_count++;
 			if(facet.render == "list") {
 				items.push($("<li></li>").text(item._id + " (" + item.count + ")"));
@@ -314,7 +317,7 @@ function refjyx (config) {
 
 	this.renderFilteredCount = function (target) {
 
-		var filters = "?" + self.getFilteredQuery();
+		var filters = self.getFilteredQuery("?");
 
 		// get items and render
 		$.getJSON(self.get_count_url + filters, function (response) {

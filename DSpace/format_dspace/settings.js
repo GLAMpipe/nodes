@@ -29,7 +29,7 @@ function mapping() {
 						//schema_select += "<option value='"+schema_field.name+"'>" + schema_field.name + "</options>"; 
 					schema_field.name = schema_field.name.replace(/\./g, "_");
 					table += "<tr> <td>" + schema_field.name + "</td>";
-					table += "<td><div><select name='_dynamic_" + schema_field.name + "' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></div></td>";
+					table += "<td><div><select name='_dynamic_" + schema_field.name + "' class='node-settings dynamic-field middle_input' ><option value=''>no value, use static</option></select></div></td>";
 					table += "<td><div><input name='_static_" + schema_field.name + "' class='node-settings' value=''/></div></td> </tr>"; 
 				})
 			})

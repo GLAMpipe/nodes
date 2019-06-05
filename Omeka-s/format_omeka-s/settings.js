@@ -27,7 +27,7 @@ function mapping() {
 				props.forEach(function(field) {
 					//schema_select += "<option value='"+field['o:term']+"--"+field['o:id']+"'>" + field['o:term'] + "</options>"; 
 					table += "<tr> <td>"+field['o:term']+"</td>";
-					table += "<td><div><select name='_dynamic_" + field['o:term'] + "--"+field['o:id']+"' class='node-settings dynamic_field middle_input' ><option value=''>no value, use static</option></select></div></td>";
+					table += "<td><div><select name='_dynamic_" + field['o:term'] + "--"+field['o:id']+"' class='node-settings dynamic-field middle_input' ><option value=''>no value, use static</option></select></div></td>";
 					table += "<td><div><input name='_static_" + field['o:term'] + "--"+field['o:id']+"' class='node-settings' value=''/></div></td> </tr>"; 
 				})
 				 
