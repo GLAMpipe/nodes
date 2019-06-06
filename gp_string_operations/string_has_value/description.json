@@ -3,7 +3,7 @@
 	"title": "Field: has value or not",
 	"type": "process",
 	"subtype": "strings",
-	"core": "dummy.dummy.dummy",
+	"core": "process.sync.script",
     "status": "usable",
 	"description": "This can be used for boolean type marking of field value. Handy for for faceted view.",
 	"scripts": {
