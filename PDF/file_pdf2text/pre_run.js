@@ -1,7 +1,7 @@
 
 
 var filenames = context.doc[context.node.params.in_field];
-out.pre_value = null;
+core.files = ''
 
 if(Array.isArray(filenames)) {
 	var paths = [];
@@ -11,10 +11,10 @@ if(Array.isArray(filenames)) {
 		else
 			paths.push("");
 	})
-	out.pre_value = paths;
+	core.files = paths;
 } else {
 	if(filenames)
-		out.pre_value = getPath(context.node.params.filepath, context.doc[context.node.params.in_field]);
+		core.files = getPath(context.node.params.filepath, context.doc[context.node.params.in_field]);
 	else
 		paths.push("");
 }

@@ -3,7 +3,7 @@
 	"type": "process",
 	"title":"PDF: extract text",
 	"subtype": "files",
-	"subsubtype": "pdf2text",
+	"core": "process.PDF.totext",
 	"status": "usable",
 	"tags":["library", "pdf"],
 	"description": "Extract text from PDF",

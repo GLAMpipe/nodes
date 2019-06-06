@@ -55,7 +55,7 @@ function refjyx (config) {
 		var fields = self.filters.map(function(filter) {
 			return filter.key;
 		})
-		return fields.join(",")
+		return fields.join("|")
 	}
 
 	this.renderFilters = function () {
