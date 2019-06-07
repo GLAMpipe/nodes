@@ -3,7 +3,7 @@
     "title": "Field: script",
     "type": "process",
     "subtype": "strings",
-    "subsubtype": "script",
+    "core": "process.sync.script",
     "status": "usable",
     "description": "Script super node.",
     "scripts": {

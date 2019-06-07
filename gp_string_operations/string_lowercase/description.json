@@ -1,8 +1,8 @@
 {
-	"nodeid": "process_field_lowercase",
+	"nodeid": "process_field_changecase",
 	"title": "Field: change case",
 	"type": "process",
-	"core": "dummy.dummy.dummy",
+	"core": "process.sync.script",
 	"subtype": "strings",
 	"status": "usable",
 	"description": "Converts strings in field to lower/upper case",
