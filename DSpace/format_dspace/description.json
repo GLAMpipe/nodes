@@ -3,6 +3,7 @@
     "title": "DSpace 6: Map data",
     "type": "process",
     "subtype": "format",
+    "core": "process.sync.script",
     "status": "usable",
     "tags":["dspace"],
     "description": "Creates JSON object for data export",

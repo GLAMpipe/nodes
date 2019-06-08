@@ -2,7 +2,7 @@
     "nodeid": "process_file_download",
     "type": "process",
     "subtype": "files",
-    "subsubtype": "download",
+    "core": "web.get.file",
     "title": "Download file",
     "status": "usable",
     "tags":["generic"],

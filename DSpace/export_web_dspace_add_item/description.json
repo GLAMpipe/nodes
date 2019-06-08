@@ -3,7 +3,7 @@
     "title": "DSpace 6: add items",
     "type": "export",
     "subtype": "web",
-    "subsubtype": "dspace",
+    "core": "export.web.JSON",
     "status": "usable",
     "tags":["dspace"],
     "description": "Create new items via REST API",

@@ -7,6 +7,6 @@ var options = {
 	jar:true
 };
 
-out.login = options;		
+core.login = options;		
 out.say("progress", "Trying to login to DSpace..."); 
 

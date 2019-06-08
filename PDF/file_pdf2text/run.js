@@ -15,29 +15,31 @@ var out_info_field = context.node.params.out_info;
 var out_text_field = context.node.params.out_text;
 out.setter = {};
 
-if(core.error) {
-	out.setter[out_info_field] = core.error;
-	out.setter[out_text_field] = "error";
-} else {
-	if(core.data) {
-		// if core.data is array, then it means that input was array and we must output an array
-		if(Array.isArray(core.data)) {
-			out.setter[out_info_field] = [];
-			out.setter[out_text_field] = [];
-			for(var row of core.data) {
-				
-				out.setter[out_info_field].push(row.info || row.error || '');
-				out.setter[out_text_field].push(row.text || row.error || '');
+if(core.data) {
+	// if core.data is array, then it means that input was array and we must output an array
+	if(Array.isArray(core.data)) {
+		out.setter[out_info_field] = [];
+		out.setter[out_text_field] = [];
+		for(var row of core.data) {
+
+			if(row.error) {
+				out.setter[out_info_field].push(GP.error + row.error);
+			} else  {
+				out.setter[out_info_field].push(row.info || '');
+				out.setter[out_text_field].push(row.text || '');
 			}
-		// else we output the core result
+		}
+	// else we output the core result
+	} else {
+		if(row.error) {
+			out.setter[out_info_field] = GP.error + row.error;
 		} else {
 			out.setter[out_info_field] = core.data.info || core.data.error || ''
 			out.setter[out_text_field] = core.data.text || core.data.error || ''
 		}
-
-		context.vars.success_count++;
-		out.say("progress", context.vars.success_count + " extracted..." );
 	}
-}
 
+	context.vars.success_count++;
+	out.say("progress", context.vars.success_count + " extracted..." );
+}
 

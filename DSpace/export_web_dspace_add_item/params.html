@@ -122,13 +122,14 @@ function fetchParams () {
 		if(data.error)
 			alert(data.error);
 		else {
-			if(data && Array.isArray(data)) {
+			
+			if(data && Array.isArray(data.data)) {
 				dspace_status.empty();
 				url_select.empty();
 				url_select.append("<option value='' selected disabled>predefined servers</option>");
 				url_select.append("<option value='https://demo.dspace.org/rest'>https://demo.dspace.org/rest</option>");
-				data[0].url.forEach(function(url_opt) {
-					url_select.append($("<option></option>").text(url_opt).attr("value", url_opt));
+				data.data.forEach(function(r) {
+					url_select.append($("<option></option>").text(r.url).attr("value", r.url));
 				})
 			}
 		}

@@ -6,7 +6,7 @@
 var c = context; 
 var input = context.doc[context.in_field];
 
-out.pre_value = [];
+core.files = [];
 
 if(Array.isArray(input)) {
 	for (var i = 0; i < input.length; i++) {
@@ -19,7 +19,7 @@ if(Array.isArray(input)) {
 			download.url = input[i];
 		}
 		previousFile(download, i);
-		out.pre_value.push(download); 
+		core.files.push(download); 
 	}
 } else {
 	var download = {};
@@ -30,7 +30,7 @@ if(Array.isArray(input)) {
 		download.url = input;
 	}
 	previousFile(download, null);
-	out.pre_value.push(download);
+	core.files.push(download);
 }
 
 

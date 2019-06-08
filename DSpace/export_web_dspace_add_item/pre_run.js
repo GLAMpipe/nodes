@@ -7,22 +7,24 @@ var out_link = context.doc[context.node.params.out_link];
 
 var options = {
 	url: out.url,  // from init.js
-	json: item,
+	json: true,
+	body: item,
+	method: 'POST',
 	headers: {
-		"accept": "application/json"
-	},
-	jar:true
+		"accept": "application/json",
+		"Content-Type": "application/json"
+	}
 };
 
 
 
 // if there is an url in out_link, then we do not run again
 if(out_link && typeof out_link == "string" && out_link.match(/^http/))
-	context.skip = true;
+	options.skip = true;
 
 // do not proceed with empty content
 if(item)
-	out.pre_value = options;
+	core.options = options;
 
 
 if(parseInt(context.count) % 10 == 0) 

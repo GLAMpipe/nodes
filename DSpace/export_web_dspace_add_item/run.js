@@ -1,11 +1,11 @@
 
 
 
-if(context.error) {
+if(core.error) {
 	out.setter[context.node.params.out_link] = out.error_marker + context.error;
-} else if(!context.skip && context.data && context.response && context.response.statusCode == 200) {
+} else if(core.data && core.data.statusCode == 200) {
 	context.success_count++;
-	var data = context.data;
+	var data = core.data.body;
 	var splitted = context.node.params.required_url.split("/");
 	var link_root = splitted.slice(0, splitted.length-1).join("/") + context.node.params.dspace_ui;
 	out.setter = {};
