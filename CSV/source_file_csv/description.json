@@ -3,7 +3,7 @@
 	"type": "source",
 	"subtype": "file",
 	"subsubtype": "csv",
-	"core": "file.CSV.read",
+	"core": "source.file.CSV",
 	"title": "Import csv",
 	"status": "usable",
 	"tags":["generic"],
