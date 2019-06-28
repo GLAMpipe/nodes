@@ -1,10 +1,10 @@
 
-var mapping = context.mapping;
+var mapping = core.data;
 var local_key_value = context.doc[context.node.settings.in_key_field];
 out.setter = {};
 var fuzzy = 1.0;
 
-
+out.console.log(local_key_value)
 
 if(Array.isArray(local_key_value)) {
 	out.setter[context.node.params.out_field] = [];
@@ -27,7 +27,7 @@ if(Array.isArray(local_key_value)) {
 }
 
 
-if(context.node.settings.as_string) {
+if(context.node.settings.as_string === "true") {
 	if(Array.isArray(out.setter[context.node.params.out_field])) {
 		out.setter[context.node.params.out_field] = out.setter[context.node.params.out_field].join("");
 	} 
@@ -41,6 +41,7 @@ if(parseInt(context.count) % 100 == 0)
 
 // we expect that mapping data has string value or arrays with length 1 
 function map(key_value) {
+	out.console.log(key_value)
 	var mapped = {};
 	mapped.value = "";
 	mapped.score = 0.0;

@@ -1,13 +1,13 @@
 {
-	"nodeid": "process_lookup_collection",
-	"title": "Field: lookup value from collection",
+	"nodeid": "process_lookup_collection_query",
+	"title": "Field: query value from collection",
 	"type": "process",
 	"subtype": "lookups",
 	"subsubtype": "collection",
-	"core": "lookup.collection.field_array",
+	"core": "lookup.collection.mongoquery",
     "status": "rubbish",
     "tags":["generic"],
-	"description": "Collection lookup. Suitable for example term lookups.",
+	"description": "Collection query lookup. Makes a mongo query per document.",
 
 	"scripts": {
 

@@ -1,0 +1,16 @@
+{
+    "nodeid": "collection_index",
+    "title": "GLAMPIPE: add index",
+    "type": "process",
+    "subtype": "index",
+    "status": "usable",
+    "tags":[],
+    "description": "Add index to collection.",
+
+    "scripts": {
+            
+        "finish":"out.say('finish', 'index created!'); "
+    },
+    
+    "views": {}
+}
