@@ -1,0 +1,23 @@
+{
+	"nodeid": "process_field_xml2json",
+	"title": "XML: XML2JSON",
+	"type": "process",
+	"core": "process.sync.script",
+	"subtype": "format",
+    "status": "usable",
+	"description": "Transform XML to JSON",
+	"scripts": {
+
+        "init":
+        [
+			"out.say('progress', 'Starting...');"
+		],
+		
+		"finish": "out.say('finish', 'Done!');"
+	},
+	
+	"views": {
+
+
+	}
+}

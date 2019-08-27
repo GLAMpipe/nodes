@@ -1,0 +1,17 @@
+
+
+
+<label>Field</label>
+<select id="process-field-xml-json_in" class="dynamic-field" name="in_field">
+	<option value="">choose</option>
+</select>
+
+<label>Output field</label> 
+<input id="process-field-xml-json_out" name="out_field" value="_json"/>
+
+
+<script>
+	$("#process-field-xml-json_in").change(function() {
+		$("#process-field-xml-json_out").val($(this).val() + "_json");
+	})
+</script>
