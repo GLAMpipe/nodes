@@ -1,8 +1,8 @@
 
 var c = context;
 
-if(context.response && context.response.statusCode == 200 && context.data.resultCount) {
-	var numFound = parseInt(context.data.resultCount, 10);
+if(core.response && core.response.statusCode == 200 && core.data.resultCount) {
+	var numFound = parseInt(core.data.resultCount, 10);
 	var pageCount = Math.ceil(numFound/c.var.limit)  ;
 	out.say('progress', 'Fetching page ' + c.var.page + ' of '+pageCount+ ' Total records: ' + numFound);
 	var imgBase = 'https://api.finna.fi';
@@ -11,11 +11,11 @@ if(context.response && context.response.statusCode == 200 && context.data.result
 	var out_records = [];
 	c.var.page++;
 
-	if (context.data.records && Array.isArray(context.data.records)) {
+	if (core.data.records && Array.isArray(core.data.records)) {
 		if(context.node.settings.raw === "true")
-			out_records = context.data.records;
+			out_records = core.data.records;
 		else
-			createDocs(context.data.records);
+			createDocs(core.data.records);
 	}
 
 	// check that we do have some records
@@ -31,7 +31,7 @@ if(context.response && context.response.statusCode == 200 && context.data.result
 
 		 /* check if there is any data left on the server */
 		if(c.var.page <= pageCount && c.var.page <= limit)
-			 out.url = c.var.url + '&page=' + c.var.page + c.var.fields_str;
+			 core.options.url = c.var.url + '&page=' + c.var.page + c.var.fields_str;
 	}
 
 } else {

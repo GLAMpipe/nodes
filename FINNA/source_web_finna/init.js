@@ -44,7 +44,7 @@ if (query.length == 2) {
     query[1] = query[1].replace(/&?limit=0/,"?"); 
 
     /* add license to query if user chose it*/
-    if(license != '') 
+    if(license && license != '') 
        c.var.url = url + query[1] + '&filter[]=' + license; 
     else 
        c.var.url = url + query[1];
@@ -53,5 +53,10 @@ if (query.length == 2) {
     out.say('error', 'Haku ei onnistu! Kopioitko osoiterivin oikein?'); 
 }
 
-out.url = c.var.url + '&page=' + c.var.page + c.var.fields_str; 
-c.var.query_url = out.url; 
+var final_url = c.var.url + '&page=' + c.var.page + c.var.fields_str; 
+c.var.query_url = final_url; 
+
+core.options = {
+	url: final_url,
+	method: 'GET'
+}
