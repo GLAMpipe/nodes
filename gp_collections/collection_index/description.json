@@ -1,8 +1,9 @@
 {
     "nodeid": "collection_index",
-    "title": "GLAMPIPE: add index",
+    "title": "COLLECTION: add index",
     "type": "process",
-    "subtype": "index",
+    "subtype":"collection",
+    "core": "process.collection.index",
     "status": "usable",
     "tags":[],
     "description": "Add index to collection.",
