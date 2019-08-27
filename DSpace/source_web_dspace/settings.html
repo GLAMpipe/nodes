@@ -6,8 +6,8 @@
 			DSpace collections
 		</settingtitle>
 		<settinginstructions>
-			Current DSpace server: <strong><span id="source_web_dspace_url"></span></strong><br>
-			Choose collection(s) from the list. If you do not choose collections, then search is targeted to the whole repository.<br>
+			Current DSpace server: <span id="source_web_dspace_url"></span>
+			Choose collection(s) from the list. If you do not choose collections, then search is targeted to the whole repository.
 			
 
 		</settinginstructions>
@@ -17,7 +17,7 @@
 	<settingaction>
 		<label>Selected collections</label>
 		<settinglistcontainer id="source_web_dspace_selected"></settinglistcontainer>
-		<label class="inline"><button class="button source_web_dspace_fetch">refresh collections</button></label> | <a id="source_web_dspace_unselect" class="ibutton">unselect all</a>
+		<button class="button source_web_dspace_fetch">refresh collections</button>| <a id="source_web_dspace_unselect" class="ibutton">unselect all</a>
 		<settinglistcontainer id="source_web_dspace_data"></settinglistcontainer>
 		
 	</settingaction>
@@ -50,7 +50,7 @@
 			Import mode
 		</settingtitle>
 		<settinginstructions>
-			<b>Clear and import</b> clears previously imported data and then imports data again.<br>
+			<b>Clear and import</b> clears previously imported data and then imports data again.
 			<b>Update</b> mode does not remove previous records. Instead it add records only if there is no such UUID before.
 		</settinginstructions>
 	</settinginfo>
@@ -62,7 +62,7 @@
 			<option value="update">update</option>
 		</select>
 		<label>update field</label>
-		<input class="node-settings " name="update_key" value="uuid" />
+		<input type="text" class="node-settings " name="update_key" value="uuid" />
 	</settingaction>
 </setting>
 
@@ -113,7 +113,7 @@
 			DSpace login (optional)
 		</settingtitle>
 		<settinginstructions>
-			Login is optional. If you do not login, then you get data that is publicly available. <br>
+			Login is optional. If you do not login, then you get data that is publicly available. 
 			
 		</settinginstructions>
 	</settinginfo>
