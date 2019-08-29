@@ -28,7 +28,7 @@ for(var prop in record) {
 
 
 function processValue (value) {
-	if(context.node.settings.split != "") {
+	if(context.node.settings.split && context.node.settings.split != "") {
 		var arr = value.split(context.node.settings.split);
 		
 		// trim separated values
