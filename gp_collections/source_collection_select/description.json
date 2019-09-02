@@ -3,6 +3,7 @@
     "type": "source",
     "subtype": "collection",
     "subsubtype": "select",
+    "core":"source.collection.select",
     "title": "select",
     "status": "rubbish",
     "tags":["generic"],
