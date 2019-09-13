@@ -20,10 +20,10 @@ function quote (str) {
             
 var row = [];
 
-for(var i=0; i<out.csvheaders.length; i++) {
+for(var i=0; i < core.options.csvheaders.length; i++) {
 
 	var value = ""; // default value
-	var key = out.csvheaders[i];
+	var key = core.options.csvheaders[i];
 	if(context.doc[key]) {
 	
 		if (context.doc[key] !== null && Array.isArray(context.doc[key])) {

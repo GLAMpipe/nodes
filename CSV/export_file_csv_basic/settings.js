@@ -14,7 +14,7 @@ function mapping() {
 
 		var table = '<a href="#" class="ibutton" id="export-file-csv_toggle">toggle selection</a><table><thead><tr><th>Field</th></tr></thead>';
 
-		fields.sorted.forEach(function(field) {
+		fields.keys.forEach(function(field) {
 
 			if(node.settings && node.settings.fields && node.settings.fields[field] === "false")
 				table += "<tr> <td> <input class='node-settings' type='checkbox' name='fields["+field+"]'/> " + field + "</td>";

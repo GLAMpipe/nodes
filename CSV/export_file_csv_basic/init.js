@@ -7,5 +7,5 @@ if(context.node.settings.fields) {
 	}
 }
 
-out.csvheaders = fields;
+core.options = {csvheaders: fields};
 

@@ -2,7 +2,7 @@
     "nodeid": "export_csv_basic",
     "type": "export",
     "subtype": "file",
-    "subsubtype": "csv",
+    "core": "export.file.csv",
     "title": "CSV",
     "status": "works",
     "tags":["generic"],
