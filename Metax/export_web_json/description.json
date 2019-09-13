@@ -1,0 +1,17 @@
+{
+    "nodeid": "export_web_metax_additem",
+    "title": "Metax: add item",
+    "type": "export",
+    "subtype": "web",
+    "core": "export.web.JSON",
+    "status": "usable",
+    "tags":["metax"],
+    "description": "Create new items via REST API",
+
+    "scripts": {
+            
+        "finish":"out.say('finish', context.success_count + ' items uploaded'); "
+    },
+    
+    "views": {}
+}

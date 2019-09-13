@@ -1,0 +1,24 @@
+
+<label>Choose Metax version below</label>
+<select id="export-data-metax-additem_url" name="required_url">
+	<option value="" selected disabled>choose server</option>
+	<option value="https://metax-stable.csc.fi/rest/v1">https://metax-stable.csc.fi/rest/v1</option>
+	<option value="https://metax.fairdata.fi/rest/v1">https://metax.fairdata.fi/rest/v1</option>
+</select>
+
+
+<div id="export-data-dspace-additem_hidden">
+	<label>Where is Metax json?</label>
+	<select id="export-data-metax-additem_mapping" name="in_field" class="dynamic-field" required >
+		<option value="">choose</option>
+	</select>
+	
+	<label>Where to write response?</label>
+	<input id="export-data-metax-additem_uuid" name="out_response" value="metax_id" required />
+	
+	<label>Where to write Etsin link?</label>
+	<input id="export-data-metax-additem_link" name="out_link" value="metax_link" required />
+	
+</div>
+
+
