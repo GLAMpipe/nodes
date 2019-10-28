@@ -11,12 +11,11 @@
 var params = context.node.params;
 var settings = context.node.settings;
 
-var input_field = params.in_field;
+var input_field = params['in_field'];
 var input_value = context.doc[input_field];
-var select_value = settings.select.split(";");
+var select_value = settings['select'].split(";");
 
-out.value = null;
-
+out.value = null; // current document is removed if return any value, so 'null' means do not delete
 
 if(Array.isArray(input_value)) {
 	input_value.forEach(function(value) {
@@ -30,15 +29,16 @@ if(Array.isArray(input_value)) {
 		out.value = context.doc._id;
 }
 
+
+
 if(out.value)
 	context.vars.success_counter++;
 
 // returns on first match
 function compare (input, select) {
-	
 	for(var i = 0; i < select.length; i++) {
 		// numeric greater or smaller
-		if(settings.numeric) {
+		if(settings.numeric && settings.numeric == 'true') {
 			input = parseFloat(input);
 			var value = parseFloat(select[i]);
 			if(settings.comparision === ">")

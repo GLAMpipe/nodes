@@ -1,9 +1,9 @@
 {
     "nodeid": "process_documents_select_delete",
     "type": "process",
-    "subtype": "documents",
-    "subsubtype": "select_delete",
-    "title": "Document: select&delete",
+    "subtype": "collection",
+    "core": "process.collection.remove",
+    "title": "COLLECTION: select&delete docs",
     "status": "rubbish",
     "tags":["generic"],
     "usage":"",
@@ -11,12 +11,7 @@
     
     "scripts": {
         
-        "init": 
-        [
-			"context.vars.success_counter = 0; ",
-			"context.vars.counter = 0; "
-		],
-		
+        "init": "context.vars.success_counter = 0; context.vars.counter = 0; ",
         "finish":"out.say('finish', 'Deleted ' + context.vars.success_counter + ' records!'); "
     },
     
