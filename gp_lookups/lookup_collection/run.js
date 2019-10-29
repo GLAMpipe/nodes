@@ -2,9 +2,9 @@
 var mapping = core.data;
 var local_key_value = context.doc[context.node.settings.in_key_field];
 out.setter = {};
-var fuzzy = 1.0;
+var fuzzy_level = 1.0;
 
-out.console.log(local_key_value)
+out.console.log("local key: " +local_key_value)
 
 if(Array.isArray(local_key_value)) {
 	out.setter[context.node.params.out_field] = [];
@@ -24,6 +24,10 @@ if(Array.isArray(local_key_value)) {
 	var mapped = map(local_key_value);
 	out.setter[context.node.params.out_field] = mapped.value;
 	out.setter[context.node.params.out_score] = mapped.score.toString();
+} else {
+	out.setter = {}
+	out.setter[context.node.params.out_field] = "";
+	out.setter[context.node.params.out_score] = "0.0";
 }
 
 
@@ -41,32 +45,46 @@ if(parseInt(context.count) % 100 == 0)
 
 // we expect that mapping data has string value or arrays with length 1 
 function map(key_value) {
-	out.console.log(key_value)
 	var mapped = {};
 	mapped.value = "";
 	mapped.score = 0.0;
 
 	for(var i = 0; i < mapping.length; i++) {
 		var lookup_key_value = mapping[i][context.node.settings.lookup_key_field];
-		var lookup_copy_value = mapping[i][context.node.settings.lookup_copy_field];
+		var lookup_copy_value = ""
+		
+		if(Array.isArray(mapping[i][context.node.settings.lookup_copy_field])) {
+			lookup_copy_value = mapping[i][context.node.settings.lookup_copy_field][0];
+		} else {
+			lookup_copy_value = mapping[i][context.node.settings.lookup_copy_field];
+		}
+
 		if(Array.isArray(lookup_key_value)) {
-			lookup_key_value = lookup_key_value[0];
+			for(var lookup_value of lookup_key_value) {
+				if(lookup_value == key_value) {
+					mapped.score = 1.0,
+					mapped.value = lookup_copy_value;
+					return mapped;
+				}
+				
+				var score = stringScore(key_value, lookup_value, fuzzy_level);
+		
+				// keep records of highest score
+				if(score > mapped.score) {
+					mapped.score = score;
+					mapped.value = lookup_copy_value;
+				} 
+			}
+		} else if(typeof lookup_key_value === "string") {
+			var lookup_value = lookup_key_value.trim();
+			var score = stringScore(key_value, lookup_value, fuzzy_level);
+		
+			// keep records of highest score
+			if(score > mapped.score) {
+				mapped.score = score;
+				mapped.value = lookup_copy_value;
+			}
 		}
-		
-		if(Array.isArray(lookup_copy_value)) {
-			lookup_copy_value = lookup_copy_value[0];
-		}
-		
-		if(typeof lookup_key_value === "string")
-			lookup_key_value = lookup_key_value.trim();
-		
-		var score = stringScore(key_value, lookup_key_value, fuzzy);
-		
-		// keep records of highest score
-		if(score > mapped.score) {
-			mapped.score = score;
-			mapped.value = lookup_copy_value;
-		} 
 	}
 //out.console.log(mapped.score)
 //out.console.log(parseFloat(context.node.settings.fuzzy_level))
@@ -74,13 +92,13 @@ function map(key_value) {
 //out.console.log(mapped)
 
 
-	var fuzzy = mapped.score >= parseFloat(context.node.settings.fuzzy_level);
-	if(fuzzy) {
+	var fuzz = mapped.score >= parseFloat(context.node.settings.fuzzy_level);
+	if(fuzz) {
 		return mapped;
 	} 
 	
 	// if no matches, then return original key
-	if((mapped.score === 0.0 || !fuzzy) && context.node.settings.copy === "true")
+	if((mapped.score === 0.0 || !fuzz) && context.node.settings.copy === "true")
 		mapped.value = key_value;
 	else
 		mapped.value = "";

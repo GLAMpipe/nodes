@@ -11,9 +11,9 @@ out.console.log(context.node.dir)
 
 // auth
 if(context.node.settings.username) {
-	core.auth = {
-		'user': context.node.settings.username,
-		'pass': context.node.settings.password,
+	core.options.auth = {
+		'username': context.node.settings.username,
+		'password': context.node.settings.password,
 		'sendImmediately': true
 	}
 }

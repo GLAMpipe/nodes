@@ -65,7 +65,6 @@ function createDocs (recs) {
 			 out_rec.authors = [];
 			 out_rec.institutions = [];
 			 out_rec.isbns = [];
-			 out_rec.isbn_clean = "";
 			 out_rec.series_name = [];
 			 out_rec.series_additional = [];
 			 out_rec.series_issn = [];
@@ -129,9 +128,6 @@ function createDocs (recs) {
 
 			if (recs[i].isbns)
 				 out_rec.isbns = recs[i].isbns;
-
-			if (recs[i].cleanIsbn)
-				 out_rec.isbn_clean = recs[i].cleanIsbn;
 				 
 			if (recs[i].physicalDescriptions)
 				out_rec.physical_descriptions = recs[i].physicalDescriptions;
