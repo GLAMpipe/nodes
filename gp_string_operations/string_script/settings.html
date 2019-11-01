@@ -42,6 +42,7 @@
 			<option value="">choose</option>
 			<option value="typed_hello">Hello world with type checking</option>
 			<option value="d6_bitstream_count">DSpace 6: bitstream count on certain bundle</option>
+			<option value="MARC">MARC: extract values from marc</option>
 		</select>
 
 	</settingaction>
@@ -102,6 +103,63 @@ if(x["bundleName"] == "ORIGINAL") {
 }
 }) 
 out.value = counter +"";
+`,
+
+"MARC":`
+
+  	
+// this is the current document
+var doc = context.doc;
+
+// this writes the result to the field of the current document
+var data = {}
+data['authors'] = getTag('100', 'a');
+data['isbn'] = getTag('020', 'a');
+data['lang'] = getTag('041', 'a');
+data['title'] = getTag('245', 'a');
+data['dissertation'] = getTag('502', 'a');
+data['publisher'] = getTag('264', 'a');
+data['pages'] = getTag('300', 'a');
+data['serial_name'] = getTag('490', 'a');
+data['serial_issn'] = getTag('490', 'x');
+
+
+var kasi = getTags('008')
+data['year'] = getYear(kasi[0]);
+
+
+
+
+out.setter = data 
+
+function getTags(tag, sub) {
+    var result = []
+    for(var field of doc['fields']) {
+        if(field[tag]) {
+            result.push(field[tag])
+        }
+    }
+    return result;
+}  
+  
+  
+function getTag(tag, sub) {
+    var result = []
+    for(var field of doc['fields']) {
+        if(field[tag]) {
+            for(var subfield of field[tag]['subfields']) {
+                if(subfield[sub]) result.push(subfield[sub]) 
+            }
+        }
+    }
+    return result;
+}
+
+function getYear(cfield) {
+    var search = ['t','s','r', 'q']
+    if(search.includes(cfield[6]))
+        return cfield.substring(7,11);
+}
 `
 }
 
