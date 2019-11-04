@@ -1,8 +1,8 @@
 
-var base = context.node.params.required_url;
+var base = context.node.params.required_dspace_url;
 
 // we must output array of options for Request module
-
+core.options = [];
 
 // handle array
 if(Array.isArray(context.doc[context.node.settings.in_bitstream])) {
@@ -16,7 +16,7 @@ if(Array.isArray(context.doc[context.node.settings.in_bitstream])) {
 				method: 'GET'
 			}
 		} 
-		out.pre_value.push(options);
+		core.options.push(options);
 	})
 
 //handle non-array
@@ -30,7 +30,7 @@ if(Array.isArray(context.doc[context.node.settings.in_bitstream])) {
 		}
 	}
 	
-	out.pre_value = [options];
+	core.options = options;
 
 // check if we have static values (eg. REST-api call from external app)
 } else if(context.node.settings.bitstream_uuid_static) {
@@ -38,7 +38,7 @@ if(Array.isArray(context.doc[context.node.settings.in_bitstream])) {
 		url: base + "/bitstreams/" + context.node.settings.bitstream_uuid_static + "/policy",
 		method: 'GET'
 	}
-	out.pre_value = [options];
+	core.options = options;
 } else {
 	context.error = out.error_marker + "No UUID found!"
 }

@@ -2,7 +2,7 @@
     "nodeid": "process_lookup_web_dspace_policy",
     "type": "process",
     "subtype": "lookups",
-    "subsubtype": "web",
+    "core": "lookup.web.JSON",
     "title": "DSpace 6: fetch bitstream policies",
     "status": "usable",
     "tags":["dspace"],
