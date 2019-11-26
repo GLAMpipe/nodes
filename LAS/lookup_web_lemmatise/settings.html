@@ -1,0 +1,76 @@
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			<a href="http://annif.org/" target="_blank">LAS</a> - Language Analysis Tool
+		</settingtitle>
+		<settinginstructions>
+			Lemmatise words and create bag of words.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+
+	</settingaction>
+</setting>
+
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Text language 
+		</settingtitle>
+		<settinginstructions>
+			By default an automatic detection is used.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>dynamic language field</label> 
+		<select class="node-settings dynamic-field" name="_dynamic_language">
+			<option value="">choose</option>
+		</select>
+
+		<label>static language</label> 
+		<input placeholder="two character language code like 'fi' or 'en'" class="node-settings" name="_static_language" />
+	</settingaction>
+
+
+
+</setting>
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Output format
+		</settingtitle>
+		<settinginstructions>
+			You can get a raw output from LAS, array of words or bag of words.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>format</label> 
+		  <input type="radio" name="format" value="list" class="node-settings" style="width:15px" checked="checked"> all words<br>
+		  <input type="radio" name="format" value="unique" class="node-settings" style="width:15px"> unique words<br>
+		  <input type="radio" name="format" value="bag" class="node-settings" style="width:15px"> unique words with count<br>  
+		  <input type="radio" name="format" value="raw" class="node-settings" style="width:15px"> raw<br>  
+	</settingaction>
+
+</setting>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
