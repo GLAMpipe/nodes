@@ -9,7 +9,7 @@ if (core.response && core.response.statusCode == 200 ) {
 	try {
 		var result = JSON.parse(core.response.body)
 		if(result['baseform']) {
-			var words = result['baseform'].replace(/[!"#¤%&\/\(\)\=\?',;\.:\<\>*]/gm,'').replace(/\s\s+/gm,' ').split(' ');
+			var words = result['baseform'].replace(/[!"#¤%&\/\(\)\=\?',;\.:\<\>*]/gm,' ').replace(/\s\s+/gm,' ').split(' ');
 			
 			// output words as a list
 			if(c.node.settings.format === 'list') {
@@ -22,7 +22,11 @@ if (core.response && core.response.statusCode == 200 ) {
 			// output bag of words with counts
 			} else if(c.node.settings.format === 'bag') {
 				// TODO!
-				out.value = [...new Set(words)]
+				var counts = {};
+				for (var i = 0; i < words.length; i++) {
+					counts[words[i]] = 1 + (counts[words[i]] || 0);
+				}
+				out.value = counts
 			// otherwise output raw result
 			} else {
 				out.value = result;

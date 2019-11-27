@@ -19,10 +19,50 @@
 <setting>
 	<settinginfo>
 		<settingtitle>
-			Text language 
+			Output format
 		</settingtitle>
 		<settinginstructions>
-			By default an automatic detection is used.
+			You can get a raw output from LAS, array of words or bag of words.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>format</label> 
+		<select name="format" class="node-settings">
+			<option value="list"> all words</option>
+			<option value="unique"> unique words</option>
+			<option value="bag"> unique words with counts</option>
+			<option value="raw"> raw</option>
+		</select>
+	</settingaction>
+
+</setting>
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Stop words (optional)
+		</settingtitle>
+		<settinginstructions>
+			List words that you don't want to be included.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>format</label> 
+		<div>Not implemented yet</div>
+	</settingaction>
+
+</setting>
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Text language (optional)
+		</settingtitle>
+		<settinginstructions>
+			Automatic detection is used by default.
 		</settinginstructions>
 	</settinginfo>
 	
@@ -41,25 +81,6 @@
 </setting>
 
 
-<setting>
-	<settinginfo>
-		<settingtitle>
-			Output format
-		</settingtitle>
-		<settinginstructions>
-			You can get a raw output from LAS, array of words or bag of words.
-		</settinginstructions>
-	</settinginfo>
-	
-	<settingaction>
-		<label>format</label> 
-		  <input type="radio" name="format" value="list" class="node-settings" style="width:15px" checked="checked"> all words<br>
-		  <input type="radio" name="format" value="unique" class="node-settings" style="width:15px"> unique words<br>
-		  <input type="radio" name="format" value="bag" class="node-settings" style="width:15px"> unique words with count<br>  
-		  <input type="radio" name="format" value="raw" class="node-settings" style="width:15px"> raw<br>  
-	</settingaction>
-
-</setting>
 
 
 
