@@ -1,0 +1,19 @@
+{
+	"nodeid": "source_web_form",
+	"type": "source",
+	"subtype": "web",
+	"core": "source.web.form",
+	"title": "Form: input",
+	"status": "test",
+	"tags":["generic"],
+	"description": "Form for data input",
+
+	"scripts": {
+		"hello": "out.say('news', 'You added a view node');",
+		
+        "bye": "out.say('news', 'Deleted view node. Bye!'); ",
+        
+        "finish": "out.say('finish', 'Facet view  created!');"
+        
+	}
+}

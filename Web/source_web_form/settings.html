@@ -1,0 +1,54 @@
+
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Form
+		</settingtitle>
+		<settinginstructions>
+			Setup an input form for collection.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>page title</label> 
+		<input type="text" class="node-settings" name="pagetitle" value="GLAMpipe facets"/>
+		<label>page description</label>
+		<textarea  class="node-settings" name="pageinfo"></textarea>
+	</settingaction>
+</setting>
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Facets
+		</settingtitle>
+		<settinginstructions>
+			Choose what fields you want see as facets, which side of the page you want see them and whether they are collapsed or not.
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<input class="node-settings" name="label_1" value="facet 1"/>	
+		<select class="dynamic-field node-settings narrow" name="in_field_1">
+			<option value="">choose</option>
+		</select>
+
+		<select class="node-settings narrow" name="display_1">
+			<option value="left">on the left</option>
+			<option value="right">on the right</option>
+		</select>
+
+		<input type="checkbox" class="node-settings " name="collapsed_1"  />	
+		<label class="inline">collapsed</label>
+		
+
+
+	</settingaction>
+</setting>
+
+
+
+
+
