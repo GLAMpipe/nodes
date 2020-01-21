@@ -10,10 +10,10 @@ core.options = {
 out.console.log(context.node.dir)
 
 // auth
-if(context.node.settings.username) {
+if(context.node.settings._username) {
 	core.options.auth = {
-		'username': context.node.settings.username,
-		'password': context.node.settings.password,
+		'username': context.node.settings._username,
+		'password': context.node.settings._password,
 		'sendImmediately': true
 	}
 }
@@ -29,11 +29,11 @@ var s =  date.getSeconds();
 var ss =  date.getMilliseconds();
 
 // generate filename
-var filename = y + "-" + m + "-" + d + " " + h + ":" + mm + ":" + s + "_" + ss + ".csv";
+var filename = y + "-" + m + "-" + d + "_" + h + ":" + mm + ":" + s + "_" + ss + ".csv";
 
 // check settings
 if(context.node.settings.mode === "append" && context.node.settings.update_key == "") {
 	context.error = "You must give update_key in append mode!"
 }
 core.filename = filename;
-core.file = funcs.path.join(context.node.project_dir, filename);
+
