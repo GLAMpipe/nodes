@@ -1,0 +1,28 @@
+{
+    "nodeid": "process_pipe",
+    "title": "Create node pipe",
+    "type": "process",
+    "subtype": "pipe",
+    "core": "process.sync.pipe",
+    "status": "usable",
+    "description": "Build series of operations",
+    "scripts": {
+    
+        "hello": 
+        [
+            "out.say('news', 'You added a coount node'); "
+        ],
+        
+        "bye": "out.say('news', 'Deleted node. Bye!'); ",
+        
+        "init":
+        [
+            "out.say('progress', 'Metanode started...'); "
+        ],
+        
+        
+        "finish": "out.say('finish', 'Metanode done!');"
+    },
+    
+    "views": {}
+}
