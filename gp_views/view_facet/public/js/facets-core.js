@@ -185,7 +185,7 @@ function refjyx (config) {
 				values.push(encodeURIComponent(sel));
 			})
 			if(values.length > 0)
-				query.push(filter.key + "=" + values.join(','));
+				query.push(filter.key + "=" + values.join('&' + filter.key + '='));
 
 			// filter specific operator
 			if(filter.op)

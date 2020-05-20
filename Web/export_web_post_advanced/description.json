@@ -1,0 +1,17 @@
+{
+    "nodeid": "export_web_post_advanced",
+    "title": "REST POST: post JSON data",
+    "type": "export",
+    "subtype": "web",
+
+    "status": "demo",
+    "tags":["dspace"],
+    "description": "Post JSON data to some endpoint",
+
+    "scripts": {
+            
+        "finish":"out.say('finish', context.success_count + ' items POSTed'); "
+    },
+    
+    "views": {}
+}

@@ -3,6 +3,7 @@
     "title": "Omeka-S: Map data",
     "type": "process",
     "subtype": "format",
+    "core": "process.sync.script",
     "status": "usable",
     "description": "Map data to Omeka-S data for export(JSON)",
     "scripts": {

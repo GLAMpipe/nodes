@@ -27,5 +27,5 @@ if(context.doc[context.node.params.in_field]) {
 	};
 
 
-	out.pre_value = options;
+	core.options = options;
 }

@@ -3,7 +3,7 @@
     "title": "Omeka-S: create items",
     "type": "export",
     "subtype": "web",
-    "subsubtype": "omeka_additem",
+    "core": "export.web.JSON",
     "status": "usable",
     "tags":["omeka-s"],
     "description": "Creates new items via REST api",
