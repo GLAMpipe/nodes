@@ -1,4 +1,5 @@
 {
+	"gp_ver": "21.06",
 	"nodeid": "process_field_changecase",
 	"title": "Field: change case",
 	"type": "process",
@@ -10,7 +11,7 @@
 		"init":"out.say('progress', 'Starting case node...'); ",
 		"finish": "out.say('finish', 'Done!');"
 	},
-	
+
 	"views": {
 
 	}

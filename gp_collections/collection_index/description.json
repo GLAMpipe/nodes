@@ -1,4 +1,5 @@
 {
+	"gp_ver":"21.06",
     "nodeid": "collection_index",
     "title": "COLLECTION: add index",
     "type": "process",
@@ -9,9 +10,9 @@
     "description": "Add index to collection.",
 
     "scripts": {
-            
+
         "finish":"out.say('finish', 'index created!'); "
     },
-    
+
     "views": {}
 }

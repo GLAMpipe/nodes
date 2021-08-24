@@ -1,8 +1,8 @@
 
 var c = context;
 
-if(core.response && core.response.statusCode == 200 && core.data.resultCount) {
-	var numFound = parseInt(core.data.resultCount, 10);
+if(core.response && core.response.status == 200 && core.response.data.resultCount) {
+	var numFound = parseInt(core.response.data.resultCount, 10);
 	var pageCount = Math.ceil(numFound/c.var.limit)  ;
 	out.say('progress', 'Fetching page ' + c.var.page + ' of '+pageCount+ ' Total records: ' + numFound);
 	var imgBase = 'https://api.finna.fi';
@@ -11,11 +11,11 @@ if(core.response && core.response.statusCode == 200 && core.data.resultCount) {
 	var out_records = [];
 	c.var.page++;
 
-	if (core.data.records && Array.isArray(core.data.records)) {
+	if (core.response.data.records && Array.isArray(core.response.data.records)) {
 		if(context.node.settings.raw === "true")
-			out_records = core.data.records;
+			out_records = core.response.data.records;
 		else
-			createDocs(core.data.records);
+			createDocs(core.response.data.records);
 	}
 
 	// check that we do have some records
@@ -128,7 +128,7 @@ function createDocs (recs) {
 
 			if (recs[i].isbns)
 				 out_rec.isbns = recs[i].isbns;
-				 
+
 			if (recs[i].physicalDescriptions)
 				out_rec.physical_descriptions = recs[i].physicalDescriptions;
 
@@ -137,13 +137,13 @@ function createDocs (recs) {
 
 			if(recs[i].recordPage)
 				 out_rec.record_url = finnaBase + recs[i].recordPage;
-			
+
 			// subjects is array of arrays
 			if(recs[i].subjects && Array.isArray(recs[i].subjects)) {
 				if(Array.isArray(recs[i].subjects[0]) && typeof recs[i].subjects[0][0] === "string")
 					out_rec.subjects.push(recs[i].subjects[0][0]);
 			}
-				 
+
 			 /* series */
 			 if (recs[i].series && Array.isArray(recs[i].series)) {
 				 var series = recs[i].series;
@@ -152,12 +152,12 @@ function createDocs (recs) {
 						out_rec.series_name.push(series[j].name);
 					else
 						out_rec.series_name.push("");
-						
+
 					 if(series[j].issn)
 						out_rec.series_issn.push(series[j].issn);
 					else
 						out_rec.series_issn.push("");
-						
+
 					 if(series[j].additional)
 						out_rec.series_additional.push(series[j].additional);
 					else

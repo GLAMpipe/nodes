@@ -1,4 +1,5 @@
 {
+	"gp_ver": "21.06",
 	"nodeid": "process_lookup_collection",
 	"title": "Field: lookup value from collection",
 	"type": "process",
@@ -11,14 +12,14 @@
 
 	"scripts": {
 
-		
+
 		"init": [
 			"out.options = "
 		],
-		
+
 		"finish":"out.say('finish', 'Lookup finished');"
 	},
-	
+
 	"views": {}
 
 }

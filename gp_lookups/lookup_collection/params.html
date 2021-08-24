@@ -1,15 +1,15 @@
 
 
 
-<select class="dynamic-collection" name="required_source_collection" id="lookup_collection_select">
-	<option value="">choose lookup collection</option> 
+<select class="dynamic-collection node-params" name="required_source_collection" id="lookup_collection_select">
+	<option value="">choose lookup collection</option>
 </select>
 
 <label>Where to write the result</label>
-<input id="lookup_collection_out" name="out_field" value="lookup"/> 
+<input class="node-params" id="lookup_collection_out" name="out_field" value="lookup"/>
 
 <label>Where to write the score</label>
-<input id="lookup_collection_out_score" name="out_score" value="lookup_score"/> 
+<input class="node-params" id="lookup_collection_out_score" name="out_score" value="lookup_score"/>
 
 <script>
 	$("#lookup_collection_out").change(function() {
@@ -19,7 +19,7 @@
 	var exclude = ["mp_nodes", "mp_projects", "mp_schemas", "mp_settings", "mp_node_options"]
 	$.getJSON(g_apipath + "/collections", function(data) {
 		if(data && data.result) {
-			
+
 			var collections = [];
 			data.result.forEach(function(collection) {
 				if(!exclude.includes(collection)) {
@@ -33,12 +33,12 @@
 				if(a.label > b.label)
 					return 1;
 				else return -1
-			} 
-			
+			}
+
 			collections.sort(comp);
-			
+
 			collections.forEach(function(collection) {
-				
+
 					$(".params .dynamic_collection").append("<option value='"+collection.id+"'>"+collection.label+"</option>");
 			})
 		}

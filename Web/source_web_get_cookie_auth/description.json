@@ -1,0 +1,18 @@
+{
+	"gp_ver": "21.06",
+    "nodeid": "lookup_web_get_cookie_auth",
+    "type": "process",
+    "subtype": "lookups",
+    "core": "lookup.web.JSON",
+    "title": "Fetch JSON from URL that requires cookie auth",
+    "status": "usable",
+    "tags":["web", "JSON"],
+    "usage":"",
+    "description": "Import data from URL.",
+
+    "views": {
+        "default_keys": ["url"]
+
+    }
+
+}

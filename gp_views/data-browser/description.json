@@ -1,0 +1,20 @@
+{
+	"gp_ver": "21.06",
+	"nodeid": "view_data_browser",
+	"type": "view",
+	"subtype": "data",
+	"core": "view.data.facet",
+	"title": "Data Browser",
+	"status": "test",
+	"tags":["generic"],
+	"description": "Creates data browser view",
+
+	"scripts": {
+		"hello": "out.say('news', 'You added a view node');",
+		
+        "bye": "out.say('news', 'Deleted view node. Bye!'); ",
+        
+        "finish": "out.say('finish', 'Facet view  created!');"
+        
+	}
+}

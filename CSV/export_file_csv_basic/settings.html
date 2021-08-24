@@ -9,14 +9,28 @@
 			Comma is fine in almost all cases.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<label>Separator </label>
 		<input class="node-settings" name="sep" value=",">
 	</settingaction>
 </setting>
 
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Filename
+		</settingtitle>
+		<settinginstructions>
+			File name of the exported file.
+		</settinginstructions>
+	</settinginfo>
 
+	<settingaction>
+		<label>File name </label>
+		<input class="node-settings" name="required_file" value="export.csv"/>
+	</settingaction>
+</setting>
 
 <setting>
 	<settinginfo>
@@ -27,7 +41,7 @@
 			Define here what character(s) is used for joining arrays inside one field.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<label>Array separator </label>
 		<input class="node-settings" name="arr_sep" value="|"/>
@@ -44,10 +58,9 @@
 			Define here what fields are included in the CSV file.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
-		<div id="export-file-csv_fields"></div>
+		<!-- "dynamic-field-checkboxes" div is filled with collection field checkboxes by GLAMpipe -->
+		<div id="export-file-csv-fields" name="fields" class="dynamic-field-checkboxes"></div>
 	</settingaction>
 </setting>
-
-     

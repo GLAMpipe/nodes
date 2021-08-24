@@ -1,4 +1,5 @@
 {
+	"gp_ver": "21.06",
     "nodeid": "source_web_finna",
     "title": "Finna.fi: query import",
     "type": "source",
@@ -11,7 +12,7 @@
     "scripts": {
         "finish":"out.say('finish', 'Got content from Finna! (' + context.var.total_count +')' ); "
     },
-    
+
     "views": {
 		"params":"",
         "default_keys": ["title", "year", "record_url", "thumbnail_html"]

@@ -1,5 +1,6 @@
 {
-    "nodeid": "source_web_dspace",
+	"gp_ver": "21.06",
+	"nodeid": "source_web_dspace",
     "type": "source",
     "subtype": "web",
     "core": "source.web.JSON",
@@ -11,7 +12,7 @@
 
     "views": {
         "default_keys": ["name", "dc_identifier_uri", "bitstream_original_name", "bitstream_original_file_url"]
-    
+
     }
-  
+
 }

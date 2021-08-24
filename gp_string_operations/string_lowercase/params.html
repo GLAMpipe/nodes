@@ -1,15 +1,8 @@
 
-<label>in field:</label> 
-<select id="process_field_lowercase_in" class="dynamic-field" name="in_field" >
+<label>in field:</label>
+<select id="process_field_lowercase_in" class="dynamic-field node-params" name="in_field" >
 	<option value="">choose</option>
 </select>
 
-<label>output field:</label> 
-<input id="process_field_lowercase_out" name="out_field" value="_lowercase" />
-
-<script>
-	$("#process_field_lowercase_in").change(function() {
-		$("#process_field_lowercase_out").val($(this).val() + "_lowercase");
-	})
-</script>
-
+<label>output field:</label>
+<input id="process_field_lowercase_out" name="out_field" value="_lowercase" class="node-params" />

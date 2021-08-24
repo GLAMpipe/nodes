@@ -1,4 +1,5 @@
 {
+	"gp_ver": "21.06",
 	"nodeid": "process_field_has_value",
 	"title": "Field: has value or not",
 	"type": "process",
@@ -10,7 +11,7 @@
 
 		"finish": "out.say('finish', 'Done!');"
 	},
-	
+
 	"views": {
 
 

@@ -1,30 +1,31 @@
 {
+	"gp_ver": "21.06",
     "nodeid": "process_lookup_web_check",
     "type": "process",
     "subtype": "lookups",
-    "subsubtype": "web_check",
+	"core": "lookup.web.head",
     "title": "WEB: Link checker",
     "status": "usable",
     "tags":["generic"],
     "usage":"",
     "description": "Makes HEAD requests to URLs given and saves response codes.",
-    
+
     "scripts": {
 
-        "init": 
+        "init":
         [
 			"context.vars.success_counter = 0; "
 		],
-		
-        "finish": 
+
+        "finish":
         [
 			"out.say('finish', 'Processed ' + context.vars.success_counter + ' records!'); "
 		]
     },
-    
+
     "views": {
         "settings":"no settings"
-    
+
     }
-  
+
 }

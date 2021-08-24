@@ -1,0 +1,63 @@
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			JSON fetch
+		</settingtitle>
+		<settinginstructions>
+
+
+		</settinginstructions>
+
+	</settinginfo>
+	
+	<settingaction>
+		<label>start of the url</label>
+		<input type="text" class="node-settings " name="url_start" placeholder="https://" />
+		<select class="node-settings dynamic-field" name="url_part_1">
+			<option>choose field</option> 
+		</select> 
+		<label>end of the url</label>
+		<input type="text" class="node-settings " name="url_end" placeholder="" />
+	</settingaction>
+</setting>
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Credentials
+		</settingtitle>
+		<settinginstructions>
+			Login is optional. If you do not login, then you get data that is publicly available. 
+			
+		</settinginstructions>
+	</settinginfo>
+	
+	<settingaction>
+		<label>login URL</label>
+		<input class="node-settings" type="text" name="login_url" id="login_url" required />
+		<label>username </label>
+		<input class="node-settings" type="text" name="username" id="username" required />
+		<label>password</label>
+		<input class="node-settings" type="password" name="password" id="password"/>
+	</settingaction>
+</setting>
+
+
+
+
+
+
+
+
+
+
+
+<!-- LIMIT NOT CURRENTLY WORKING! 
+<label>how many records you want? (leave empty for all)</label>
+<input name="dspace_limit"/>
+-->
+
+

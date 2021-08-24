@@ -1,10 +1,5 @@
 
 
-// options:
-// - trim
-// - lowercase
-// - remove all whitespaces
-// - numeric comparasion (<>)
 
 // currently only one match is needed
 
@@ -23,7 +18,7 @@ if(Array.isArray(input_value)) {
 			out.value = context.doc._id;
 		}
 	})
-	
+
 } else {
 	if(compare(input_value, select_value))
 		out.value = context.doc._id;
@@ -45,14 +40,14 @@ function compare (input, select) {
 				return (input > value ? context.doc._id : null)
 			else if(settings.comparision === "<")
 				return (input < value ? context.doc._id : null)
-			
+
 		}
-		
+
 		if(input == select[i]) // == is intentional (user can only insert strings)
 			return context.doc._id;
-		
+
 	}
 	return false;
-	
+
 
 }

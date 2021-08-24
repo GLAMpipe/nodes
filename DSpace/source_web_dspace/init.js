@@ -36,10 +36,7 @@ if(context.node.settings.username) {
 	core.login = {
 		url: base_url + "/login",
 		method: "POST",
-		body: formBody,
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-		},
+		data: formBody
 	}
 
 }

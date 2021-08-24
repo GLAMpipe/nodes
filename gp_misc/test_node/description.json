@@ -1,0 +1,24 @@
+{
+	"nodeid": "process_test",
+	"title": "Field: test node",
+	"type": "process",
+	"subtype": "lookups",
+	"subsubtype": "collection",
+	"core": "lookup.collection.field_array",
+    "status": "rubbish",
+    "tags":["generic"],
+	"description": "Testing setting.",
+
+	"scripts": {
+
+		
+		"init": [
+			"out.options = "
+		],
+		
+		"finish":"out.say('finish', 'Lookup finished');"
+	},
+	
+	"views": {}
+
+}

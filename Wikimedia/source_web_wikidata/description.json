@@ -1,9 +1,10 @@
 {
+	"gp_ver": "21.06",
     "nodeid": "source_web_wikidata",
     "title": "WIKIDATA: sparql import",
     "type": "source",
     "subtype": "web",
-    "core": "web.get.JSON",
+    "core": "source.web.JSON",
     "status": "test",
     "tags":["generic", "wikimedia"],
     "description": "Fetch data from wikidata with SPARQL query. ",
@@ -11,7 +12,7 @@
     "scripts": {
         "finish":"out.say('finish', 'Wikidata fetch completed! (' + context.var.total_count +')' ); "
     },
-    
+
     "views": {
         "params":""
     }

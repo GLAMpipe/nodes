@@ -1,4 +1,5 @@
 {
+	"gp_ver": "21.06",
 	"nodeid": "source_file_marc",
 	"type": "source",
 	"subtype": "file",
@@ -13,7 +14,7 @@
 		"init":"out.say('progress', context.node.title); context.vars = {count:0};",
 		"finish":"out.say('finish', 'Data imported '+context.vars.count+' items from file ' + context.node.params.file);"
 	},
-	
+
 	"views": {
 
 	}

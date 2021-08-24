@@ -1,5 +1,5 @@
 
-
+<div class="alert alert-info node-setting-notify">initalising script...</div>
 <setting>
 	<settinginfo>
 		<settingtitle>
@@ -8,18 +8,18 @@
 		<settinginstructions>
 			Current DSpace server: <span id="source_web_dspace_url"></span>
 			Choose collection(s) from the list. If you do not choose collections, then search is targeted to the whole repository.
-			
+
 
 		</settinginstructions>
 
 	</settinginfo>
-	
+
 	<settingaction>
 		<label>Selected collections</label>
 		<settinglistcontainer id="source_web_dspace_selected"></settinglistcontainer>
 		<button class="button source_web_dspace_fetch">refresh collections</button>| <a id="source_web_dspace_unselect" class="ibutton">unselect all</a>
 		<settinglistcontainer id="source_web_dspace_data"></settinglistcontainer>
-		
+
 	</settingaction>
 </setting>
 
@@ -33,7 +33,7 @@
 			You can make a metadata query here.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<settinglistcontainer id="source_web_dspace_metadata_query">
 
@@ -54,7 +54,7 @@
 			<b>Update</b> mode does not remove previous records. Instead it add records only if there is no such UUID before.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<label>mode</label>
 		<select class="node-settings" name="mode">
@@ -76,7 +76,7 @@
 			You can limit the number of imported items.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<settinglistcontainer>
 			<label>import limit</label>
@@ -99,7 +99,7 @@
 			Query generated based on collection selection above.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<label>query </label>
 		<textarea class="node-settings" name="query" id="source_web_dspace_query"></textarea>
@@ -113,11 +113,11 @@
 			DSpace login (optional)
 		</settingtitle>
 		<settinginstructions>
-			Login is optional. If you do not login, then you get data that is publicly available. 
-			
+			Login is optional. If you do not login, then you get data that is publicly available.
+
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<label>username </label>
 		<input class="node-settings" type="text" name="username" id="username" required />
@@ -129,9 +129,7 @@
 
 
 
-<!-- LIMIT NOT CURRENTLY WORKING! 
+<!-- LIMIT NOT CURRENTLY WORKING!
 <label>how many records you want? (leave empty for all)</label>
 <input name="dspace_limit"/>
 -->
-
-

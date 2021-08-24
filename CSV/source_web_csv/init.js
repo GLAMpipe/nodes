@@ -13,8 +13,7 @@ out.console.log(context.node.dir)
 if(context.node.settings._username) {
 	core.options.auth = {
 		'username': context.node.settings._username,
-		'password': context.node.settings._password,
-		'sendImmediately': true
+		'password': context.node.settings._password
 	}
 }
 
@@ -36,4 +35,3 @@ if(context.node.settings.mode === "append" && context.node.settings.update_key =
 	context.error = "You must give update_key in append mode!"
 }
 core.filename = filename;
-

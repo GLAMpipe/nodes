@@ -1,4 +1,5 @@
 {
+	"gp_ver": "21.06",
     "nodeid": "process_script",
     "title": "Field: script",
     "type": "process",
@@ -7,9 +8,9 @@
     "status": "usable",
     "description": "Script super node.",
     "scripts": {
-        
+
         "finish": "out.say('finish', 'Script done!');"
     },
-    
+
     "views": {}
 }

@@ -1,0 +1,40 @@
+
+<setting>
+	<pre id="editor" class="node-settings" style="height:400px; width:100%">
+
+// this is the current document
+var doc = context.doc;
+
+var out_object = {title: 'hello world'}
+
+// this writes the result to the field of the current document
+out.value = out_object
+	</pre>
+
+</setting>
+
+<script src="../js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var editor = ace.edit('editor');
+	editor.setTheme('ace/theme/twilight');
+	editor.session.setMode('ace/mode/javascript');
+
+</script>
+
+
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			File name
+		</settingtitle>
+		<settinginstructions>
+			Name of the exported file.
+		</settinginstructions>
+	</settinginfo>
+
+	<settingaction>
+		<label>File name</label>
+		<input class="node-settings" name="required_file" value="export.json" />
+	</settingaction>
+</setting>

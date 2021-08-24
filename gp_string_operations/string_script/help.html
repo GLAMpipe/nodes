@@ -1,0 +1,47 @@
+<setting>
+	<settinginfo>
+		<settingtitle>
+			This is an experimental script node.
+		</settingtitle>
+		<settinginstructions>
+
+			<p>Few things to keep in mind:
+			<ul>
+				<li>You define <strong>your output</strong> via <strong>out.value</strong> that gets written to the field that you defined when you created this node (<span id="process_script_out">output field</span>).</li>
+				<li>Current document is in <strong>context.doc</strong>. You can access document fields with dot notation, i.e <strong>context.doc.field_name</strong>. </li>
+				<li>Your script is <strong>executed in the server</strong>, not in your browser</li>
+				<li>Document values (fields) can be primitive types (string, number etc), arrays or objects. So you must check the type.</li>
+				<li>The script is <strong>synchronous</strong>, you can not make any IO calls</li>
+				<li>There is a <strong>100 ms timeout</strong> (in order to prevent infinite loops)</li>
+			</ul>
+
+		</settinginstructions>
+	</settinginfo>
+
+	<settingaction>
+
+
+	</settingaction>
+</setting>
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Example scripts
+		</settingtitle>
+		<settinginstructions>
+			Some sample scripts.
+		</settinginstructions>
+	</settinginfo>
+
+	<settingaction>
+		<label>example scripts (not working yet)</label>
+		<select id="script_node_examples">
+			<option value="">choose</option>
+			<option value="typed_hello">Hello world with type checking</option>
+			<option value="d6_bitstream_count">DSpace 6: bitstream count on certain bundle</option>
+			<option value="MARC">MARC: extract values from marc</option>
+		</select>
+
+	</settingaction>
+</setting>

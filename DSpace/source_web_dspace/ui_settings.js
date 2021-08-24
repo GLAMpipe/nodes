@@ -9,10 +9,10 @@
 	// we must take care of settings remembering since schema is dynamically fetched
 	getSchema(function(schemas) {
 		if(node.settings.query_field && Array.isArray(node.settings.query_field) && node.settings.query_field.length !== 0) {
-			
+
 			if( node.settings.query_field.length === 1 && node.settings.query_field[0] == "") {
 				schemaList(schemas);
-			} else {	
+			} else {
 				for(var i = 0; i < node.settings.query_field.length; i++) {
 					if(node.settings.query_field[i]) {
 						schemaList(schemas, node.settings.query_field[i],node.settings.query_op[i], node.settings.query_val[i]);
@@ -25,9 +25,8 @@
 		hierarchyList();
 	})
 
-
-
 	$("#source_web_dspace_selected").empty().append(collectionsfromQuery().join(""));
+
 	$("#source_web_dspace_url").text(params.required_dspace_url);
 
 	//$(document).on("click", "#source_web_dspace_fetch", function () {
@@ -49,7 +48,7 @@
 	$("#source_web_dspace_data").on("click", "input.collection:checkbox", function (event) {
 		createQuery();
 	})
-	
+
 	// community click handler
 	$("#source_web_dspace_data").on("click", "input.community:checkbox", function (event) {
 		$(this).parent().children("ul").find(':checkbox').prop('checked', $(this).is(':checked'));
@@ -97,7 +96,7 @@
 				html += "<li data-id='" + data[i].id + "'><input class='" +type+ "' type='checkbox' checked='checked'/><label>" + data[i].name + "</label>";
 			else
 				html += "<li data-id='" + data[i].id + "'><input class='" +type+ "' type='checkbox'/><label>" + data[i].name + "</label>";
-			
+
 			// handle subcommunities array
 			if(data[i].community && data[i].community.constructor.name == "Array" ) {
 					html += display(data[i].community, "community");
@@ -117,13 +116,14 @@
 		}
 		html += "</ul>";
 		return html;
-		
-		
+
+
 	}
 
 
 
 	function hierarchyList() {
+		$(".node-setting-notify").empty().append('Fetching DSpace collections...').show()
 		$("#source_web_dspace_data").empty();
 		$("#source_web_dspace_data").css('visibility', 'visible');
 		$("#source_web_dspace_data").append("<div class='bar'></div>");
@@ -135,18 +135,21 @@
 				$("#source_web_dspace_data").empty();
 				$("#source_web_dspace_data").append(html);
 				$("#source_web_dspace_data").show();
+				$(".node-setting-notify").empty().hide()
 			}
 			// update selected collections list
 			//collectCollections();
 			createQuery();
 			//$("setting select[name='query_field[]']").prop('disabled', false);
-		}).error(function() { alert("error in DSpace request!"); })
+		}).fail(function() { alert("error in DSpace request!"); })
 	}
 
 
 	function getSchema(cb) {
+		$(".node-setting-notify").empty().append('Fetching DSpace schema...').show()
 		$.getJSON(g_apipath + "/proxy?url=" + params.required_dspace_url + "/registries/schema", function (schemas) {
 			dspace_schema = schemas;
+			$(".node-setting-notify").empty().hide()
 			cb(schemas);
 		})
 	}
@@ -163,13 +166,13 @@
 			})
 		})
 		fields += "</select>"
-		
+
 		fields += operators(op);
 		if(val)
 			fields += "<div><input class='node-settings narrow' name='query_val[]' value='"+val+"'/><a class='add_op'><i class='wikiglyph wikiglyph-plus'></i></a></div></div>";
 		else
 			fields += "<a class='add_op'><i class='wikiglyph wikiglyph-plus'></i></a><input class='node-settings' name='query_val[]' /></div>";
-		
+
 		$("#source_web_dspace_metadata_query").append(fields);
 		//$("setting select[name='query_field[]']").prop('disabled', true);
 	}
@@ -181,7 +184,7 @@
 		var ops="";
 		if(!op)
 			op = "equals";
-			
+
 		ops += "<select class=\"node-settings narrow\" name=\"query_op[]\">";
 		for(var i = 0; i < operators.length; i++) {
 			if(op && op === operators[i])
@@ -219,7 +222,7 @@
 	function collectFieldQuery() {
 		var query = "";
 		$(".field-query").each(function() {
-			
+
 			// use only if field is chosen
 			if( $(this).find("select[name='query_field[]']").val()) {
 				query += "&query_field[]=" + $(this).find("select[name='query_field[]']").val();
@@ -230,5 +233,3 @@
 		return query;
 
 	}
-
-

@@ -1,25 +1,26 @@
 {
+	"gp_ver": "21.06",
     "nodeid": "export_web_dspace_update",
     "title": "DSpace 6: update item field",
     "type": "export",
     "subtype": "web",
-    "subsubtype": "dspace",
+	"core": "export.web.JSON",
     "status": "usable",
     "tags":["dspace"],
     "description": "Update one item field via REST API",
 
     "scripts": {
-        "hello": 
+        "hello":
         [
 			"out.say('news', 'You just created a DSpace node for data updates'); ",
 			"context.node.out_field = context.node.params.out_field; "
 		],
-		
+
         "bye": "out.say('finish', 'Deleted node!'); ",
-            
+
         "finish":"out.say('finish', 'Data updated'); "
     },
-    
+
     "views": {
 
     }

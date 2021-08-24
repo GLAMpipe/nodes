@@ -1,0 +1,27 @@
+{
+    "nodeid": "export_json_scripted",
+    "type": "export",
+    "subtype": "file",
+    "core": "export.file.JSON",
+    "title": "JSON",
+    "status": "works",
+    "tags":["generic"],
+    "description": "Exports custom JSON via script.",
+
+
+    "scripts": {
+
+
+        "finish":
+        [
+            "out.say('finish','Export done to \"' + context.node.dir + '/' + context.node.params.required_file + '\"');"
+        ]
+
+    },
+
+    "views": {
+
+        "params":"no params"
+
+    }
+}
