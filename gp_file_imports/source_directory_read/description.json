@@ -1,10 +1,11 @@
 {
+	"gp_ver": "21.06",
 	"nodeid": "source_directory_scan",
+	"core": "source.directory.scan",
 	"type": "source",
-	"subtype": "file",
-	"subsubtype": "directory",
-	"title": "Recursive directory scan",
-	"description": "Recursive directory scan",
+	"subtype": "directory",
+	"title": "Directory scan",
+	"description": "Read file information from directory",
 	"tags":["generic"],
 
 	"scripts": {

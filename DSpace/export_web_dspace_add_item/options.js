@@ -1,19 +1,15 @@
 
 
-
+var base_url = context.node.params.required_url;
 var item = context.doc[context.node.params.in_field];
+var collection = context.node.settings.collection;
 var out_link = context.doc[context.node.params.out_link];
 
 
 var options = {
-	url: out.url,  // from init.js
-	json: true,
-	body: item,
-	method: 'POST',
-	headers: {
-		"accept": "application/json",
-		"Content-Type": "application/json"
-	}
+	url: base_url + "/collections/" + collection + "/items/",
+	data: item,
+	method: 'POST'
 };
 
 
@@ -27,11 +23,5 @@ if(item)
 	core.options = options;
 
 
-if(parseInt(context.count) % 10 == 0) 
+if(parseInt(context.count) % 10 == 0)
     out.say("progress", context.node.type.toUpperCase() + ": processed " + context.count + "/" + context.doc_count);
-
-
-
-
-
-

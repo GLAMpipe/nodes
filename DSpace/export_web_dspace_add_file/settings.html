@@ -10,7 +10,7 @@
 			DSpace login for server: <span id="export-data-dspace_serverinfo"></span>
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<label>username </label>
 		<input class="node-settings required" type="text" name="username" id="username" required />
@@ -26,7 +26,7 @@
 			File settings
 		</settingtitle>
 		<settinginstructions>
-			Give a full file path to file in local computer and the file title. 
+			Give a full file path to file in local computer and the file title.
 			<ul>
 				<li><b>UUID:</b> UUID of the DSpace item</li>
 				<li><b>File:</b> local file path.</li>
@@ -36,7 +36,7 @@
 			</ul>
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 
 		<label>UUID field</label>
@@ -49,36 +49,24 @@
 			<option value="">choose</option>
 		</select>
 
+		<!--
 		<label>File title</label>
 		<select class="node-settings dynamic-field" name="in_file_title" >
 			<option value="">choose</option>
 		</select>
-
-		<label>Bundle name</label>
+		<label>Bundle name (requires )</label>
 		<select class="node-settings dynamic-field" name="bundlename" >
 			<option value="">choose</option>
 		</select>
-		
+
 		<label>Bundle name (static)</label>
 		<input class="node-settings" name="bundlename_static"/>
-		
 		<label>File title (static)</label>
 		<input class="node-settings" name="file_title_static"/>
+	-->
 
-		<label>Additional file path</label>
-		<input class="node-settings" name="file_path" />
+		<label>Media file path</label>
+		<input class="node-settings" name="file_path" value="/media" />
 
 	</settingaction>
 </setting>
-
-
-
-
-
-
-
-
-
-
-
-

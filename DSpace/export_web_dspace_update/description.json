@@ -1,5 +1,4 @@
 {
-	"gp_ver": "21.06",
     "nodeid": "export_web_dspace_update",
     "title": "DSpace 6: update item field",
     "type": "export",

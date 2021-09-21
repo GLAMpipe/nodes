@@ -1,10 +1,10 @@
 
-        
-out.say('progress', 'Starting to upload..'); 
+
+out.say('progress', 'Starting to upload..');
 context.counter = 0;
 var title_mapped = false;
 
-var rest_url = context.node.params.required_url;
+var base_url = context.node.params.required_url;
 var collection = context.node.settings.collection;
 
 
@@ -16,5 +16,26 @@ if(collection == "") {
 }
 
 
-// upload url
-out.url = rest_url + "/collections/" +collection+ "/items/";
+// auth
+if(context.node.settings.username) {
+
+	var details = {
+		'email': context.node.settings.username,
+		'password': context.node.settings.password
+	};
+
+	var formBody = [];
+	for (var property in details) {
+	  var encodedKey = encodeURIComponent(property);
+	  var encodedValue = encodeURIComponent(details[property]);
+	  formBody.push(encodedKey + "=" + encodedValue);
+	}
+	formBody = formBody.join("&");
+
+	core.login = {
+		url: base_url + "/login",
+		method: "POST",
+		data: formBody
+	}
+
+}

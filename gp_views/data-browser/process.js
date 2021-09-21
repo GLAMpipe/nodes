@@ -4,6 +4,7 @@ var config = {
 
 	// GLAMpipe address and collection
 	gp_url:  "../../../api/v2",
+	project: context.node.project,
 	collection: context.node.collection,
 	pagetitle: context.node.settings.pagetitle,
 	pageinfo: context.node.settings.pageinfo,

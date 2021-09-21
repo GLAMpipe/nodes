@@ -1,4 +1,5 @@
 {
+	"gp_ver": "21.06",
     "nodeid": "export_mapping_omeka_s",
     "title": "Omeka-S: Map data",
     "type": "process",
@@ -7,15 +8,15 @@
     "status": "usable",
     "description": "Map data to Omeka-S data for export(JSON)",
     "scripts": {
-    
+
         "init":
         [
             "out.say('progress', 'Omeka-S format started...'); "
         ],
-        
-        
+
+
         "finish": "out.say('finish', 'Omeka-S format done!');"
     },
-    
+
     "views": {}
 }
