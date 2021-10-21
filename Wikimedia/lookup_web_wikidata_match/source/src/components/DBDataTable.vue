@@ -1,12 +1,16 @@
 <template>
 	<div class="data">
+		total: {{stats.total}}
+		<div v-if="stats.non_matched == 0" class="alert alert-success">All done!</div>
 		<b-table striped hover :items="data" :fields="fields">
-			<template #cell(wd_match)="data">
-				<div v-html="formatReconciliationMatch(data.value, data.item)"></div>
-			</template>
-			<template #cell(wd_result)="data">
+
+			<template v-slot:[`cell(${suggestions_field})`]="data">
 				<div v-html="formatReconciliationResult(data.value, data.item)"></div>
 			</template>
+			<template v-slot:[`cell(${match_field})`]="data">
+				<div v-html="formatReconciliationMatch(data.value, data.item)"></div>
+			</template>
+
 		</b-table>
 
 	</div>
@@ -18,16 +22,20 @@ import web from './../web.js'
 
 export default {
 	name: 'DBDataTable',
+	props: ['show_only_non_matched'],
 	data() {
 		return {
+			stats: {total:-1, unmatched:0},
 			data: [],
-			fields: []
+			fields: [],
+			suggestions_field: '',
+			match_field: ''
 		}
 	},
 	methods: {
 		formatReconciliationResult(wd_result, data) {
 			var out = '<table>'
-			if(data.wd_match) {
+			if(data[this.match_field]) {
 				return `<button class="btn btn-outline-primary" onclick="window.table.setSelection('${data._id}', '')">Change selection </button> (${wd_result.result.length} suggestions)`
 			}
 			if(wd_result.result) {
@@ -50,8 +58,8 @@ export default {
 		},
 		pickWID(wid, data) {
 			var out = ''
-			if(data.wd_result.result) {
-				for(var r of data.wd_result.result) {
+			if(data[this.suggestions_field] && data[this.suggestions_field].result) {
+				for(var r of data[this.suggestions_field].result) {
 					if(r.id == wid) {
 						out += `<b class="text-info">${r.name} (<a href="">${r.id}</a>)</b>`
 					}
@@ -63,22 +71,30 @@ export default {
 			console.log(doc_id)
 			var data = {}
 
-			data[this.$parent.settings.match_field] = selection
+			data[this.match_field] = selection
 			await web.setData(this.$parent.settings.collection, doc_id, data)
-			let result = await web.getData(this.$parent.settings.collection, web.getURLQueryParamsAsString())
+			let result = await web.getData()
 			this.data = result.data.data
+			this.stats = await web.getStats()
 		}
 	},
 
 	watch: {
-		'$parent.settings': async function() {
-			this.fields = this.$parent.settings.visible_fields
-			let result = await web.getData(this.$parent.settings.collection, web.getURLQueryParamsAsString())
+		show_only_non_matched: async function() {
+			let result = await web.getData(this.show_only_non_matched)
 			this.data = result.data.data
 		}
 	},
-	mounted: function () {
+	mounted: async function () {
 		window.table = this; // hackish: expose methods for plain js "select" buttons
+		const params = new URLSearchParams(window.location.search);
+		this.fields = params.get("fields").split(',');
+		this.suggestions_field = params.get("suggestions")
+		this.match_field = params.get("match")
+		this.fields = this.fields.concat([this.suggestions_field, this.match_field])
+		let result = await web.getData(this.show_only_non_matched)
+		this.data = result.data.data
+		this.stats = await web.getStats()
 	}
 }
 

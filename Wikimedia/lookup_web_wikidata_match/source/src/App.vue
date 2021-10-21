@@ -24,12 +24,22 @@
 			<b-col cols="3"  class="sideBar">
 				<b-card>
 					<p>Choose best match and click select.</p>
-					<div>Show only non-matched </div>
+					<div>
+						<b-form-checkbox
+							id="checkbox-1"
+							v-model="show_only_non_matched"
+							name="checkbox-1"
+							value="yes"
+							unchecked-value="no"
+						>
+						Show only non-matched
+						</b-form-checkbox>
+					</div>
 				</b-card>
 			</b-col>
 
 			<b-col cols="9">
-				<DBDataTable ref="table"/>
+				<DBDataTable ref="table" :show_only_non_matched="show_only_non_matched"/>
 			</b-col>
 		</b-row>
 	</div>
@@ -47,6 +57,7 @@ export default {
 	components: { DBDataTable},
 	data() {
 		return {
+			show_only_non_matched: false,
 			settings: null,
 			error: null
 		}

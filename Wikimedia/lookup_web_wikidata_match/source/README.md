@@ -1,4 +1,7 @@
-# data-browser
+# GLAMpipe reconciliation tool UI
+
+This is the user interface for matching items against Wikidata reconciliation suggestions.  
+https://reconciliation-api.github.io/specs/0.1/
 
 ## Project setup
 ```
