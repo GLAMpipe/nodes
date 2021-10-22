@@ -1,27 +1,28 @@
 {
+	"gp_ver": "21.06",
     "nodeid": "process_lookup_web_wikidata_match",
     "type": "process",
     "subtype": "lookups",
-    "subsubtype": "web",
-    "title": "Wikidata: match",
+    "title": "Wikidata reconciliation",
+	"core": "lookup.web.JSON",
     "status": "usable",
     "tags":["wikimedia"],
     "usage":"",
-    "description": "Check if item is in wikidata (reconciliation).",
-    
+    "description": "Check if item is in Wikidata",
+
     "scripts": {
-        
-        "init": 
+
+        "init":
         [
 			"context.vars.success_counter = 0; "
 
 		],
-		
+
          "finish":"out.say('finish', 'Found matches for ' + context.vars.success_counter + ' items of ' + context.doc_count); "
     },
-    
+
     "views": {
-    
+
     }
-  
+
 }

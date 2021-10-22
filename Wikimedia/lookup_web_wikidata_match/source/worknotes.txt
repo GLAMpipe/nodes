@@ -1,7 +1,0 @@
-
-https://github.com/bootstrap-vue/bootstrap-vue/issues/4343
-you can use the following syntax to, for example make all your cells bold.
-
-<template v-slot:cell()="data">
-  <b>{{ data.value }}</b>
-</template>

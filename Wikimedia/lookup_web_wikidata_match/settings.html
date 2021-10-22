@@ -1,11 +1,71 @@
 
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Query field
+		</settingtitle>
+		<settinginstructions>
 
-<div class="box-noflex">
+			Content of this field is sent to reconciliation service. This was set in node creation and can not be changed afterwards.
 
-	<label>Select only items from the following Wikidata class and its subclasses</label>
-	<input class="node-settings" name="in_class" />
+		</settinginstructions>
 
-</div>
+	</settinginfo>
+
+	<settingaction>
+
+		<div class="alert alert-info" id="process_lookup_wikidata_recon_query_value">process_lookup_wikidata_recon_query_value</div>
+
+	</settingaction>
+</setting>
 
 
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Type limitation (optional)
+		</settingtitle>
+		<settinginstructions>
 
+			You can narrow down suggestions by type.
+
+		</settinginstructions>
+
+	</settinginfo>
+
+	<settingaction>
+		Select only items from the following Wikidata class and its subclasses.
+
+		<select class="node-settings" name="in_class_select">
+			<option value="">No selection</option>
+			<option value="Q5">Human</option>
+			<option value="Q483501"> - Artist</option>
+			<option value="Q43229">Organisation</option>
+			<option value="Q2385804"> - Educational institution</option>
+			<option value="Q588140"> - Museum</option>
+			<option value="Q732577">Publication</option>
+			<option value="Q591041"> - Scientific publication</option>
+			<option value="Q11032"> - Newspaper</option>
+			<option value="Q838948">Work of art</option>
+		</select>
+		Something else:
+		<input class="node-settings" name="in_class" />
+
+	</settingaction>
+</setting>
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Matching UI
+		</settingtitle>
+		<settinginstructions>
+			<b>After</b> you have fetched suggestions by running this node, you can do matching with separate user interface.
+
+		</settinginstructions>
+	</settinginfo>
+
+	<settingaction>
+		<a target="_blank" href="" id="process_lookup_web_wikidata_match_ui">Open Matching UI</a>
+	</settingaction>
+</setting>

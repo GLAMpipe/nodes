@@ -1,13 +1,14 @@
 
 
-<label>GLAMpipe field to match</label>
-<select class="dynamic_field" name="in_field" />
+<label>Reconciliation service URL</label>
+<input name="service_url" id="process_lookup_wikidata_recon_url" class="node-params" value="https://wikidata.reconci.link"/>
 
-<label>Reconciliaton service?</label>
-<input name="service_url" value="https://tools.wmflabs.org/openrefine-wikidata"/>
+<label>Choose query field from your data fields (usually field containing name or title)
+<select id="process_lookup_wikidata_recon_query" class="node-params dynamic-field" name="in_field">
+	<option value="">select field</option>
+</select>
+<!-- <label>Where to write matches?</label> -->
+<input type="hidden" id="process_lookup_wikidata_recon_suggestions" class="node-params" name="out_result" value="reconciliation_suggestions"/>
 
-<label>Where to write matches?</label>
-<input id="process_lookup_wikidata_out" name="out_result" value="wd_result"/>
-
-<label>Where to write matched item WID? </label>
-<input id="process_lookup_wikidata_out" name="out_match" value="wd_match"/>
+<!-- <label>Where to write matched item WID? </label> -->
+<input type="hidden" id="process_lookup_wikidata_recon_match" class="node-params" name="out_match" value="reconciliation_match"/>

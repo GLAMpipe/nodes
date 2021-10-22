@@ -8,11 +8,11 @@
 			Define how columns are separated in CSV. If tabulator is used, then check "Tab separated" checkbox.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<label>separator</label>
 		<input type="text" class="node-settings short_input" name="separator" value=","/>
-		
+
 		<input type="checkbox" class="node-settings" name="tabs"/>
 		<label class="inline">Tab separated</label>
 	</settingaction>
@@ -29,7 +29,7 @@
 			If you get weird characters, then try different encoding.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<label>encoding</label>
 		<select class="node-settings" name="encoding" >
@@ -50,7 +50,7 @@
 			The first row of CSV file usually holds the names of the columns. If not, then uncheck this.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<input type="checkbox" class="node-settings" name="columns" checked="checked" />
 		<label class="inline">Field names in first row</label>
@@ -68,7 +68,7 @@
 			Selecting this removes any extra spaces from values.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<input type="checkbox" class="node-settings" name="trim" checked="checked" />
 		<label class="inline">trim</label>
@@ -85,14 +85,14 @@
 			If this is checked, empty lines are not imported.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 		<input type="checkbox" class="node-settings" name="skip" />
 		<label class="inline">do not import empty values</label>
 	</settingaction>
 </setting>
 
-<!-- 
+
 <setting>
 	<settinginfo>
 		<settingtitle>
@@ -102,21 +102,30 @@
 			If CSV includes multiple values, then those values can be splitted by defining the separator here.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
 	<label>multiple value separator</label>
 	<input type="text" class="node-settings short_input" name="split" value=""/>
 	</settingaction>
 </setting>
--->
 
-<!-- 
-	<div class="help">You can take just sample from records</div>
-	<label>get records from</label>
-	<input class="node-settings short_input" name="sample_from" value="0"/>
+<!--
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Sample
+		</settingtitle>
+		<settinginstructions>
+			You can take just sample from records.
+		</settinginstructions>
+	</settinginfo>
 
-	<input class="node-settings short_input" name="sample_to"/>
-	<label>to (leave empty for all) </label>
+	<settingaction>
+		<label>sample record count (from start)</label>
+		<input class="node-settings short_input" name="sample" value="0"/>
+
+	</settingaction>
+</setting>
 
 
 <div class="box-noflex">
