@@ -13,7 +13,7 @@
 	"scripts": {
 
 		"init":"out.say('progress', context.node.title); context.vars = {count:0};",
-		"finish":"out.say('finish', 'Data imported '+context.vars.count+' items from file ' + context.node.params.file);"
+		"finish":"out.say('finish', 'Imported '+context.vars.count+' items from file ' + context.node.params.file);"
 	},
 
 	"views": {
