@@ -10,14 +10,18 @@
 			Select record if field matches to this.
 		</settinginstructions>
 	</settinginfo>
-	
+
 	<settingaction>
+		<label>match field in source collection</label>
+		<select id="lookup-key-field" class="node-settings lookup-dynamic-field" name="select_field" >
+			<option>Choose field</option>
+		</select>
 		<label>Match to this:</label>
 		<input class="node-settings" type="text" name="select"/>
 
 		<label>Use numeric comparision</label>
 		<input name="numeric" id="source_collection_select_numeric" class="node-settings" type="checkbox"/>
-		
+
 		<label>Comparision</label>
 		<select class="node-settings" name="comparision">
 			<option value=">">greater than</option>
@@ -26,6 +30,3 @@
 
 	</settingaction>
 </setting>
-
-
-	

@@ -28,7 +28,7 @@
 
 	<settingaction>
 		<label>File name </label>
-		<input class="node-settings" name="required_file" value="export.csv"/>
+		<input class="node-settings" name="required_file" id="export-file-csv-filename" value="export.csv"/>
 	</settingaction>
 </setting>
 
@@ -62,5 +62,20 @@
 	<settingaction>
 		<!-- "dynamic-field-checkboxes" div is filled with collection field checkboxes by GLAMpipe -->
 		<div id="export-file-csv-fields" name="fields" class="dynamic-field-checkboxes"></div>
+	</settingaction>
+</setting>
+
+<setting>
+	<settinginfo>
+		<settingtitle>
+			Download file
+		</settingtitle>
+		<settinginstructions>
+			Click link to download your CSV.
+		</settinginstructions>
+	</settinginfo>
+
+	<settingaction>
+		<a id="export-file-csv-fields_download" target='_blank' href=''></a>
 	</settingaction>
 </setting>

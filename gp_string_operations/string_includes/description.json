@@ -1,15 +1,17 @@
 {
+	"gp_ver": "21.06",
     "nodeid": "process_field_includes",
     "title": "Field: if includes",
     "type": "process",
     "subtype": "strings",
+	"core": "process.sync.script",
     "status": "usable",
     "description": "Check if field includes given values.",
     "scripts": {
-    
+
         "finish": "out.say('finish', 'Compare done!');"
     },
-    
+
     "views": {
 
     }

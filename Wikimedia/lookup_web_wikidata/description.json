@@ -1,27 +1,23 @@
 {
+	"gp_ver": "21.06",
     "nodeid": "process_lookup_web_wikidata",
     "type": "process",
     "subtype": "lookups",
-    "subsubtype": "web",
-    "title": "Wikidata: lookup",
+    "title": "Wikidata lookup",
+	"core": "lookup.web.JSON",
     "status": "usable",
     "tags":["wikimedia"],
     "usage":"",
     "description": "Get info from wikidata by wid (wbgetentities)",
-    
+
     "scripts": {
-        
-        "init": 
+
+        "init":
         [
 			"context.vars.success_counter = 0; "
 
 		],
-		
+
          "finish":"out.say('finish', 'Done!'); "
-    },
-    
-    "views": {
-    
     }
-  
 }

@@ -1,8 +1,10 @@
 {
+	"gp_ver": "21.06",
     "nodeid": "process_field_count_rows",
     "title": "Field: count values",
     "type": "process",
     "subtype": "strings",
+	"core": "process.sync.script",
     "status": "usable",
     "description": "Count values (rows) of certain field.",
     "scripts": {
@@ -11,10 +13,10 @@
         [
             "out.say('progress', 'Count started...'); "
         ],
-        
-        
+
+
         "finish": "out.say('finish', 'Count done!');"
     },
-    
+
     "views": {}
 }

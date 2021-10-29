@@ -1,15 +1,17 @@
 {
+	
 	"nodeid": "process_field_replace_2",
 	"title": "Search and Replace 2",
 	"type": "process",
 	"subtype": "strings",
+	"core": "process.sync.script",
     "status": "broken",
 	"description": "Search and replace a string. You can use regular expressions.",
 	"scripts": {
 
 		"finish": "out.say('finish', 'Replace done!');"
 	},
-	
+
 	"views": {
 
 	}

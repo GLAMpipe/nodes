@@ -1,6 +1,7 @@
 {
+	"gp_ver": "21.06",
 	"nodeid": "process_field_replace",
-	"title": "Field: search&replace",
+	"title": "search&replace",
 	"type": "process",
 	"subtype": "strings",
 	"core": "process.sync.script",
@@ -10,7 +11,7 @@
 
 		"finish": "out.say('finish', 'Replace done!');"
 	},
-	
+
 	"views": {
 
 	}

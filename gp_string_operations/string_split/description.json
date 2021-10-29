@@ -1,16 +1,17 @@
 {
+	"gp_ver": "21.06",
     "nodeid": "process_field_split",
     "title": "Field: split to array",
     "type": "process",
     "subtype": "strings",
     "core": "process.sync.script",
     "status": "usable",
-    "description": "Split string to an array. Useful for CSV imports.",
+    "description": "Split string to an array. Useful for when you have for example multiple authors separated with some character in same field.",
     "scripts": {
-        
+
         "finish": "out.say('finish', 'Split done!');"
     },
-    
+
     "views": {
 
     }
