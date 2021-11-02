@@ -1,12 +1,12 @@
 
-var get = context.get; 
-var doc = context.doc; 
-var settings = context.node.settings; 
+var get = context.get;
+var doc = context.doc;
+var settings = context.node.settings;
 
 var field1_value = doc[settings.field1];
 var field2_value = doc[settings.field2];
 
-var arr = []; 
+var arr = [];
 
 if(typeof field1_value === "undefined")
     field1_value = "";
@@ -18,15 +18,15 @@ if(Array.isArray(field1_value) && Array.isArray(field2_value)) {
 	var max = Math.max(field1_value.length, field2_value.length);
 	for(var i = 0; i < max; i++) {
 		if(field1_value[i]) {
-			if(field2_value[i]) 
+			if(field2_value[i])
 				arr.push(join(field1_value[i], field2_value[i]));
 			else
 				arr.push(join(field1_value[i], ""));
-				
+
 		} else {
 			arr.push(join("", field2_value[i]));
 		}
-				
+
 	}
 // if one is array
 } else if (Array.isArray(field1_value)) {
@@ -58,9 +58,9 @@ function join (val1, val2) {
 }
 
 
-if(parseInt(context.count) % 1000 == 0) 
+if(parseInt(context.count) % 1000 == 0)
     out.say('progress', context.node.type.toUpperCase() + ': processed ' + context.count + '/' + context.doc_count);
 
 out.setter = {};
 out.setter[context.node.params.out_field] = arr;
-//out.value = arr.join(""); 
+//out.value = arr.join("");

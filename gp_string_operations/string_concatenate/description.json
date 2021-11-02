@@ -14,7 +14,7 @@
 			"out.say('progress', 'Starting...');"
 		],
 
-		"finish": "out.say('finish', 'Fields combined to ' +context.node.out_field+ '!');"
+		"finish": "out.say('finish', 'Fields combined to ' +context.node.params.out_field+ '!');"
 
 	}
 }
